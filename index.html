@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Serenesta｜穏やかな守りのある家庭環境をつくる存在</title>
-  <meta name="description" content="東京都心部9区対応の家庭訪問型ベビーシッター。担当制・継続記録・保護者共有の三軸で、お子様の安心と保護者の余裕を支えます。">
+  <title>Serenesta｜Engage a smile of family</title>
+  <meta name="description" content="東京都心部9区対応の家庭訪問型ベビーシッター。担当制で、家族のような安心を継続的にご提供します。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -24,11 +24,11 @@
       --font-serif: 'Noto Serif JP', serif;
       --font-sans: 'Noto Sans JP', sans-serif;
     }
- 
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
- 
+
     html { scroll-behavior: smooth; font-size: 16px; }
- 
+
     body {
       font-family: var(--font-sans);
       color: var(--color-text);
@@ -36,7 +36,7 @@
       line-height: 1.85;
       -webkit-font-smoothing: antialiased;
     }
- 
+
     /* ===== NAVIGATION ===== */
     .nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -70,7 +70,7 @@
     .nav-cta:hover { background: #B68A90; }
     .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
     .hamburger span { display: block; width: 22px; height: 2px; background: var(--color-text); margin: 5px 0; transition: 0.3s; }
- 
+
     /* ===== HERO ===== */
     .hero {
       padding: 160px 24px 100px;
@@ -107,7 +107,7 @@
       margin-top: 36px; font-size: 0.78rem; color: var(--color-text-light);
       letter-spacing: 0.04em;
     }
- 
+
     /* ===== SECTIONS ===== */
     section { padding: 80px 24px; }
     .section-inner { max-width: 960px; margin: 0 auto; }
@@ -123,7 +123,7 @@
       font-size: 0.9rem; color: var(--color-text-light); max-width: 680px;
       line-height: 1.9; margin-bottom: 48px;
     }
- 
+
     /* ===== PHILOSOPHY ===== */
     .philosophy { background: var(--color-white); }
     .philosophy-grid {
@@ -148,7 +148,7 @@
     .philosophy-card p {
       font-size: 0.82rem; color: var(--color-text-light); line-height: 1.85;
     }
- 
+
     /* ===== SERVICES ===== */
     .services { background: var(--color-bg-warm); }
     .service-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
@@ -181,6 +181,33 @@
       font-size: 0.84rem; color: var(--color-text-light); line-height: 1.85;
       margin-bottom: 16px;
     }
+    .service-readmore {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: none; border: none; cursor: pointer;
+      padding: 6px 0; margin-bottom: 10px;
+      font-family: var(--font-sans); font-size: 0.8rem;
+      color: var(--color-primary); font-weight: 500;
+      letter-spacing: 0.04em; transition: opacity 0.2s;
+    }
+    .service-readmore:hover { opacity: 0.75; }
+    .service-readmore::after {
+      content: '+'; font-size: 1rem; transition: transform 0.3s;
+      margin-left: 2px;
+    }
+    .service-readmore.open::after { transform: rotate(45deg); }
+    .service-readmore-content {
+      max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+    }
+    .service-readmore-inner {
+      padding: 14px 16px; margin-bottom: 16px;
+      background: var(--color-bg); border-radius: 10px;
+      border-left: 3px solid var(--color-primary-pale);
+    }
+    .service-readmore-inner p {
+      font-size: 0.8rem; color: var(--color-text-light);
+      line-height: 1.9; margin-bottom: 10px;
+    }
+    .service-readmore-inner p:last-child { margin-bottom: 0; }
     .service-detail {
       list-style: none; padding: 0;
     }
@@ -194,7 +221,7 @@
       flex-shrink: 0; width: 100px;
       font-weight: 500; color: var(--color-text);
     }
- 
+
     /* ===== PRICING ===== */
     .pricing { background: var(--color-white); }
     .pricing-table {
@@ -225,7 +252,7 @@
     .pricing-highlight p {
       font-size: 0.82rem; color: var(--color-text-light); line-height: 1.8;
     }
- 
+
     /* ===== FLOW ===== */
     .flow { background: var(--color-bg-warm); }
     .flow-steps {
@@ -253,7 +280,7 @@
     .flow-step p {
       font-size: 0.78rem; color: var(--color-text-light); line-height: 1.7;
     }
- 
+
     /* ===== TRUST ===== */
     .trust { background: var(--color-white); }
     .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
@@ -287,7 +314,7 @@
     .trust-badge p {
       font-size: 0.72rem; color: var(--color-text-light); line-height: 1.6;
     }
- 
+
     /* ===== FAQ ===== */
     .faq { background: var(--color-bg-warm); }
     .faq-list { max-width: 720px; }
@@ -313,7 +340,7 @@
       padding: 0 0 20px;
       font-size: 0.84rem; color: var(--color-text-light); line-height: 1.85;
     }
- 
+
     /* ===== CONTACT ===== */
     .contact {
       background: linear-gradient(135deg, var(--color-primary) 0%, #B68A90 100%);
@@ -341,7 +368,11 @@
       border: 1.5px solid rgba(255,255,255,0.5);
     }
     .contact-btn--tel:hover { border-color: var(--color-white); transform: translateY(-2px); }
- 
+    .contact-btn--line {
+      background: var(--color-gold); color: var(--color-white);
+    }
+    .contact-btn--line:hover { background: #A89066; transform: translateY(-2px); }
+
     /* ===== FOOTER ===== */
     .footer {
       background: var(--color-text); color: rgba(255,255,255,0.5);
@@ -353,7 +384,7 @@
     }
     .footer p { font-size: 0.72rem; line-height: 1.7; }
     .footer-copy { margin-top: 24px; font-size: 0.68rem; }
- 
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       .nav-links { display: none; }
@@ -398,7 +429,7 @@
       font-size: 0.86rem; color: var(--color-text-light); line-height: 1.95;
       max-width: 640px; margin: 0 auto;
     }
- 
+
     /* ===== PRINCIPLES ===== */
     .principles { background: var(--color-bg-warm); }
     .principles-grid {
@@ -419,14 +450,14 @@
       font-size: 0.82rem; color: var(--color-text); line-height: 1.75;
       font-weight: 400;
     }
- 
+
     @media (max-width: 768px) {
       .principles-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 480px) {
       .principles-grid { grid-template-columns: 1fr; }
     }
- 
+
     @media (max-width: 480px) {
       .flow-steps { grid-template-columns: 1fr; }
       .trust-badges { grid-template-columns: 1fr; }
@@ -435,7 +466,7 @@
   </style>
 </head>
 <body>
- 
+
 <!-- ===== NAVIGATION ===== -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
@@ -455,41 +486,43 @@
     </button>
   </div>
 </nav>
- 
+
 <!-- ===== HERO ===== -->
 <section class="hero">
   <div class="hero-badge">家庭訪問型ベビーシッター</div>
-  <h1>穏やかな守りのある<br>家庭環境をつくる存在</h1>
-  <p class="hero-sub">親のこころのゆとりが、子どもの育ちを支える。<br>Serenestaは、担当制・継続記録・保護者共有の三軸で、<br>お子様の安心と保護者の余裕を支えます。</p>
+  <h1>Engage<br>a smile of family</h1>
+  <p class="hero-sub">担当制で、家族のような安心を<br>継続的にご提供します。</p>
   <a href="#contact" class="hero-cta">初回相談のご予約</a>
   <p class="hero-area">対応エリア：東京都心部9区（港区・中央区・文京区・目黒区・渋谷区・世田谷区・江東区・杉並区・品川区）</p>
 </section>
- 
+
 <!-- ===== ABOUT / NAME ORIGIN ===== -->
 <section class="about-name" id="about">
   <div class="section-inner">
     <div class="about-name-inner">
       <span class="section-label">About Serenesta</span>
-      <h2 class="section-title">Serenestaとは</h2>
-      <p class="about-name-origin">
-        <strong>Serenity</strong>（セレニティ：穏やかさ・心の安定・安心感）と <strong>Nest</strong>（ネスト：巣・守られる場所・家庭）、<br>
-        そして<strong>+&alpha;</strong>（ケア・ベビーシッター・家庭を支える存在）を組み合わせた造語です。<br>
-        「穏やかな守りのある家庭環境をつくる存在」というコンセプトを、そのまま名前に込めています。
-      </p>
-      <p class="about-belief">親のこころのゆとりが、子どもの育ちを支える</p>
-      <p class="about-belief-desc">
-        子どもの発達や情緒は、日常的に関わる大人の状態から大きな影響を受けます。保護者の心に余裕がある環境では、お子様への関わりが安定し、安心感が形成されやすくなることが知られています。Serenestaは、ベビーシッターという立場から「家庭全体の状態を整える支援」をお届けすることを目的としています。
+      <h2 class="section-title">事業理念とコンセプト</h2>
+      <p class="about-section-label" style="font-size: 0.75rem; letter-spacing: 0.18em; color: var(--color-primary); font-weight: 500;">事業理念</p>
+      <p class="about-belief">子ども一人ひとりの個性を尊重しながら、家庭生活の中で継続できる関わり方を整え、親子が安心して生活できる環境をつくる</p>
+
+      <p class="about-section-label" style="margin-top: 40px; font-size: 0.75rem; letter-spacing: 0.18em; color: var(--color-primary); font-weight: 500;">コンセプト</p>
+      <p class="about-concept" style="font-family: var(--font-serif); font-size: 1.55rem; font-weight: 500; color: var(--color-text); margin: 10px 0 12px; letter-spacing: 0.04em;">Engage a smile of family</p>
+      <p class="about-concept-desc" style="color: var(--color-text-light); margin-bottom: 12px; font-size: 0.95rem;">お子様を含めたご家族の笑顔に携わる存在でありたいという願いを込めています。</p>
+      <p class="about-concept-sub" style="font-weight: 500; color: var(--color-text); font-size: 1rem;">担当制で、家族のような安心を継続的にご提供します。</p>
+
+      <p class="about-belief-desc" style="margin-top: 40px;">
+        専任だからこそ、お子様やご家庭の方針を深く理解でき、お子様の健やかな育ちにつながります。そうして育まれる「家族の一員のような関係」こそが、保護者様の心の安定を支え、ご家族の笑顔が増えていく——そう考え、Serenestaは担当制と丁寧な訪問記録（デイリーレポート・ケアサマリー）を運営の軸としております。
       </p>
     </div>
   </div>
 </section>
- 
+
 <!-- ===== PRINCIPLES ===== -->
 <section class="principles">
   <div class="section-inner">
-    <span class="section-label">Our Principles</span>
-    <h2 class="section-title">6つの約束</h2>
-    <p class="section-desc">Serenestaが事業を通じて守り続ける、ご利用家庭との約束です。</p>
+    <span class="section-label">Our Beliefs</span>
+    <h2 class="section-title">6つの信念</h2>
+    <p class="section-desc">Serenestaがご利用家庭と向き合う際に、支援の根底に置く6つの信念です。</p>
     <div class="principles-grid">
       <div class="principle-item">
         <div class="principle-num">1</div>
@@ -518,13 +551,13 @@
     </div>
   </div>
 </section>
- 
+
 <!-- ===== PHILOSOPHY ===== -->
 <section class="philosophy" id="philosophy">
   <div class="section-inner">
     <span class="section-label">Our Approach</span>
-    <h2 class="section-title">3つの柱</h2>
-    <p class="section-desc">同じ人が、同じ言葉で、同じ順序で関わり続ける。その繰り返しが、お子様に「次に何が起きるか」という予測可能性を与え、安心の土台をつくります。</p>
+    <h2 class="section-title">3つの仕組み</h2>
+    <p class="section-desc">信念を事業の形にするための、Serenestaの3つの仕組みです。同じ人が、同じ言葉で、同じ順序で関わり続ける——その繰り返しが、お子様に「次に何が起きるか」という予測可能性を与え、安心の土台をつくります。</p>
     <div class="philosophy-grid">
       <div class="philosophy-card">
         <div class="philosophy-icon">&#9829;</div>
@@ -534,17 +567,17 @@
       <div class="philosophy-card">
         <div class="philosophy-icon">&#9998;</div>
         <h3>観察と継続記録</h3>
-        <p>訪問ごとにお子様の様子・有効だった関わり方を記録し、全担当者が参照できる体制を整えています。記録の蓄積が、支援の一貫性を支えます。</p>
+        <p>訪問ごとにお子様の様子・有効だった関わり方を記録し、全担当者が参照できる体制を整えています。記録の継続が、支援の一貫性を支えます。</p>
       </div>
       <div class="philosophy-card">
         <div class="philosophy-icon">&#9734;</div>
         <h3>保護者への継続共有</h3>
-        <p>訪問後24時間以内に詳細レポートを送付。月次フォローアップで保護者様の疑問や不安にお応えし、ご家庭での関わりの一貫性を支えます。</p>
+        <p>訪問後24時間以内に訪問記録（グランドシッター：デイリーレポート／プレサイスシッター：ケアサマリー）を送付。月次フォローアップで保護者様の疑問や不安にお応えし、ご家庭での関わりの一貫性を支えます。</p>
       </div>
     </div>
   </div>
 </section>
- 
+
 <!-- ===== SERVICES ===== -->
 <section class="services" id="services">
   <div class="section-inner">
@@ -552,55 +585,62 @@
     <h2 class="section-title">2つのサービス</h2>
     <p class="section-desc">ご家庭の状況やお子様の特性に合わせた、2つの専門サービスをご用意しています。</p>
     <div class="service-cards">
- 
+
       <!-- グランドシッター -->
       <div class="service-card">
         <div class="service-header">
           <span class="service-tag">GRAND SITTER</span>
           <h3>グランドシッターサービス</h3>
-          <p class="service-usp">「誰が来ても、説明しなくていい」</p>
         </div>
         <div class="service-body">
           <p>お忙しいご家庭に寄り添う、高品質な家庭訪問型シッターサービスです。お子様の生活リズムや保護者様のご要望を会社として記録・共有し、担当が変わっても「一から説明する消耗」をなくします。</p>
           <ul class="service-detail">
             <li><span class="label">対象家庭</span><span>継続的で質の高い育児サポートを求めるご家庭</span></li>
-            <li><span class="label">時間単価</span><span>4,000円/時間（税込4,400円）</span></li>
+            <li><span class="label">対象年齢</span><span>0歳3か月〜6歳の未就学児</span></li>
+            <li><span class="label">時間単価</span><span>4,400円/時間（税込）</span></li>
             <li><span class="label">最低利用</span><span>1回3時間から</span></li>
             <li><span class="label">担当制</span><span>メイン担当1名＋サブ担当1名（家庭ごと固定）</span></li>
-            <li><span class="label">訪問後対応</span><span>詳細レポートによる保護者共有</span></li>
+            <li><span class="label">訪問後対応</span><span>デイリーレポート（Daily Report）による保護者共有</span></li>
           </ul>
         </div>
       </div>
- 
-      <!-- 個性別ケアシッター -->
+
+      <!-- プレサイスシッター -->
       <div class="service-card">
         <div class="service-header">
-          <span class="service-tag">INDIVIDUAL CARE</span>
-          <h3>個性別ケアシッターサービス</h3>
-          <p class="service-usp">「Serenestaが来ると、子どもが安定する」</p>
+          <span class="service-tag">PRECISE SITTER</span>
+          <h3>プレサイスシッターサービス</h3>
         </div>
         <div class="service-body">
           <p>発達特性（ASD・ADHD・グレーゾーン等）のある2〜6歳の未就学児とそのご家庭を対象とした、家庭支援型シッターサービスです。外部支援施設での取り組みを保護者様から伺い、家庭での関わりにつなげていきます。</p>
+          <button class="service-readmore" type="button">詳細を読む</button>
+          <div class="service-readmore-content">
+            <div class="service-readmore-inner">
+              <p>プレサイスシッターは、外部支援施設（療育施設・発達支援施設・通級指導教室など）での取り組みを保護者様から伺い、同じ視点・同じ関わり方を訪問保育の中で再現します。その実践の結果を訪問のたびにケアサマリーで保護者様へ共有し、ご家庭での継続的な関わりを一緒に積み重ねていきます。</p>
+              <p>発達特性のある子どもにとって、一貫した関わりの継続こそが安心感の土台となるという考えのもと、施設・シッター・保護者が同じ方向を向いて関わり続けることで、子どもの安心感が日常の中に根づいていくことを目指します。</p>
+              <p>医療行為・療育行為は含みません。なお、関わりの効果はお子さまによって異なります。特定の成果をお約束するものではありませんが、継続的な関わりの中で変化を一緒に見守っていきます。</p>
+            </div>
+          </div>
           <ul class="service-detail">
             <li><span class="label">対象家庭</span><span>発達特性のある2〜6歳の未就学児をもつご家庭</span></li>
-            <li><span class="label">時間単価</span><span>5,500円/時間（税込6,050円）</span></li>
+            <li><span class="label">時間単価</span><span>6,000円/時間（税込）</span></li>
             <li><span class="label">最低利用</span><span>1回3時間から</span></li>
             <li><span class="label">担当制</span><span>メイン担当1名＋サブ担当1名（事前情報共有済み）</span></li>
-            <li><span class="label">訪問後対応</span><span>詳細レポート（行動観察・環境調整内容含む）</span></li>
+            <li><span class="label">訪問後対応</span><span>ケアサマリー（Care Summary）による保護者共有（行動観察・環境調整内容含む）</span></li>
           </ul>
         </div>
       </div>
- 
+
     </div>
   </div>
 </section>
- 
+
 <!-- ===== PRICING ===== -->
 <section class="pricing" id="pricing">
   <div class="section-inner">
     <span class="section-label">Pricing</span>
     <h2 class="section-title">料金体系</h2>
-    <p class="section-desc">継続的なご利用を前提とした会員制サービスです。すべて税抜表記、括弧内は税込です。</p>
+    <p class="section-desc">継続的なご利用を前提とした会員制サービスです。すべて税込表記です。</p>
     <table class="pricing-table">
       <thead>
         <tr>
@@ -612,45 +652,45 @@
       <tbody>
         <tr>
           <td>入会金</td>
-          <td>100,000円（税込110,000円）</td>
+          <td>110,000円（税込）</td>
           <td>ご契約時にお支払い</td>
         </tr>
         <tr>
           <td>月会費</td>
-          <td>8,000円（税込8,800円）</td>
+          <td>8,800円（税込）</td>
           <td>担当制維持・予約枠確保・品質維持のための費用</td>
         </tr>
         <tr>
           <td>グランドシッター</td>
-          <td>4,000円/時間（税込4,400円）</td>
-          <td>最低3時間・延長10分単位</td>
+          <td>4,400円/時間（税込）</td>
+          <td>最低3時間・延長30分単位（端数切上）</td>
         </tr>
         <tr>
-          <td>個性別ケアシッター</td>
-          <td>5,500円/時間（税込6,050円）</td>
-          <td>最低3時間・延長10分単位</td>
+          <td>プレサイスシッター</td>
+          <td>6,000円/時間（税込）</td>
+          <td>最低3時間・延長30分単位（端数切上）</td>
         </tr>
         <tr>
           <td>初回相談（事前面談含む）</td>
-          <td>4,000円（税込）</td>
+          <td>4,400円（税込）</td>
           <td>1時間程度・ご家庭の状況を丁寧にお伺いします</td>
         </tr>
         <tr>
           <td>交通費</td>
-          <td>一律1,100円/回</td>
+          <td>一律1,100円/回（税込）</td>
           <td>—</td>
         </tr>
       </tbody>
     </table>
-    <p class="pricing-note">※ 夜間（22時以降）・早朝（7時前）は通常料金の25%増。前日依頼1,000円・当日依頼2,000円のオーダーチャージがかかります。<br>※ キャンセル料：前日は時間料金の50%、当日は100%。</p>
- 
+    <p class="pricing-note">※ 夜間（22時以降）・早朝（7時前）は通常料金の25%増。前日依頼1,000円（税込）・当日依頼2,000円（税込）のオーダーチャージがかかります。<br>※ キャンセル料：前日は時間料金の50%、当日は100%。</p>
+
     <div class="pricing-highlight">
       <h4>創業期特別プラン（3家庭限定）</h4>
-      <p>入会金50,000円（税込55,000円）でご利用いただけます。通常の入会金100,000円（税込110,000円）から50%オフの特別プランです。サービス品質にご満足いただける体験を、まず3家庭のお客様にお届けいたします。</p>
+      <p>入会金55,000円（税込）でご利用いただけます。通常の入会金110,000円（税込）から50%オフの特別プランです。サービス品質にご満足いただける体験を、まず3家庭のお客様にお届けいたします。</p>
     </div>
   </div>
 </section>
- 
+
 <!-- ===== FLOW ===== -->
 <section class="flow" id="flow">
   <div class="section-inner">
@@ -660,11 +700,11 @@
     <div class="flow-steps">
       <div class="flow-step">
         <h4>お問い合わせ</h4>
-        <p>メールまたはお電話にて、お気軽にご連絡ください。24時間以内にご返信いたします。</p>
+        <p>メールまたはLINE公式アカウントにて、お気軽にご連絡ください。24時間以内にご返信いたします。</p>
       </div>
       <div class="flow-step">
         <h4>初回相談・事前面談</h4>
-        <p>ご家庭の状況、お子様の特性や生活リズムを丁寧にお伺いします（4,000円（税込）・1時間程度）。</p>
+        <p>ご家庭の状況、お子様の特性や生活リズムを丁寧にお伺いします（4,400円（税込）・1時間程度）。</p>
       </div>
       <div class="flow-step">
         <h4>ご契約・担当決定</h4>
@@ -672,24 +712,25 @@
       </div>
       <div class="flow-step">
         <h4>サービス開始</h4>
-        <p>初回訪問からサービス開始。訪問後24時間以内に詳細レポートをお届けします。</p>
+        <p>初回訪問からサービス開始。訪問後24時間以内に、ご利用サービスに応じた訪問記録（グランド：デイリーレポート／プレサイス：ケアサマリー）をお届けします。</p>
       </div>
     </div>
   </div>
 </section>
- 
+
 <!-- ===== TRUST ===== -->
 <section class="trust" id="trust">
   <div class="section-inner">
     <span class="section-label">About</span>
     <h2 class="section-title">代表紹介・安心への取り組み</h2>
-    <p class="section-desc">お子様をお預けいただくにあたり、安心と信頼をお約束するための体制を整えています。</p>
+    <p class="section-desc">お子様をお預けいただくにあたり、安心と信頼をお届けするための体制を整えています。</p>
     <div class="trust-grid">
       <div class="trust-profile">
         <h3>代表取締役　渡邉 夏帆</h3>
         <p class="title">保育士資格保有</p>
         <p>大学にて社会福祉学部子ども学専攻を修了後、発達障害児施設および保育園にて約10年間の実務経験を積みました。発達特性のあるお子様への関わり方、ご家庭との信頼関係の構築を現場で学び、「家庭生活の中で継続できる関わり方を整えたい」という思いからSerenestaを創業しました。</p>
         <p style="margin-top: 14px;">「環境を少し整えるだけで、子どもの様子は変わる」——保育と発達支援の現場で繰り返し目にしてきたこの実感が、Serenestaの原点です。</p>
+        <p style="margin-top: 14px;">社名「Serenesta」は、<strong>Serenity</strong>（穏やかさ・安心感）と<strong>Nest</strong>（巣・家庭）に<strong>+&alpha;</strong>（ケア）を加えた造語です。穏やかで安心して過ごせる家庭環境を、ベビーシッターという立場からお届けしたいという想いが由来です。</p>
       </div>
       <div class="trust-badges">
         <div class="trust-badge">
@@ -716,7 +757,7 @@
     </div>
   </div>
 </section>
- 
+
 <!-- ===== FAQ ===== -->
 <section class="faq" id="faq">
   <div class="section-inner">
@@ -726,11 +767,11 @@
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q">対応エリアはどこですか？</button>
-        <div class="faq-a"><div class="faq-a-inner">東京都心部9区（港区・中央区・文京区・目黒区・渋谀区・世田谷区・江東区・杉並区・品川区）に対応しております。シッターの居住エリアと訪問先を近接させることで、迅速な対応が可能です。</div></div>
+        <div class="faq-a"><div class="faq-a-inner">東京都心部9区（港区・中央区・文京区・目黒区・渋谷区・世田谷区・江東区・杉並区・品川区）に対応しております。シッターの居住エリアと訪問先を近接させることで、迅速な対応が可能です。</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">最低利用時間はありますか？</button>
-        <div class="faq-a"><div class="faq-a-inner">1回あたり3時間からのご利用をお願いしております。延長は10分単位で承ります。</div></div>
+        <div class="faq-a"><div class="faq-a-inner">1回あたり3時間からのご利用をお願いしております。延長は30分単位（端数切上）で承ります。</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">担当シッターが合わない場合はどうなりますか？</button>
@@ -742,7 +783,7 @@
       </div>
       <div class="faq-item">
         <button class="faq-q">発達特性の診断がなくても利用できますか？</button>
-        <div class="faq-a"><div class="faq-a-inner">はい、ご利用いただけます。個性別ケアシッターサービスは、診断の有無にかかわらず、発達特性やグレーゾーンのお子様を持つご家庭を対象としています。医療行為や療育行為は含まず、ベビーシッター事業の範囲内で家庭生活をサポートいたします。</div></div>
+        <div class="faq-a"><div class="faq-a-inner">はい、ご利用いただけます。プレサイスシッターサービスは、診断の有無にかかわらず、発達特性やグレーゾーンのお子様を持つご家庭を対象としています。医療行為や療育行為は含まず、ベビーシッター事業の範囲内で家庭生活をサポートいたします。</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">入会金の返金はできますか？</button>
@@ -750,11 +791,11 @@
       </div>
       <div class="faq-item">
         <button class="faq-q">どのような資格を持つシッターが来ますか？</button>
-        <div class="faq-a"><div class="faq-a-inner">保育士・幼稚園教諭等の資格保有者を優遇しております。また、全シッターが基礎研修（安全管理・コミュニケーション等）および本部との同行訪問を修了してからの稼働となります。個性別ケアシッターの担当には、発達支援の実務経験または行動観察研修の修了を条件としています。</div></div>
+        <div class="faq-a"><div class="faq-a-inner">保育士・幼稚園教諭等の資格保有者を優遇しております。また、全シッターが基礎研修（安全管理・コミュニケーション等）および本部との同行訪問を修了してからの稼働となります。プレサイスシッターの担当には、発達支援の実務経験または行動観察研修の修了を条件としています。</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">訪問後のレポートにはどのような内容が書かれていますか？</button>
-        <div class="faq-a"><div class="faq-a-inner">お子様の当日の様子、有効だった関わり方、生活場面での気づきなどを記載いたします。個性別ケアシッターサービスでは、行動観察の記録や環境調整の内容も含まれます。訪問後24時間以内にお届けいたします。</div></div>
+        <button class="faq-q">訪問後の訪問記録にはどのような内容が書かれていますか？</button>
+        <div class="faq-a"><div class="faq-a-inner">グランドシッターサービスでは「デイリーレポート（Daily Report）」、プレサイスシッターサービスでは「ケアサマリー（Care Summary）」として訪問記録を作成いたします。お子様の当日の様子、有効だった関わり方、生活場面での気づきなどを記載いたします。ケアサマリーでは、行動観察の記録や環境調整の内容も含まれます。訪問後24時間以内にお届けいたします。</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">利用頻度はどのくらいが目安ですか？</button>
@@ -762,7 +803,7 @@
       </div>
       <div class="faq-item">
         <button class="faq-q">どのようなことをシッターにお願いできますか？</button>
-        <div class="faq-a"><div class="faq-a-inner">食事・着替え・入浴補助・遊び・読み聞かせ・生活リズムの補助など、保育全般に対応いたします。個性別ケアシッターサービスでは、お子様に合わせた声かけの工夫や、環境の調整なども行います。なお、医療行為や療育行為は含まれません。</div></div>
+        <div class="faq-a"><div class="faq-a-inner">食事・着替え・入浴補助・遊び・読み聞かせ・生活リズムの補助など、保育全般に対応いたします。プレサイスシッターサービスでは、お子様に合わせた声かけの工夫や、環境の調整なども行います。なお、医療行為や療育行為は含まれません。</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">療育施設に通っていても利用できますか？</button>
@@ -783,7 +824,7 @@
     </div>
   </div>
 </section>
- 
+
 <!-- ===== CONTACT ===== -->
 <section class="contact" id="contact">
   <div class="section-inner">
@@ -791,11 +832,12 @@
     <h2 class="section-title">まずはお気軽にご相談ください</h2>
     <p class="section-desc">お問い合わせいただいてから24時間以内にご連絡いたします。初回相談では、お子様の特性やご家庭の状況をじっくりとお伺いします。</p>
     <div class="contact-methods">
-      <a href="mailto:kaho.watanabe@serenesta.jp" class="contact-btn contact-btn--mail">メールでのお問い合わせ</a>
+      <a href="mailto:info@serenesta.jp" class="contact-btn contact-btn--mail">メールでのお問い合わせ</a>
+      <a href="https://line.me/R/ti/p/@769knnal" class="contact-btn contact-btn--line" target="_blank" rel="noopener noreferrer">LINE公式アカウント</a>
     </div>
   </div>
 </section>
- 
+
 <!-- ===== FOOTER ===== -->
 <footer class="footer">
   <div class="footer-logo">Serenesta</div>
@@ -804,14 +846,14 @@
   対応エリア：東京都心部9区</p>
   <p class="footer-copy">&copy; 2026 Serenesta Inc. All rights reserved.</p>
 </footer>
- 
+
 <script>
 // Navigation scroll effect
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 20);
 });
- 
+
 // Hamburger menu
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
@@ -821,7 +863,7 @@ hamburger.addEventListener('click', () => {
 navLinks.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => navLinks.classList.remove('open'));
 });
- 
+
 // FAQ accordion
 document.querySelectorAll('.faq-q').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -839,8 +881,24 @@ document.querySelectorAll('.faq-q').forEach(btn => {
     }
   });
 });
+
+// Service readmore accordion (プレサイスシッター詳細)
+document.querySelectorAll('.service-readmore').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const content = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+    if (isOpen) {
+      btn.classList.remove('open');
+      btn.textContent = '詳細を読む';
+      content.style.maxHeight = null;
+    } else {
+      btn.classList.add('open');
+      btn.textContent = '閉じる';
+      content.style.maxHeight = content.scrollHeight + 'px';
+    }
+  });
+});
 </script>
- 
+
 </body>
 </html>
- 
