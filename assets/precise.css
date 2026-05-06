@@ -1,0 +1,64 @@
+/* ============================================================
+   Serenesta v2 — services/precise.html 専用スタイル
+   ============================================================ */
+
+/* 背景色の交互配置をprecise用に上書き
+   intro(白)→target(クリーム)→spec(白)→approach(クリーム)→scene(白)→report(クリーム)→cross(白)
+   service.cssのscene/report/cross-link背景を上書き */
+.scene-block{background:var(--c-white)}
+.report-block{background:var(--c-bg-cream)}
+.cross-link{background:var(--c-white)}
+
+/* APPROACH PRECISE（私たちの関わり方） */
+.approach-precise{
+  padding:56px 40px;
+  background:var(--c-bg-cream);
+}
+.approach-head{text-align:center;margin-bottom:48px}
+.approach-grid{
+  display:grid;
+  grid-template-columns:1fr 1.3fr;
+  gap:50px;
+  align-items:center;
+  max-width:880px;
+  margin:0 auto;
+}
+.approach-art{display:flex;justify-content:center}
+.approach-art img{width:auto;max-width:300px;max-height:240px;height:auto;object-fit:contain}
+.approach-text p{
+  font-size:.94rem;
+  color:var(--c-ink);
+  line-height:2.1;
+  letter-spacing:.06em;
+  margin-bottom:14px;
+}
+.approach-text p:last-child{margin-bottom:0}
+.approach-emphasis{
+  font-family:var(--f-jp-serif);
+  font-weight:500;
+  padding-top:18px;
+  border-top:0.5px solid var(--c-line);
+  margin-top:18px !important;
+}
+.approach-note{
+  max-width:680px;
+  margin:48px auto 0;
+  padding:20px 28px;
+  background:var(--c-white);
+  border-left:2px solid var(--c-gold);
+  border-radius:0 8px 8px 0;
+}
+.approach-note p{
+  font-size:.8rem;
+  color:var(--c-ink-soft);
+  line-height:1.95;
+  letter-spacing:.04em;
+}
+
+/* RESPONSIVE */
+@media (max-width: 880px){
+  .approach-precise{padding:54px 22px}
+  .approach-grid{grid-template-columns:1fr;gap:30px}
+  .approach-art img{max-width:220px}
+  .approach-note{margin-top:32px;padding:16px 20px}
+}

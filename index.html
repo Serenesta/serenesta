@@ -1,914 +1,248 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Serenesta｜Engage a smile of family</title>
-  <meta name="description" content="東京都心部9区対応の家庭訪問型ベビーシッター。担当制で、家族のような安心を継続的にご提供します。">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --color-primary: #C49AA0;
-      --color-primary-light: #D9B5BA;
-      --color-primary-pale: #EDD0D5;
-      --color-bg: #FAF7F4;
-      --color-bg-warm: #F5F0EB;
-      --color-text: #3D3330;
-      --color-text-light: #6B5E5A;
-      --color-gold: #B8A080;
-      --color-gold-light: #D4C4A8;
-      --color-white: #FFFFFF;
-      --color-border: #E8DDD6;
-      --font-serif: 'Noto Serif JP', serif;
-      --font-sans: 'Noto Sans JP', sans-serif;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; font-size: 16px; }
-
-    body {
-      font-family: var(--font-sans);
-      color: var(--color-text);
-      background: var(--color-bg);
-      line-height: 1.85;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* ===== NAVIGATION ===== */
-    .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(250, 247, 244, 0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--color-border);
-      transition: box-shadow 0.3s;
-    }
-    .nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
-    .nav-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 24px;
-    }
-    .nav-logo {
-      font-family: var(--font-serif); font-size: 1.35rem; font-weight: 500;
-      color: var(--color-text); text-decoration: none; letter-spacing: 0.08em;
-    }
-    .nav-links { display: flex; gap: 28px; list-style: none; }
-    .nav-links a {
-      font-size: 0.82rem; color: var(--color-text-light); text-decoration: none;
-      letter-spacing: 0.04em; transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--color-primary); }
-    .nav-cta {
-      display: inline-block; padding: 8px 22px;
-      background: var(--color-primary); color: var(--color-white);
-      font-size: 0.8rem; text-decoration: none; border-radius: 24px;
-      letter-spacing: 0.06em; transition: background 0.2s;
-    }
-    .nav-cta:hover { background: #B68A90; }
-    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
-    .hamburger span { display: block; width: 22px; height: 2px; background: var(--color-text); margin: 5px 0; transition: 0.3s; }
-
-    /* ===== HERO ===== */
-    .hero {
-      padding: 160px 24px 100px;
-      text-align: center;
-      background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-warm) 100%);
-    }
-    .hero-badge {
-      display: inline-block; padding: 6px 20px; margin-bottom: 28px;
-      background: var(--color-primary-pale); color: var(--color-primary);
-      font-size: 0.75rem; border-radius: 20px; letter-spacing: 0.1em;
-    }
-    .hero h1 {
-      font-family: var(--font-serif); font-size: 2.2rem; font-weight: 400;
-      line-height: 1.7; letter-spacing: 0.06em; margin-bottom: 24px;
-      color: var(--color-text);
-    }
-    .hero h1 em {
-      font-style: normal; color: var(--color-primary);
-      border-bottom: 2px solid var(--color-primary-pale);
-    }
-    .hero-sub {
-      font-size: 0.95rem; color: var(--color-text-light);
-      max-width: 600px; margin: 0 auto 40px; line-height: 1.9;
-    }
-    .hero-cta {
-      display: inline-block; padding: 16px 44px;
-      background: var(--color-primary); color: var(--color-white);
-      font-size: 0.9rem; text-decoration: none; border-radius: 32px;
-      letter-spacing: 0.08em; transition: all 0.3s;
-      box-shadow: 0 4px 16px rgba(196, 154, 160, 0.3);
-    }
-    .hero-cta:hover { background: #B68A90; transform: translateY(-2px); box-shadow: 0 6px 24px rgba(196, 154, 160, 0.4); }
-    .hero-area {
-      margin-top: 36px; font-size: 0.78rem; color: var(--color-text-light);
-      letter-spacing: 0.04em;
-    }
-
-    /* ===== SECTIONS ===== */
-    section { padding: 80px 24px; }
-    .section-inner { max-width: 960px; margin: 0 auto; }
-    .section-label {
-      display: inline-block; font-size: 0.7rem; color: var(--color-gold);
-      letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 12px;
-    }
-    .section-title {
-      font-family: var(--font-serif); font-size: 1.6rem; font-weight: 400;
-      letter-spacing: 0.06em; margin-bottom: 16px; line-height: 1.6;
-    }
-    .section-desc {
-      font-size: 0.9rem; color: var(--color-text-light); max-width: 680px;
-      line-height: 1.9; margin-bottom: 48px;
-    }
-
-    /* ===== PHILOSOPHY ===== */
-    .philosophy { background: var(--color-white); }
-    .philosophy-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
-    }
-    .philosophy-card {
-      padding: 36px 28px; border-radius: 16px;
-      background: var(--color-bg); border: 1px solid var(--color-border);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .philosophy-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
-    .philosophy-icon {
-      width: 48px; height: 48px; border-radius: 12px; margin-bottom: 20px;
-      display: flex; align-items: center; justify-content: center;
-      background: var(--color-primary-pale); color: var(--color-primary);
-      font-size: 1.3rem;
-    }
-    .philosophy-card h3 {
-      font-family: var(--font-serif); font-size: 1.05rem; font-weight: 500;
-      margin-bottom: 12px; letter-spacing: 0.04em;
-    }
-    .philosophy-card p {
-      font-size: 0.82rem; color: var(--color-text-light); line-height: 1.85;
-    }
-
-    /* ===== SERVICES ===== */
-    .services { background: var(--color-bg-warm); }
-    .service-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
-    .service-card {
-      background: var(--color-white); border-radius: 20px; overflow: hidden;
-      border: 1px solid var(--color-border);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.06); }
-    .service-header {
-      padding: 32px 28px 24px; border-bottom: 1px solid var(--color-border);
-    }
-    .service-tag {
-      display: inline-block; padding: 4px 14px; margin-bottom: 14px;
-      font-size: 0.68rem; border-radius: 12px; letter-spacing: 0.08em;
-    }
-    .service-card:first-child .service-tag { background: #F0E6D0; color: var(--color-gold); }
-    .service-card:last-child .service-tag { background: var(--color-primary-pale); color: var(--color-primary); }
-    .service-header h3 {
-      font-family: var(--font-serif); font-size: 1.25rem; font-weight: 500;
-      margin-bottom: 8px; letter-spacing: 0.04em;
-    }
-    .service-usp {
-      font-family: var(--font-serif); font-size: 0.95rem;
-      color: var(--color-primary); font-style: italic;
-      padding: 10px 0; line-height: 1.7;
-    }
-    .service-body { padding: 24px 28px 32px; }
-    .service-body p {
-      font-size: 0.84rem; color: var(--color-text-light); line-height: 1.85;
-      margin-bottom: 16px;
-    }
-    .service-readmore {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: none; border: none; cursor: pointer;
-      padding: 6px 0; margin-bottom: 10px;
-      font-family: var(--font-sans); font-size: 0.8rem;
-      color: var(--color-primary); font-weight: 500;
-      letter-spacing: 0.04em; transition: opacity 0.2s;
-    }
-    .service-readmore:hover { opacity: 0.75; }
-    .service-readmore::after {
-      content: '+'; font-size: 1rem; transition: transform 0.3s;
-      margin-left: 2px;
-    }
-    .service-readmore.open::after { transform: rotate(45deg); }
-    .service-readmore-content {
-      max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
-    }
-    .service-readmore-inner {
-      padding: 14px 16px; margin-bottom: 16px;
-      background: var(--color-bg); border-radius: 10px;
-      border-left: 3px solid var(--color-primary-pale);
-    }
-    .service-readmore-inner p {
-      font-size: 0.8rem; color: var(--color-text-light);
-      line-height: 1.9; margin-bottom: 10px;
-    }
-    .service-readmore-inner p:last-child { margin-bottom: 0; }
-    .service-detail {
-      list-style: none; padding: 0;
-    }
-    .service-detail li {
-      display: flex; align-items: flex-start; gap: 10px;
-      font-size: 0.82rem; color: var(--color-text-light);
-      padding: 6px 0; border-bottom: 1px solid var(--color-border);
-    }
-    .service-detail li:last-child { border-bottom: none; }
-    .service-detail .label {
-      flex-shrink: 0; width: 100px;
-      font-weight: 500; color: var(--color-text);
-    }
-
-    /* ===== PRICING ===== */
-    .pricing { background: var(--color-white); }
-    .pricing-table {
-      width: 100%; border-collapse: collapse; margin-bottom: 24px;
-    }
-    .pricing-table th, .pricing-table td {
-      padding: 14px 18px; text-align: left; font-size: 0.84rem;
-      border-bottom: 1px solid var(--color-border);
-    }
-    .pricing-table th {
-      background: var(--color-bg-warm); color: var(--color-text);
-      font-weight: 500; font-size: 0.78rem; letter-spacing: 0.06em;
-    }
-    .pricing-table td:last-child { color: var(--color-text-light); font-size: 0.8rem; }
-    .pricing-note {
-      font-size: 0.78rem; color: var(--color-text-light);
-      line-height: 1.8; margin-top: 8px;
-    }
-    .pricing-highlight {
-      margin-top: 36px; padding: 28px 32px; border-radius: 16px;
-      background: linear-gradient(135deg, var(--color-primary-pale) 0%, #F0E6D0 100%);
-      border: 1px solid var(--color-gold-light);
-    }
-    .pricing-highlight h4 {
-      font-family: var(--font-serif); font-size: 1rem; font-weight: 500;
-      margin-bottom: 8px; color: var(--color-text);
-    }
-    .pricing-highlight p {
-      font-size: 0.82rem; color: var(--color-text-light); line-height: 1.8;
-    }
-
-    /* ===== FLOW ===== */
-    .flow { background: var(--color-bg-warm); }
-    .flow-steps {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
-      counter-reset: step;
-    }
-    .flow-step {
-      text-align: center; padding: 32px 16px;
-      background: var(--color-white); border-radius: 16px;
-      border: 1px solid var(--color-border); position: relative;
-    }
-    .flow-step::before {
-      counter-increment: step;
-      content: counter(step);
-      display: flex; align-items: center; justify-content: center;
-      width: 36px; height: 36px; margin: 0 auto 16px;
-      background: var(--color-primary); color: var(--color-white);
-      border-radius: 50%; font-family: var(--font-serif);
-      font-size: 0.9rem; font-weight: 500;
-    }
-    .flow-step h4 {
-      font-size: 0.9rem; font-weight: 500; margin-bottom: 8px;
-      letter-spacing: 0.04em;
-    }
-    .flow-step p {
-      font-size: 0.78rem; color: var(--color-text-light); line-height: 1.7;
-    }
-
-    /* ===== TRUST ===== */
-    .trust { background: var(--color-white); }
-    .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
-    .trust-profile {
-      padding: 36px; background: var(--color-bg); border-radius: 20px;
-      border: 1px solid var(--color-border);
-    }
-    .trust-profile h3 {
-      font-family: var(--font-serif); font-size: 1.15rem; font-weight: 500;
-      margin-bottom: 6px;
-    }
-    .trust-profile .title {
-      font-size: 0.78rem; color: var(--color-primary); margin-bottom: 16px;
-    }
-    .trust-profile p {
-      font-size: 0.84rem; color: var(--color-text-light); line-height: 1.9;
-    }
-    .trust-badges {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-    }
-    .trust-badge {
-      padding: 24px 20px; background: var(--color-bg); border-radius: 14px;
-      border: 1px solid var(--color-border); text-align: center;
-    }
-    .trust-badge-icon {
-      font-size: 1.6rem; margin-bottom: 10px; color: var(--color-primary);
-    }
-    .trust-badge h4 {
-      font-size: 0.82rem; font-weight: 500; margin-bottom: 4px;
-    }
-    .trust-badge p {
-      font-size: 0.72rem; color: var(--color-text-light); line-height: 1.6;
-    }
-
-    /* ===== FAQ ===== */
-    .faq { background: var(--color-bg-warm); }
-    .faq-list { max-width: 720px; }
-    .faq-item {
-      border-bottom: 1px solid var(--color-border);
-    }
-    .faq-q {
-      width: 100%; text-align: left; background: none; border: none;
-      padding: 20px 0; cursor: pointer;
-      font-family: var(--font-sans); font-size: 0.9rem; font-weight: 500;
-      color: var(--color-text); display: flex; justify-content: space-between;
-      align-items: center; gap: 16px; line-height: 1.6;
-    }
-    .faq-q::after {
-      content: '+'; font-size: 1.2rem; color: var(--color-primary);
-      flex-shrink: 0; transition: transform 0.3s;
-    }
-    .faq-q.open::after { transform: rotate(45deg); }
-    .faq-a {
-      max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
-    }
-    .faq-a-inner {
-      padding: 0 0 20px;
-      font-size: 0.84rem; color: var(--color-text-light); line-height: 1.85;
-    }
-
-    /* ===== CONTACT ===== */
-    .contact {
-      background: linear-gradient(135deg, var(--color-primary) 0%, #B68A90 100%);
-      color: var(--color-white); text-align: center;
-    }
-    .contact .section-label { color: var(--color-gold-light); }
-    .contact .section-title { color: var(--color-white); }
-    .contact .section-desc { color: rgba(255,255,255,0.85); margin-left: auto; margin-right: auto; }
-    .contact-methods {
-      display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
-      margin-top: 36px;
-    }
-    .contact-btn {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 16px 36px; border-radius: 32px;
-      font-size: 0.88rem; text-decoration: none;
-      letter-spacing: 0.06em; transition: all 0.3s;
-    }
-    .contact-btn--mail {
-      background: var(--color-white); color: var(--color-primary);
-    }
-    .contact-btn--mail:hover { background: var(--color-bg); transform: translateY(-2px); }
-    .contact-btn--tel {
-      background: transparent; color: var(--color-white);
-      border: 1.5px solid rgba(255,255,255,0.5);
-    }
-    .contact-btn--tel:hover { border-color: var(--color-white); transform: translateY(-2px); }
-    .contact-btn--line {
-      background: var(--color-gold); color: var(--color-white);
-    }
-    .contact-btn--line:hover { background: #A89066; transform: translateY(-2px); }
-
-    /* ===== FOOTER ===== */
-    .footer {
-      background: var(--color-text); color: rgba(255,255,255,0.5);
-      padding: 48px 24px; text-align: center;
-    }
-    .footer-logo {
-      font-family: var(--font-serif); font-size: 1.1rem;
-      color: rgba(255,255,255,0.7); letter-spacing: 0.1em; margin-bottom: 16px;
-    }
-    .footer p { font-size: 0.72rem; line-height: 1.7; }
-    .footer-copy { margin-top: 24px; font-size: 0.68rem; }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .hamburger { display: block; }
-      .nav-links.open {
-        display: flex; flex-direction: column;
-        position: absolute; top: 100%; left: 0; right: 0;
-        background: var(--color-bg); padding: 24px;
-        border-bottom: 1px solid var(--color-border);
-        gap: 16px;
-      }
-      .hero { padding: 130px 20px 70px; }
-      .hero h1 { font-size: 1.55rem; }
-      .hero-sub { font-size: 0.88rem; }
-      .philosophy-grid { grid-template-columns: 1fr; gap: 16px; }
-      .service-cards { grid-template-columns: 1fr; }
-      .flow-steps { grid-template-columns: repeat(2, 1fr); }
-      .trust-grid { grid-template-columns: 1fr; }
-      .trust-badges { grid-template-columns: 1fr 1fr; }
-      .pricing-table { font-size: 0.78rem; }
-      .pricing-table th, .pricing-table td { padding: 10px 12px; }
-      .section-title { font-size: 1.35rem; }
-    }
-    /* ===== ABOUT / NAME ORIGIN ===== */
-    .about-name { background: var(--color-white); }
-    .about-name-inner {
-      max-width: 720px; margin: 0 auto; text-align: center;
-    }
-    .about-name-origin {
-      font-size: 0.88rem; color: var(--color-text-light); line-height: 2;
-      margin-bottom: 32px;
-    }
-    .about-name-origin strong {
-      color: var(--color-primary); font-weight: 500;
-    }
-    .about-belief {
-      font-family: var(--font-serif); font-size: 1.15rem; font-weight: 400;
-      color: var(--color-text); line-height: 1.9; margin-bottom: 20px;
-      letter-spacing: 0.04em;
-    }
-    .about-belief-desc {
-      font-size: 0.86rem; color: var(--color-text-light); line-height: 1.95;
-      max-width: 640px; margin: 0 auto;
-    }
-    .about-illust-wrap {
-      display: flex; justify-content: center; margin: 32px 0 16px;
-    }
-    .about-illust {
-      width: 200px; max-width: 60%; height: auto; display: block;
-    }
-
-    /* ===== PRINCIPLES ===== */
-    .principles { background: var(--color-bg-warm); }
-    .principles-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
-    }
-    .principle-item {
-      padding: 24px 22px; background: var(--color-white); border-radius: 14px;
-      border: 1px solid var(--color-border); text-align: center;
-    }
-    .principle-num {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 28px; height: 28px; border-radius: 50%;
-      background: var(--color-primary-pale); color: var(--color-primary);
-      font-family: var(--font-serif); font-size: 0.75rem; font-weight: 500;
-      margin-bottom: 12px;
-    }
-    .principle-item p {
-      font-size: 0.82rem; color: var(--color-text); line-height: 1.75;
-      font-weight: 400;
-    }
-
-    @media (max-width: 768px) {
-      .principles-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 480px) {
-      .principles-grid { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 480px) {
-      .flow-steps { grid-template-columns: 1fr; }
-      .trust-badges { grid-template-columns: 1fr; }
-      .contact-methods { flex-direction: column; align-items: center; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serenesta｜Engage a smile of family</title>
+<meta name="description" content="東京都心部9区対応の家庭訪問型ベビーシッター。担当制で、家族のような安心を継続的にお届けします。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Serenesta">
+<meta property="og:title" content="Serenesta｜Engage a smile of family">
+<meta property="og:description" content="東京都心部9区対応の家庭訪問型ベビーシッター。担当制で、家族のような安心を継続的にお届けします。">
+<meta property="og:image" content="https://serenesta.jp/assets/img/ogp.png">
+<meta property="og:url" content="https://serenesta.jp/">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Serenesta｜Engage a smile of family">
+<meta name="twitter:description" content="東京都心部9区対応の家庭訪問型ベビーシッター。担当制で、家族のような安心を継続的にお届けします。">
+<meta name="twitter:image" content="https://serenesta.jp/assets/img/ogp.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+JP:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 </head>
 <body>
 
-<!-- ===== NAVIGATION ===== -->
+<!-- ========== NAV ========== -->
 <nav class="nav" id="nav">
-  <div class="nav-inner">
-    <a href="#" class="nav-logo">Serenesta</a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#about">Serenestaとは</a></li>
-      <li><a href="#philosophy">特徴</a></li>
-      <li><a href="#services">サービス</a></li>
-      <li><a href="#pricing">料金</a></li>
-      <li><a href="#flow">ご利用の流れ</a></li>
-      <li><a href="#trust">代表紹介</a></li>
-      <li><a href="#faq">よくあるご質問</a></li>
-    </ul>
-    <a href="#contact" class="nav-cta">お問い合わせ</a>
-    <button class="hamburger" id="hamburger" aria-label="メニュー">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+  <a href="index.html" class="nav-logo">Serenesta</a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li class="has-sub">
+      <a href="#">Services</a>
+      <ul class="sub">
+        <li><a href="services/precise.html">プレサイスシッター</a></li>
+        <li><a href="services/grand.html">グランドシッター</a></li>
+      </ul>
+    </li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="flow.html">Flow</a></li>
+    <li><a href="founder.html">Founder</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">INQUIRY</a>
+  <button class="nav-toggle" aria-label="menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- ===== HERO ===== -->
+<!-- ========== HERO ========== -->
 <section class="hero">
-  <div class="hero-badge">家庭訪問型ベビーシッター</div>
-  <h1>Engage<br>a smile of family</h1>
-  <p class="hero-sub">担当制で、家族のような安心を<br>継続的にご提供します。</p>
-  <a href="#contact" class="hero-cta">初回相談のご予約</a>
-  <p class="hero-area">対応エリア：東京都心部9区（港区・中央区・文京区・目黒区・渋谷区・世田谷区・江東区・杉並区・品川区）</p>
-</section>
-
-<!-- ===== ABOUT / NAME ORIGIN ===== -->
-<section class="about-name" id="about">
-  <div class="section-inner">
-    <div class="about-name-inner">
-      <span class="section-label">About Serenesta</span>
-      <h2 class="section-title">事業理念とコンセプト</h2>
-      <p class="about-section-label" style="font-size: 0.75rem; letter-spacing: 0.18em; color: var(--color-primary); font-weight: 500;">事業理念</p>
-      <p class="about-belief">子ども一人ひとりの個性を尊重しながら、家庭生活の中で継続できる関わり方を整え、親子が安心して生活できる環境をつくる</p>
-
-      <p class="about-section-label" style="margin-top: 40px; font-size: 0.75rem; letter-spacing: 0.18em; color: var(--color-primary); font-weight: 500;">コンセプト</p>
-      <p class="about-concept" style="font-family: var(--font-serif); font-size: 1.55rem; font-weight: 500; color: var(--color-text); margin: 10px 0 12px; letter-spacing: 0.04em;">Engage a smile of family<span style="display:block; font-family: var(--font-sans); font-size: 0.85rem; font-weight: 400; color: var(--color-text-light); letter-spacing: 0.08em; margin-top: 6px;">（エンゲージ・ア・スマイル・オブ・ファミリー）</span></p>
-      <p class="about-concept-desc" style="color: var(--color-text-light); margin-bottom: 12px; font-size: 0.95rem;">お子様を含めたご家族の笑顔に携わる存在でありたいという願いを込めています。</p>
-      <p class="about-concept-sub" style="font-weight: 500; color: var(--color-text); font-size: 1rem;">担当制で、家族のような安心を継続的にご提供します。</p>
-
-      <div class="about-illust-wrap">
-        <img src="mother_child.png" alt="保護者様とお子様" class="about-illust">
-      </div>
-
-      <p class="about-belief-desc" style="margin-top: 40px;">
-        専任だからこそ、お子様やご家庭の方針を深く理解でき、お子様の健やかな育ちにつながります。そうして育まれる「家族の一員のような関係」こそが、保護者様の心の安定を支え、ご家族の笑顔が増えていく——そう考え、Serenestaは担当制と丁寧な訪問記録（デイリーレポート・ケアサマリー）を運営の軸としております。
-      </p>
+  <div class="hero-inner">
+    <p class="hero-badge reveal">家庭訪問型ベビーシッター</p>
+    <h1 class="hero-title reveal">Engage<br><em>a smile</em><br>of family</h1>
+    <div class="gold-divider reveal"></div>
+    <p class="hero-sub reveal">担当制で、家族のような安心を継続的にご提供します。</p>
+    <div class="hero-art reveal">
+      <img src="assets/img/hero-mother-child-gold.png" alt="母とお子様" loading="eager">
     </div>
+    <a href="#cta" class="btn-pill reveal">初回相談のご予約</a>
   </div>
 </section>
 
-<!-- ===== PRINCIPLES ===== -->
-<section class="principles">
-  <div class="section-inner">
-    <span class="section-label">Our Beliefs</span>
-    <h2 class="section-title">6つの信念</h2>
-    <p class="section-desc">Serenestaがご利用家庭と向き合う際に、支援の根底に置く6つの信念です。</p>
-    <div class="principles-grid">
-      <div class="principle-item">
-        <div class="principle-num">1</div>
-        <p>子どもの行動を<br>特性と環境の両面から理解する</p>
-      </div>
-      <div class="principle-item">
-        <div class="principle-num">2</div>
-        <p>家庭で継続可能な<br>関わり方を重視する</p>
-      </div>
-      <div class="principle-item">
-        <div class="principle-num">3</div>
-        <p>保護者の心の余裕も<br>大切にする</p>
-      </div>
-      <div class="principle-item">
-        <div class="principle-num">4</div>
-        <p>単発対応ではなく<br>継続的な理解の深化を重視する</p>
-      </div>
-      <div class="principle-item">
-        <div class="principle-num">5</div>
-        <p>保育・発達理解の知見を<br>家庭生活に接続する</p>
-      </div>
-      <div class="principle-item">
-        <div class="principle-num">6</div>
-        <p>関わりの繰り返しと統一が<br>子どもの安心をつくる</p>
-      </div>
+<!-- ========== こんな方へ ========== -->
+<section class="for-you">
+  <div class="inner">
+    <div class="section-head reveal">
+      <p class="eyebrow">For You</p>
+      <h2 class="h-en">こんな方へ</h2>
     </div>
-  </div>
-</section>
-
-<!-- ===== PHILOSOPHY ===== -->
-<section class="philosophy" id="philosophy">
-  <div class="section-inner">
-    <span class="section-label">Our Approach</span>
-    <h2 class="section-title">3つの仕組み</h2>
-    <p class="section-desc">信念を事業の形にするための、Serenestaの3つの仕組みです。同じ人が、同じ言葉で、同じ順序で関わり続ける——その繰り返しが、お子様に「次に何が起きるか」という予測可能性を与え、安心の土台をつくります。</p>
-    <div class="philosophy-grid">
-      <div class="philosophy-card">
-        <div class="philosophy-icon">&#9829;</div>
-        <h3>担当制による継続的な関わり</h3>
-        <p>各ご家庭にメイン担当1名・サブ担当1名を固定。お子様が安心できる関係を、時間をかけて築きます。担当が変わっても、会社全体で情報を引き継ぎます。</p>
-      </div>
-      <div class="philosophy-card">
-        <div class="philosophy-icon">&#9998;</div>
-        <h3>観察と継続記録</h3>
-        <p>訪問ごとにお子様の様子・有効だった関わり方を記録し、全担当者が参照できる体制を整えています。記録の継続が、支援の一貫性を支えます。</p>
-      </div>
-      <div class="philosophy-card">
-        <div class="philosophy-icon">&#9734;</div>
-        <h3>保護者への継続共有</h3>
-        <p>訪問後24時間以内に訪問記録（グランドシッター：デイリーレポート／プレサイスシッター：ケアサマリー）を送付。月次フォローアップで保護者様の疑問や不安にお応えし、ご家庭での関わりの一貫性を支えます。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== SERVICES ===== -->
-<section class="services" id="services">
-  <div class="section-inner">
-    <span class="section-label">Services</span>
-    <h2 class="section-title">2つのサービス</h2>
-    <p class="section-desc">ご家庭の状況やお子様の特性に合わせた、2つの専門サービスをご用意しています。</p>
-    <div class="service-cards">
-
-      <!-- グランドシッター -->
-      <div class="service-card">
-        <div class="service-header">
-          <span class="service-tag">GRAND SITTER</span>
-          <h3>グランドシッターサービス</h3>
+    <div class="for-you-grid for-you-grid-2">
+      <div class="for-you-card reveal">
+        <div class="for-you-icon">
+          <img src="assets/img/canva/gold/hands-butterfly.png" alt="" loading="lazy">
         </div>
-        <div class="service-body">
-          <p>お忙しいご家庭に寄り添う、高品質な家庭訪問型シッターサービスです。お子様の生活リズムや保護者様のご要望を会社として記録・共有し、担当が変わっても「一から説明する消耗」をなくします。</p>
-          <ul class="service-detail">
-            <li><span class="label">対象家庭</span><span>継続的で質の高い育児サポートを求めるご家庭</span></li>
-            <li><span class="label">対象年齢</span><span>0歳3か月〜6歳の未就学児</span></li>
-            <li><span class="label">時間単価</span><span>4,400円/時間（税込）</span></li>
-            <li><span class="label">最低利用</span><span>1回3時間から</span></li>
-            <li><span class="label">担当制</span><span>メイン担当1名＋サブ担当1名（家庭ごと固定）</span></li>
-            <li><span class="label">訪問後対応</span><span>デイリーレポート（Daily Report）による保護者共有</span></li>
-          </ul>
+        <p class="for-you-text">発達特性のあるお子様の、<br>家庭での関わりを<br>整えたいご家庭へ</p>
+      </div>
+      <div class="for-you-card reveal">
+        <div class="for-you-icon">
+          <img src="assets/img/canva/gold/hourglass.png" alt="" loading="lazy">
         </div>
-      </div>
-
-      <!-- プレサイスシッター -->
-      <div class="service-card">
-        <div class="service-header">
-          <span class="service-tag">PRECISE SITTER</span>
-          <h3>プレサイスシッターサービス</h3>
-        </div>
-        <div class="service-body">
-          <p>発達特性（ASD・ADHD・グレーゾーン等）のある2〜6歳の未就学児とそのご家庭を対象とした、家庭支援型シッターサービスです。外部支援施設での取り組みを保護者様から伺い、家庭での関わりにつなげていきます。</p>
-          <button class="service-readmore" type="button">詳細を読む</button>
-          <div class="service-readmore-content">
-            <div class="service-readmore-inner">
-              <p>プレサイスシッターは、外部支援施設（療育施設・発達支援施設・通級指導教室など）での取り組みを保護者様から伺い、同じ視点・同じ関わり方を訪問保育の中で再現します。その実践の結果を訪問のたびにケアサマリーで保護者様へ共有し、ご家庭での継続的な関わりを一緒に積み重ねていきます。</p>
-              <p>発達特性のある子どもにとって、一貫した関わりの継続こそが安心感の土台となるという考えのもと、施設・シッター・保護者が同じ方向を向いて関わり続けることで、子どもの安心感が日常の中に根づいていくことを目指します。</p>
-              <p>医療行為・療育行為は含みません。なお、関わりの効果はお子さまによって異なります。特定の成果をお約束するものではありませんが、継続的な関わりの中で変化を一緒に見守っていきます。</p>
-            </div>
-          </div>
-          <ul class="service-detail">
-            <li><span class="label">対象家庭</span><span>発達特性のある2〜6歳の未就学児をもつご家庭</span></li>
-            <li><span class="label">時間単価</span><span>6,000円/時間（税込）</span></li>
-            <li><span class="label">最低利用</span><span>1回3時間から</span></li>
-            <li><span class="label">担当制</span><span>メイン担当1名＋サブ担当1名（事前情報共有済み）</span></li>
-            <li><span class="label">訪問後対応</span><span>ケアサマリー（Care Summary）による保護者共有（行動観察・環境調整内容含む）</span></li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ===== PRICING ===== -->
-<section class="pricing" id="pricing">
-  <div class="section-inner">
-    <span class="section-label">Pricing</span>
-    <h2 class="section-title">料金体系</h2>
-    <p class="section-desc">継続的なご利用を前提とした会員制サービスです。すべて税込表記です。</p>
-    <table class="pricing-table">
-      <thead>
-        <tr>
-          <th>項目</th>
-          <th>料金</th>
-          <th>備考</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>入会金</td>
-          <td>110,000円（税込）</td>
-          <td>ご契約時にお支払い</td>
-        </tr>
-        <tr>
-          <td>月会費</td>
-          <td>8,800円（税込）</td>
-          <td>担当制維持・予約枠確保・品質維持のための費用</td>
-        </tr>
-        <tr>
-          <td>グランドシッター</td>
-          <td>4,400円/時間（税込）</td>
-          <td>最低3時間・延長30分単位（端数切上）</td>
-        </tr>
-        <tr>
-          <td>プレサイスシッター</td>
-          <td>6,000円/時間（税込）</td>
-          <td>最低3時間・延長30分単位（端数切上）</td>
-        </tr>
-        <tr>
-          <td>初回相談（事前面談含む）</td>
-          <td>4,400円（税込）</td>
-          <td>1時間程度・ご家庭の状況を丁寧にお伺いします</td>
-        </tr>
-        <tr>
-          <td>交通費</td>
-          <td>一律1,100円/回（税込）</td>
-          <td>—</td>
-        </tr>
-      </tbody>
-    </table>
-    <p class="pricing-note">※ 夜間（22時以降）・早朝（7時前）は通常料金の25%増。前日依頼1,000円（税込）・当日依頼2,000円（税込）のオーダーチャージがかかります。<br>※ キャンセル料：前日は時間料金の50%、当日は100%。</p>
-
-    <div class="pricing-highlight">
-      <h4>創業期特別プラン（3家庭限定）</h4>
-      <p>入会金55,000円（税込）でご利用いただけます。通常の入会金110,000円（税込）から50%オフの特別プランです。サービス品質にご満足いただける体験を、まず3家庭のお客様にお届けいたします。</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===== FLOW ===== -->
-<section class="flow" id="flow">
-  <div class="section-inner">
-    <span class="section-label">Flow</span>
-    <h2 class="section-title">ご利用の流れ</h2>
-    <p class="section-desc">2026年7月サービス開始に向け、現在先行予約を受付中です。創業期特別プラン（入会金55,000円（税込）・先着3家庭）も本プラン適用となります。</p>
-    <div class="flow-steps">
-      <div class="flow-step">
-        <h4>お問い合わせ</h4>
-        <p>メールまたはLINE公式アカウントにて、お気軽にご連絡ください。24時間以内にご返信いたします。</p>
-      </div>
-      <div class="flow-step">
-        <h4>初回相談・事前面談</h4>
-        <p>ご家庭の状況、お子様の特性や生活リズムを丁寧にお伺いします（4,400円（税込）・1時間程度）。</p>
-      </div>
-      <div class="flow-step">
-        <h4>ご契約・担当決定</h4>
-        <p>サービス内容にご納得いただけましたら、ご契約へ。お子様に合った担当シッターを選定します。</p>
-      </div>
-      <div class="flow-step">
-        <h4>サービス開始</h4>
-        <p>初回訪問からサービス開始。訪問後24時間以内に、ご利用サービスに応じた訪問記録（グランド：デイリーレポート／プレサイス：ケアサマリー）をお届けします。</p>
+        <p class="for-you-text">お子様に質の高い時間を<br>届けたいご家庭へ</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== TRUST ===== -->
-<section class="trust" id="trust">
-  <div class="section-inner">
-    <span class="section-label">About</span>
-    <h2 class="section-title">代表紹介・安心への取り組み</h2>
-    <p class="section-desc">お子様をお預けいただくにあたり、安心と信頼をお届けするための体制を整えています。</p>
+<!-- ========== Our Standard ========== -->
+<section class="standard">
+  <div class="inner">
+    <div class="standard-inner reveal">
+      <p class="eyebrow">Our Standard</p>
+      <div class="gold-divider"></div>
+      <p class="standard-text">発達特性のあるお子様に向き合うために磨いた、丁寧で繊細で根気強い関わり。</p>
+      <p class="standard-text-em">Serenestaはこの水準を、すべてのシッターの基準とし、すべてのご家庭へお届けします。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 2 SERVICES ========== -->
+<section class="services">
+  <div class="inner">
+    <div class="section-head reveal">
+      <p class="eyebrow">Two Services</p>
+      <h2 class="h-en">2つのサービス</h2>
+      <p class="section-desc">ご家庭の状況やお子様の特性に合わせた、2つの専門サービス。</p>
+    </div>
+    <div class="services-grid">
+      <article class="service-card reveal">
+        <p class="service-tag">PRECISE SITTER</p>
+        <h3 class="service-name">プレサイスシッター</h3>
+        <p class="service-lead">発達特性のあるお子様の、<br>家庭での日々を整える。</p>
+        <p class="service-price">6,000円<span>／時間（税込）</span></p>
+        <a href="services/precise.html" class="service-link">詳しくはこちら →</a>
+      </article>
+      <article class="service-card reveal">
+        <p class="service-tag">GRAND SITTER</p>
+        <h3 class="service-name">グランドシッター</h3>
+        <p class="service-lead">お忙しいご家庭に、<br>高品質な家庭訪問を。</p>
+        <p class="service-price">4,400円<span>／時間（税込）</span></p>
+        <a href="services/grand.html" class="service-link">詳しくはこちら →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 安心バッジ ========== -->
+<section class="trust">
+  <div class="inner">
+    <div class="section-head reveal">
+      <p class="eyebrow">Our Promises</p>
+      <h2 class="h-en">安心への取り組み</h2>
+    </div>
     <div class="trust-grid">
-      <div class="trust-profile">
-        <h3>代表取締役　渡邉 夏帆</h3>
-        <p class="title">保育士資格保有</p>
-        <p>大学にて社会福祉学部子ども学専攻を修了後、発達障害児施設および保育園にて約10年間の実務経験を積みました。発達特性のあるお子様への関わり方、ご家庭との信頼関係の構築を現場で学び、「家庭生活の中で継続できる関わり方を整えたい」という思いからSerenestaを創業しました。</p>
-        <p style="margin-top: 14px;">「環境を少し整えるだけで、子どもの様子は変わる」——保育と発達支援の現場で繰り返し目にしてきたこの実感が、Serenestaの原点です。</p>
-        <p style="margin-top: 14px;">社名「Serenesta」は、<strong>Serenity</strong>（セレニティ：穏やかさ・安心感）と<strong>Nest</strong>（ネスト：巣・家庭）に<strong>+&alpha;</strong>（ケア）を加えた造語です。穏やかで安心して過ごせる家庭環境を、ベビーシッターという立場からお届けしたいという想いが由来です。</p>
+      <div class="trust-item reveal">
+        <div class="trust-icon">
+          <svg viewBox="0 0 60 60" fill="none" stroke="#B8A080" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M30,8 L48,16 L48,30 C48,42 30,52 30,52 C30,52 12,42 12,30 L12,16 Z"/>
+            <path d="M22,30 L28,36 L40,24"/>
+          </svg>
+        </div>
+        <p class="trust-label">有資格者・経験者</p>
+        <p class="trust-sub">保育士・幼稚園教諭・発達支援経験者・子育て経験者から</p>
       </div>
-      <div class="trust-badges">
-        <div class="trust-badge">
-          <div class="trust-badge-icon">&#128218;</div>
-          <h4>保育士資格</h4>
-          <p>国家資格保有</p>
+      <div class="trust-item reveal">
+        <div class="trust-icon">
+          <svg viewBox="0 0 60 60" fill="none" stroke="#B8A080" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="12" y="14" width="36" height="36" rx="2"/>
+            <path d="M18,24 L42,24"/>
+            <path d="M18,32 L42,32"/>
+            <path d="M18,40 L34,40"/>
+            <circle cx="44" cy="46" r="6" fill="#B8A080"/>
+            <path d="M40,46 L43,49 L48,44" stroke="#fff" stroke-width="1.6"/>
+          </svg>
         </div>
-        <div class="trust-badge">
-          <div class="trust-badge-icon">&#128170;</div>
-          <h4>研修制度</h4>
-          <p>基礎研修・行動観察研修・同行訪問を経て独立稼働</p>
+        <p class="trust-label">研修制度</p>
+        <p class="trust-sub">スタンダード／プレサイス研修</p>
+      </div>
+      <div class="trust-item reveal">
+        <div class="trust-icon">
+          <svg viewBox="0 0 60 60" fill="none" stroke="#B8A080" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10,28 C10,18 18,10 30,10 C42,10 50,18 50,28 L50,32 L10,32 Z"/>
+            <path d="M30,32 L30,50"/>
+            <path d="M22,50 L38,50"/>
+          </svg>
         </div>
-        <div class="trust-badge">
-          <div class="trust-badge-icon">&#128737;</div>
-          <h4>損害賠償保険</h4>
-          <p>万が一に備えた保険に加入</p>
+        <p class="trust-label">損害賠償保険</p>
+        <p class="trust-sub">万が一に備えた加入済み</p>
+      </div>
+      <div class="trust-item reveal">
+        <div class="trust-icon">
+          <svg viewBox="0 0 60 60" fill="none" stroke="#B8A080" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="14" y="10" width="32" height="42" rx="2"/>
+            <line x1="22" y1="22" x2="38" y2="22"/>
+            <line x1="22" y1="30" x2="38" y2="30"/>
+            <line x1="22" y1="38" x2="34" y2="38"/>
+          </svg>
         </div>
-        <div class="trust-badge">
-          <div class="trust-badge-icon">&#128196;</div>
-          <h4>認可外保育施設届出</h4>
-          <p>東京都への届出を実施</p>
-        </div>
+        <p class="trust-label">認可外保育施設届出</p>
+        <p class="trust-sub">東京都への届出を実施</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== FAQ ===== -->
-<section class="faq" id="faq">
-  <div class="section-inner">
-    <span class="section-label">FAQ</span>
-    <h2 class="section-title">よくあるご質問</h2>
-    <p class="section-desc"></p>
-    <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-q">対応エリアはどこですか？</button>
-        <div class="faq-a"><div class="faq-a-inner">東京都心部9区（港区・中央区・文京区・目黒区・渋谷区・世田谷区・江東区・杉並区・品川区）に対応しております。シッターの居住エリアと訪問先を近接させることで、迅速な対応が可能です。</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">最低利用時間はありますか？</button>
-        <div class="faq-a"><div class="faq-a-inner">1回あたり3時間からのご利用をお願いしております。延長は30分単位（端数切上）で承ります。</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">担当シッターが合わない場合はどうなりますか？</button>
-        <div class="faq-a"><div class="faq-a-inner">本部が直接面談のうえ経緯を確認し、新しい担当候補を最大2名までご提示いたします。強制的な担当交代は行わず、お子様とご家庭にとって最善の形を一緒に探します。</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">担当シッターが急に来られなくなった場合は？</button>
-        <div class="faq-a"><div class="faq-a-inner">各ご家庭にサブ担当（バックアップ）を配置しており、お子様の情報を事前に共有しています。急な欠勤の場合もサブ担当が対応いたします。ご利用料は実際に稼働した分のみの請求です。</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">発達特性の診断がなくても利用できますか？</button>
-        <div class="faq-a"><div class="faq-a-inner">はい、ご利用いただけます。プレサイスシッターサービスは、診断の有無にかかわらず、発達特性やグレーゾーンのお子様を持つご家庭を対象としています。医療行為や療育行為は含まず、ベビーシッター事業の範囲内で家庭生活をサポートいたします。</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">入会金の返金はできますか？</button>
-        <div class="faq-a"><div class="faq-a-inner">サービス開始前（初回訪問前）の解約の場合は入会金を全額返金いたします。サービス開始後の解約については返金不可となります。詳細はご契約時にご説明いたします。</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">どのような資格を持つシッターが来ますか？</button>
-        <div class="faq-a"><div class="faq-a-inner">保育士・幼稚園教諭等の資格保有者を優遇しております。また、全シッターが基礎研修（安全管理・コミュニケーション等）および本部との同行訪問を修了してからの稼働となります。プレサイスシッターの担当には、発達支援の実務経験または行動観察研修の修了を条件としています。</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">訪問後の訪問記録にはどのような内容が書かれていますか？</button>
-        <div class="faq-a"><div class="faq-a-inner">グランドシッターサービスでは「デイリーレポート（Daily Report）」、プレサイスシッターサービスでは「ケアサマリー（Care Summary）」として訪問記録を作成いたします。お子様の当日の様子、有効だった関わり方、生活場面での気づきなどを記載いたします。ケアサマリーでは、行動観察の記録や環境調整の内容も含まれます。訪問後24時間以内にお届けいたします。</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">利用頻度はどのくらいが目安ですか？</button>
-        <div class="faq-a"><div class="faq-a-inner">月6回（週1〜2回）程度のご利用を基本モデルとしておりますが、ご家庭の状況に合わせて柔軟に調整可能です。お子様との関係構築やケアの継続性の観点から、定期的なご利用をおすすめしています。</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">どのようなことをシッターにお願いできますか？</button>
-        <div class="faq-a"><div class="faq-a-inner">食事・着替え・入浴補助・遊び・読み聞かせ・生活リズムの補助など、保育全般に対応いたします。プレサイスシッターサービスでは、お子様に合わせた声かけの工夫や、環境の調整なども行います。なお、医療行為や療育行為は含まれません。</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">療育施設に通っていても利用できますか？</button>
-        <div class="faq-a"><div class="faq-a-inner">はい、並行してご利用いただけます。Serenestaは療育の代替ではなく、外部支援施設での取り組みを保護者様からお伺いし、家庭生活の中でその視点をつなげていく役割を担っています。施設と家庭の間をつなぐ存在としてご活用ください。</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">月会費にはどのようなサービスが含まれていますか？</button>
-        <div class="faq-a"><div class="faq-a-inner">担当シッターの固定配置、予約枠の確保、家庭別ケアシートの継続管理、月次フォローアップ連絡など、サービスの品質と継続性を維持するための費用として設定しております。</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">事前面談ではどのようなことを聞かれますか？</button>
-        <div class="faq-a"><div class="faq-a-inner">ご家庭の生活リズム、お子様の好きなことや苦手なこと、普段の過ごし方、保護者様が困っていることやご希望などを丁寧にお伺いします。お子様に最適な担当シッターを選定し、初回訪問から安心してお過ごしいただくための大切な時間です。</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">兄弟姉妹がいる場合は対応できますか？</button>
-        <div class="faq-a"><div class="faq-a-inner">ご兄弟姉妹がいらっしゃる場合も対応可能です。事前面談にてご家庭の状況をお伺いしたうえで、最適な対応方法をご提案いたします。</div></div>
-      </div>
+<!-- ========== 対応エリア ========== -->
+<section class="area">
+  <div class="inner">
+    <div class="section-head reveal">
+      <p class="eyebrow">Service Area</p>
+      <h2 class="h-en">対応エリア</h2>
+      <p class="section-desc">東京都心部9区にて、家庭訪問型シッターサービスをお届けしています。</p>
+    </div>
+    <div class="area-grid reveal">
+      <div class="area-item">港区</div>
+      <div class="area-item">中央区</div>
+      <div class="area-item">文京区</div>
+      <div class="area-item">目黒区</div>
+      <div class="area-item">渋谷区</div>
+      <div class="area-item">世田谷区</div>
+      <div class="area-item">江東区</div>
+      <div class="area-item">杉並区</div>
+      <div class="area-item">品川区</div>
+    </div>
+    <p class="area-note reveal">※今後、対応エリアを順次拡大していく予定です。</p>
+  </div>
+</section>
+
+<!-- ========== CTA ========== -->
+<section class="cta" id="cta">
+  <div class="inner reveal">
+    <p class="eyebrow">Contact</p>
+    <h2 class="cta-title">まずは、お気軽にご相談ください。</h2>
+    <p class="cta-sub">24時間以内にご連絡いたします。<br>2026年7月開始に向け、創業期特別プラン（先着3家庭）も受付中です。</p>
+    <div class="cta-actions">
+      <a href="https://line.me/R/ti/p/@769knnal" class="btn-pill line" target="_blank" rel="noopener noreferrer">LINEで相談する</a>
+      <a href="mailto:info@serenesta.jp" class="btn-pill ghost">メールで相談する</a>
     </div>
   </div>
 </section>
 
-<!-- ===== CONTACT ===== -->
-<section class="contact" id="contact">
-  <div class="section-inner">
-    <span class="section-label">Contact</span>
-    <h2 class="section-title">まずはお気軽にご相談ください</h2>
-    <p class="section-desc">お問い合わせいただいてから24時間以内にご連絡いたします。初回相談では、お子様の特性やご家庭の状況をじっくりとお伺いします。</p>
-    <div class="contact-methods">
-      <a href="mailto:info@serenesta.jp" class="contact-btn contact-btn--mail">メールでのお問い合わせ</a>
-      <a href="https://line.me/R/ti/p/@769knnal" class="contact-btn contact-btn--line" target="_blank" rel="noopener noreferrer">LINE公式アカウント</a>
-    </div>
-  </div>
-</section>
-
-<!-- ===== FOOTER ===== -->
+<!-- ========== FOOTER ========== -->
 <footer class="footer">
-  <div class="footer-logo">Serenesta</div>
-  <p>株式会社Serenesta（セレネスタ）<br>
-  家庭訪問型ベビーシッター事業（認可外保育施設・居宅訪問型）<br>
-  対応エリア：東京都心部9区</p>
-  <p class="footer-copy">&copy; 2026 Serenesta Inc. All rights reserved.</p>
+  <div class="footer-inner">
+    <div class="footer-logo">Serenesta</div>
+    <p class="footer-tag">Engage a smile of family</p>
+    <div class="footer-links">
+      <a href="about.html">About</a>
+      <a href="services/precise.html">プレサイスシッター</a>
+      <a href="services/grand.html">グランドシッター</a>
+      <a href="pricing.html">料金</a>
+      <a href="flow.html">ご利用の流れ</a>
+      <a href="founder.html">代表紹介</a>
+      <a href="faq.html">FAQ</a>
+    </div>
+    <div class="footer-meta">
+      <p>株式会社Serenesta（セレネスタ）</p>
+      <p>家庭訪問型ベビーシッター事業（認可外保育施設・居宅訪問型）</p>
+      <p>対応エリア：東京都心部9区（順次拡大予定）</p>
+      <p>info@serenesta.jp</p>
+      <p class="copy">© 2026 Serenesta Inc. All rights reserved.</p>
+    </div>
+  </div>
 </footer>
 
-<script>
-// Navigation scroll effect
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 20);
-});
-
-// Hamburger menu
-const hamburger = document.getElementById('hamburger');
-const navLinks = document.getElementById('navLinks');
-hamburger.addEventListener('click', () => {
-  navLinks.classList.toggle('open');
-});
-navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => navLinks.classList.remove('open'));
-});
-
-// FAQ accordion
-document.querySelectorAll('.faq-q').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const answer = btn.nextElementSibling;
-    const isOpen = btn.classList.contains('open');
-    // Close all
-    document.querySelectorAll('.faq-q').forEach(b => {
-      b.classList.remove('open');
-      b.nextElementSibling.style.maxHeight = null;
-    });
-    // Open clicked
-    if (!isOpen) {
-      btn.classList.add('open');
-      answer.style.maxHeight = answer.scrollHeight + 'px';
-    }
-  });
-});
-
-// Service readmore accordion (プレサイスシッター詳細)
-document.querySelectorAll('.service-readmore').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const content = btn.nextElementSibling;
-    const isOpen = btn.classList.contains('open');
-    if (isOpen) {
-      btn.classList.remove('open');
-      btn.textContent = '詳細を読む';
-      content.style.maxHeight = null;
-    } else {
-      btn.classList.add('open');
-      btn.textContent = '閉じる';
-      content.style.maxHeight = content.scrollHeight + 'px';
-    }
-  });
-});
-</script>
-
+<script src="assets/script.js"></script>
 </body>
 </html>

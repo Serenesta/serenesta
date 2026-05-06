@@ -1,0 +1,333 @@
+/* ============================================================
+   Serenesta v2 — about.html（コンパクト版）
+   ============================================================ */
+
+/* PAGE HERO（極コンパクト） */
+.page-hero{
+  padding:130px 40px 30px;
+  background:linear-gradient(180deg,var(--c-bg-pale) 0%,#F4DEE4 100%);
+  text-align:center;
+}
+.page-hero-inner{max-width:680px;margin:0 auto}
+
+/* COMMON SECTION SPACING（120→70 に圧縮） */
+.philosophy-block,.concept-block,.why-block,
+.beliefs-block,.approach-block,.name-block{
+  padding:56px 40px;
+}
+.philosophy-block{background:var(--c-white)}
+.concept-block{background:var(--c-bg-cream)}
+.why-block{background:var(--c-white)}
+.beliefs-block{background:var(--c-bg-cream)}
+.approach-block{background:var(--c-white)}
+.name-block{background:var(--c-white)}
+
+.block-title{
+  font-family:var(--f-jp-serif);
+  font-weight:400;
+  font-size:clamp(1.4rem,2.4vw,1.8rem);
+  color:var(--c-ink);
+  letter-spacing:.16em;
+  margin-bottom:14px;
+}
+.block-desc{
+  color:var(--c-ink-soft);
+  font-size:.9rem;
+  letter-spacing:.06em;
+  line-height:1.9;
+  max-width:560px;
+  margin:0 auto;
+}
+
+/* PHILOSOPHY */
+.block-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+  max-width:980px;
+  margin:0 auto;
+}
+.block-statement{
+  font-family:var(--f-jp-serif);
+  font-weight:400;
+  font-size:clamp(1rem,1.5vw,1.15rem);
+  color:var(--c-ink);
+  letter-spacing:.1em;
+  line-height:2.2;
+}
+.block-art{display:flex;justify-content:center}
+.block-art svg,.block-art img{width:100%;max-width:210px;height:auto;object-fit:contain}
+
+/* CONCEPT */
+.concept-head{text-align:center;margin-bottom:40px;max-width:680px;margin-left:auto;margin-right:auto}
+.concept-en{
+  font-family:var(--f-en);
+  font-weight:400;
+  font-style:italic;
+  font-size:clamp(1.6rem,3.2vw,2.4rem);
+  color:var(--c-rose-deep);
+  letter-spacing:.04em;
+  line-height:1.4;
+  margin-bottom:8px;
+}
+.concept-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:center;
+  max-width:880px;
+  margin:0 auto;
+}
+.concept-art{display:flex;justify-content:center}
+.concept-art svg,.concept-art img{width:100%;max-width:225px;height:auto;object-fit:contain}
+.concept-desc{
+  font-size:.95rem;
+  color:var(--c-ink);
+  line-height:2.1;
+  letter-spacing:.06em;
+  margin-bottom:20px;
+}
+.concept-emphasis{
+  font-family:var(--f-jp-serif);
+  font-weight:500;
+  font-size:1rem;
+  color:var(--c-ink);
+  letter-spacing:.08em;
+  line-height:1.9;
+  padding-top:20px;
+  border-top:0.5px solid var(--c-line);
+}
+
+/* WHY */
+.why-head{text-align:center;margin-bottom:40px}
+.why-grid{
+  display:grid;
+  grid-template-columns:1fr 1.2fr;
+  gap:50px;
+  align-items:center;
+  max-width:880px;
+  margin:0 auto;
+}
+.why-art{display:flex;justify-content:center}
+.why-art svg,.why-art img{width:auto;max-width:225px;max-height:180px;height:auto;object-fit:contain}
+.why-text p{
+  font-size:.95rem;
+  color:var(--c-ink);
+  line-height:2.1;
+  letter-spacing:.06em;
+  margin-bottom:14px;
+}
+.why-lead{
+  font-family:var(--f-jp-serif);
+  font-weight:500;
+  font-size:1.05rem !important;
+  color:var(--c-rose-deep) !important;
+  letter-spacing:.08em;
+  padding-bottom:14px;
+  border-bottom:0.5px solid var(--c-line);
+  margin-bottom:18px !important;
+}
+.why-styles{
+  background:var(--c-bg-cream);
+  border-radius:10px;
+  padding:18px 22px;
+  margin:14px 0;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:8px 16px;
+}
+.why-styles dt{
+  font-family:var(--f-jp-serif);
+  font-weight:500;
+  font-size:.86rem;
+  color:var(--c-rose-deep);
+  letter-spacing:.06em;
+  padding-top:2px;
+  white-space:nowrap;
+}
+.why-styles dd{
+  font-size:.86rem;
+  color:var(--c-ink);
+  line-height:1.85;
+  letter-spacing:.04em;
+}
+.why-emphasis{
+  font-family:var(--f-jp-serif);
+  font-weight:500;
+  margin-top:14px !important;
+  margin-bottom:0 !important;
+}
+.why-note{
+  font-size:.78rem !important;
+  color:var(--c-ink-soft) !important;
+  margin-top:14px !important;
+  margin-bottom:0 !important;
+  letter-spacing:.04em;
+  font-weight:300 !important;
+}
+
+/* BELIEFS（6項目グリッド） */
+.beliefs-head{text-align:center;margin-bottom:48px}
+.beliefs-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  max-width:980px;
+  margin:0 auto;
+}
+.belief-card{
+  background:var(--c-white);
+  border:0.5px solid var(--c-line);
+  border-radius:12px;
+  padding:28px 22px;
+  text-align:center;
+  position:relative;
+}
+.belief-num{
+  display:block;
+  font-family:var(--f-en);
+  font-style:italic;
+  font-size:1.1rem;
+  color:var(--c-gold);
+  letter-spacing:.16em;
+  margin-bottom:14px;
+}
+.belief-card p{
+  font-family:var(--f-jp-serif);
+  font-weight:400;
+  font-size:.92rem;
+  color:var(--c-ink);
+  letter-spacing:.06em;
+  line-height:1.85;
+}
+
+/* TRAINING（2項目グリッド） */
+.training-block{
+  padding:56px 40px;
+  background:var(--c-bg-cream);
+}
+.training-head{text-align:center;margin-bottom:48px}
+.training-art{
+  width:90px;
+  margin:20px auto 0;
+}
+.training-art img{width:100%;height:auto;display:block}
+.training-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  max-width:760px;
+  margin:0 auto;
+}
+.training-card{
+  background:var(--c-white);
+  border:0.5px solid var(--c-line);
+  border-radius:14px;
+  padding:32px 26px;
+  text-align:left;
+}
+.training-num{
+  display:block;
+  font-family:var(--f-en);
+  font-style:italic;
+  font-size:1.1rem;
+  color:var(--c-gold);
+  letter-spacing:.16em;
+  margin-bottom:10px;
+}
+.training-card h3{
+  font-family:var(--f-jp-serif);
+  font-weight:500;
+  font-size:1.05rem;
+  color:var(--c-ink);
+  letter-spacing:.08em;
+  line-height:1.7;
+  margin-bottom:14px;
+}
+.training-card p{
+  font-size:.86rem;
+  color:var(--c-ink-soft);
+  line-height:1.95;
+  letter-spacing:.04em;
+}
+
+/* APPROACH（3項目グリッド） */
+.approach-head{text-align:center;margin-bottom:48px}
+.approach-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  max-width:980px;
+  margin:0 auto;
+}
+.approach-card{
+  background:var(--c-bg-cream);
+  border:0.5px solid var(--c-line);
+  border-radius:14px;
+  padding:32px 26px;
+  text-align:left;
+}
+.approach-num{
+  display:block;
+  font-family:var(--f-en);
+  font-style:italic;
+  font-size:1.1rem;
+  color:var(--c-gold);
+  letter-spacing:.16em;
+  margin-bottom:10px;
+}
+.approach-card h3{
+  font-family:var(--f-jp-serif);
+  font-weight:500;
+  font-size:1.02rem;
+  color:var(--c-ink);
+  letter-spacing:.08em;
+  line-height:1.7;
+  margin-bottom:14px;
+}
+.approach-card p{
+  font-size:.86rem;
+  color:var(--c-ink-soft);
+  line-height:1.95;
+  letter-spacing:.04em;
+}
+
+/* NAME ORIGIN（テキスト中心、コンパクト） */
+.name-head{text-align:center;margin-bottom:32px}
+.name-text{
+  max-width:680px;margin:0 auto;
+  text-align:center;
+}
+.name-text p{
+  font-size:.95rem;
+  color:var(--c-ink);
+  line-height:2.1;
+  letter-spacing:.06em;
+  margin-bottom:14px;
+}
+.name-text-em{
+  font-family:var(--f-jp-serif);
+  font-weight:500;
+  margin-top:20px !important;
+  padding-top:20px;
+  border-top:0.5px solid var(--c-line);
+  display:inline-block;
+}
+
+/* RESPONSIVE */
+@media (max-width: 880px){
+  .page-hero{padding:110px 22px 24px}
+  .philosophy-block,.concept-block,.why-block,
+  .beliefs-block,.approach-block,.name-block{padding:54px 22px}
+  .block-grid,.concept-grid,.why-grid{grid-template-columns:1fr;gap:32px}
+  .block-art svg,.block-art img,
+  .concept-art svg,.concept-art img,
+  .why-art svg,.why-art img{max-width:170px}
+  .beliefs-grid{grid-template-columns:1fr 1fr;gap:14px}
+  .belief-card{padding:22px 16px}
+  .approach-grid{grid-template-columns:1fr;gap:16px}
+}
+
+/* NAV ACTIVE */
+.nav-links a.active{color:var(--c-rose-deep);font-weight:500}
