@@ -4,19 +4,52 @@
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
+  "additionalType": "https://schema.org/ChildCare",
   "name": "Serenesta（セレネスタ）",
   "description": "発達特性のある未就学児のご家庭に、担当シッター固定の訪問型保育をお届けします。保育士資格者による継続伴走型ケア。",
-"url": "https://serenesta.jp/",
+  "url": "https://serenesta.jp/",
   "email": "info@serenesta.jp",
   "areaServed": [
-    "港区","中央区","文京区","目黒区","渋谷区","世田谷区","江東区","杉並区","品川区"
+    {"@type": "AdministrativeArea", "name": "東京都港区"},
+    {"@type": "AdministrativeArea", "name": "東京都中央区"},
+    {"@type": "AdministrativeArea", "name": "東京都文京区"},
+    {"@type": "AdministrativeArea", "name": "東京都目黒区"},
+    {"@type": "AdministrativeArea", "name": "東京都渋谷区"},
+    {"@type": "AdministrativeArea", "name": "東京都世田谷区"},
+    {"@type": "AdministrativeArea", "name": "東京都江東区"},
+    {"@type": "AdministrativeArea", "name": "東京都杉並区"},
+    {"@type": "AdministrativeArea", "name": "東京都品川区"}
   ],
   "founder": {
     "@type": "Person",
     "name": "渡邉 夏帆",
     "jobTitle": "代表"
   },
-  "priceRange": "$$$$"
+  "priceRange": "$$$$",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Serenestaのサービス",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "プレサイスシッター",
+          "description": "発達特性のある未就学児のご家庭向けの担当制訪問保育。保育士資格者が継続伴走型でケアいたします。"
+        },
+        "url": "https://serenesta.jp/services/precise.html"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "グランドシッター",
+          "description": "保護者が就労しているご家庭向けの担当制訪問保育。家庭生活に継続して寄り添うケアを提供いたします。"
+        },
+        "url": "https://serenesta.jp/services/grand.html"
+      }
+    ]
+  }
 }
 </script>
   <head>
