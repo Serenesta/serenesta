@@ -48,7 +48,7 @@
   border-radius:18px;
   padding:44px 44px;
   text-align:center;
-  box-shadow:0 24px 60px rgba(185,130,144,.08);
+  box-shadow:0 24px 60px rgba(192,128,80,.08);
 }
 .founding-eyebrow{
   font-family:var(--f-en);
@@ -273,13 +273,16 @@
 }
 .extra-head{text-align:center;margin-bottom:40px}
 .extra-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
   gap:20px;
-  max-width:760px;
+  max-width:860px;
   margin:0 auto;
 }
 .extra-card{
+  flex:1 1 260px;
+  max-width:320px;
   background:var(--c-bg-cream);
   border-radius:14px;
   padding:28px 26px;
@@ -364,7 +367,8 @@
   .sim-card{padding:22px 18px}
   .sim-table{font-size:.74rem}
   .sim-table thead th,.sim-table tbody td{padding:6px 4px}
-  .extra-grid{grid-template-columns:1fr;gap:14px}
+  .extra-grid{gap:14px}
+  .extra-card{flex-basis:100%;max-width:none}
   .cross-card{padding:24px 22px}
 }
 

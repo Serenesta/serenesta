@@ -4,16 +4,16 @@
    ============================================================ */
 
 :root{
-  --c-bg-pale:#FAF2F4;     /* パウダーブラッシュ */
-  --c-bg-mid:#EDD0D8;      /* ブラッシュピーチ */
-  --c-bg-cream:#F5EDE9;    /* リネンクリーム */
-  --c-rose:#D9A8B5;        /* ダスティーローズ */
-  --c-rose-deep:#B98290;   /* ローズアクセント */
+  --c-bg-pale:#FBF6EC;     /* ミストアイボリー */
+  --c-bg-mid:#F3E3D2;      /* ペールアプリコット */
+  --c-bg-cream:#F7EFE2;    /* 生成りベージュ */
+  --c-rose:#E0A87E;        /* アプリコット */
+  --c-rose-deep:#C08050;   /* テラコッタ */
   --c-gold:#B8A080;        /* ゴールド */
   --c-gold-deep:#8B7256;   /* ディープゴールド */
-  --c-ink:#3D3033;         /* ダークココア */
-  --c-ink-soft:#7A6A6E;    /* サブテキスト */
-  --c-line:#E8D7DC;        /* 細線 */
+  --c-ink:#4A3E32;         /* ダークブラウン */
+  --c-ink-soft:#8A7866;    /* サブテキスト */
+  --c-line:#EBDFC9;        /* 細線 */
   --c-white:#FFFFFF;
 
   --f-en:'Cormorant Garamond', serif;
@@ -50,7 +50,7 @@ ul{list-style:none}
   background:rgba(255,255,255,.9);
   backdrop-filter:blur(14px);
   padding:14px 40px;
-  box-shadow:0 1px 30px rgba(127,80,90,.06);
+  box-shadow:0 1px 30px rgba(120,90,60,.06);
 }
 .nav-logo{
   font-family:var(--f-en);
@@ -75,7 +75,7 @@ ul{list-style:none}
   background:#fff;
   padding:14px 20px;
   border-radius:10px;
-  box-shadow:0 10px 40px rgba(127,80,90,.12);
+  box-shadow:0 10px 40px rgba(120,90,60,.12);
   min-width:200px;
   opacity:0;visibility:hidden;
   transition:all .3s;
@@ -138,9 +138,9 @@ ul{list-style:none}
   border-radius:999px;
   border:0;cursor:pointer;
   transition:background .3s, transform .3s, box-shadow .3s;
-  box-shadow:0 8px 30px rgba(185,130,144,.28);
+  box-shadow:0 8px 30px rgba(192,128,80,.28);
 }
-.btn-pill:hover{background:var(--c-ink);transform:translateY(-2px);box-shadow:0 12px 40px rgba(185,130,144,.4)}
+.btn-pill:hover{background:var(--c-ink);transform:translateY(-2px);box-shadow:0 12px 40px rgba(192,128,80,.4)}
 .btn-pill.ghost{background:transparent;color:var(--c-rose-deep);border:1px solid var(--c-rose-deep);box-shadow:none}
 .btn-pill.ghost:hover{background:var(--c-rose-deep);color:#fff}
 .btn-pill.line{background:#06C755;color:#fff;box-shadow:0 8px 30px rgba(6,199,85,.25)}
@@ -205,7 +205,7 @@ ul{list-style:none}
   width:100%;
   height:auto;
   display:block;
-  filter:drop-shadow(0 2px 24px rgba(127,80,90,.06));
+  filter:drop-shadow(0 2px 24px rgba(120,90,60,.06));
 }
 .hero-area{
   margin-top:32px;
@@ -288,7 +288,7 @@ ul{list-style:none}
   border:0.5px solid var(--c-line);
   transition:transform .4s, box-shadow .4s;
 }
-.for-you-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(185,130,144,.12)}
+.for-you-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(192,128,80,.12)}
 .for-you-icon{
   width:72px;height:72px;
   margin:0 auto 20px;
@@ -325,7 +325,7 @@ ul{list-style:none}
   border:0.5px solid var(--c-line);
   transition:transform .4s, box-shadow .4s;
 }
-.service-card:hover{transform:translateY(-6px);box-shadow:0 30px 70px rgba(185,130,144,.15)}
+.service-card:hover{transform:translateY(-6px);box-shadow:0 30px 70px rgba(192,128,80,.15)}
 .service-art{
   width:180px;height:140px;margin:0 auto 28px;
   display:flex;align-items:center;justify-content:center;
@@ -407,7 +407,7 @@ ul{list-style:none}
   text-align:left;
   transition:transform .4s, box-shadow .4s;
 }
-.strength-card:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(185,130,144,.12)}
+.strength-card:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(192,128,80,.12)}
 .strength-num{
   font-family:var(--f-en);
   font-style:italic;
@@ -599,7 +599,7 @@ ul{list-style:none}
   font-size:1.3rem;
   color:var(--c-rose-deep);
   letter-spacing:.04em;
-  box-shadow:0 14px 40px rgba(185,130,144,.1);
+  box-shadow:0 14px 40px rgba(192,128,80,.1);
 }
 .flow-art{
   width:80px;height:80px;margin:0 auto 18px;
@@ -650,7 +650,7 @@ ul{list-style:none}
 }
 .cta .btn-pill.ghost{
   background:#fff;color:var(--c-ink);border-color:#fff;
-  box-shadow:0 14px 40px rgba(127,80,90,.15);
+  box-shadow:0 14px 40px rgba(120,90,60,.15);
 }
 .cta .btn-pill.ghost:hover{background:var(--c-ink);color:#fff;border-color:var(--c-ink)}
 
@@ -711,6 +711,29 @@ ul{list-style:none}
 /* ============================================================
    RESPONSIVE
    ============================================================ */
+/* 安心への取り組み：導入文 */
+.trust-intro{
+  max-width:620px;
+  margin:20px auto 0;
+  font-size:.92rem;
+  line-height:2;
+  color:var(--c-ink-soft);
+  text-align:center;
+}
+/* CTA前のひとことセクション */
+.one-line{
+  padding:80px 40px;
+  background:var(--c-bg-pale);
+  text-align:center;
+}
+.one-line-text{
+  font-family:var(--f-jp-serif);
+  font-size:1.25rem;
+  letter-spacing:.14em;
+  line-height:2;
+  color:var(--c-ink);
+}
+
 @media (max-width: 880px){
   .nav{padding:18px 20px}
   .nav.scrolled{padding:12px 20px}
@@ -718,8 +741,15 @@ ul{list-style:none}
   .nav-cta{display:none}
   .inner{padding:0 22px}
   .hero{padding:120px 22px 80px;min-height:auto}
-  .brand-statement,.for-you,.services,.trust,.flow,.cta{padding:80px 22px}
-  .for-you-grid{grid-template-columns:1fr;gap:20px}
+  .brand-statement,.for-you,.services,.trust,.flow,.cta{padding:64px 22px}
+  .section-head{margin-bottom:40px}
+  .for-you-grid{grid-template-columns:1fr;gap:14px}
+  .for-you-card{padding:26px 22px;display:flex;align-items:center;gap:18px;text-align:left}
+  .for-you-icon{width:52px;height:52px;margin:0;flex-shrink:0}
+  .for-you-text br{display:none}
+  .one-line{padding:56px 22px}
+  .one-line-text{font-size:1.05rem}
+  .trust-intro{font-size:.86rem;text-align:left}
   .services-grid{grid-template-columns:1fr;gap:20px}
   .service-card{padding:36px 24px}
   .trust-grid{grid-template-columns:repeat(2,1fr);gap:14px}
@@ -740,7 +770,7 @@ ul{list-style:none}
     flex-direction:column;
     align-items:stretch;
     padding:18px 28px 28px;
-    box-shadow:0 10px 30px rgba(127,80,90,.10);
+    box-shadow:0 10px 30px rgba(120,90,60,.10);
     border-top:0.5px solid var(--c-line);
     gap:0;
     z-index:60;
@@ -779,4 +809,21 @@ ul{list-style:none}
   .nav-toggle.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
   .nav-toggle.open span:nth-child(2){opacity:0}
   .nav-toggle.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+}
+
+/* 水彩挿絵（共通） */
+.illust-inline{max-width:420px;margin:36px auto 0}
+.illust-inline img{width:100%;height:auto;border-radius:16px;display:block}
+.illust-sm{max-width:300px;margin:20px 0 0}
+@media (max-width:880px){
+  .illust-inline{max-width:280px;margin:24px auto 0}
+  .illust-sm{max-width:240px}
+}
+
+/* ヒーロー：ロゴワイド */
+.hero-art-wide{width:min(880px,94vw);margin:0 auto 26px}
+.hero-art-wide img{border-radius:18px}
+@media (max-width:880px){
+  .hero-art-wide{width:100%;margin:0 auto 18px}
+  .hero{padding:110px 20px 64px}
 }

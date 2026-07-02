@@ -359,7 +359,7 @@
 }
 .cross-card:hover{
   transform:translateY(-4px);
-  box-shadow:0 18px 50px rgba(185,130,144,.12);
+  box-shadow:0 18px 50px rgba(192,128,80,.12);
 }
 .cross-eyebrow{
   font-family:var(--f-en);
