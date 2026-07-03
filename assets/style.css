@@ -161,7 +161,7 @@ ul{list-style:none}
 .hero{
   min-height:100vh;
   padding:140px 40px 100px;
-  background:linear-gradient(180deg,var(--c-bg-pale) 0%,#F4DEE4 60%,var(--c-bg-mid) 100%);
+  background:linear-gradient(180deg,var(--c-bg-pale) 0%,#F3E3D2 60%,var(--c-bg-mid) 100%);
   display:flex;align-items:center;justify-content:center;
   text-align:center;
   position:relative;
@@ -826,4 +826,17 @@ ul{list-style:none}
 @media (max-width:880px){
   .hero-art-wide{width:100%;margin:0 auto 18px}
   .hero{padding:110px 20px 64px}
+}
+
+
+/* ロゴ下のカタカナ表記 */
+.nav-logo{display:flex;flex-direction:column;line-height:1.2}
+.logo-kana{display:block;font-size:0.55rem;letter-spacing:0.42em;color:var(--c-text);opacity:.75;font-weight:400;margin-top:2px}
+.footer-logo .logo-kana{margin-top:4px;letter-spacing:0.42em}
+
+/* 一文セクション下のイラスト */
+.one-line-img{max-width:340px;margin:28px auto 0;}
+.one-line-img img{width:100%;height:auto;border-radius:16px;display:block}
+@media (max-width:768px){
+  .one-line-img{max-width:260px;margin-top:22px}
 }
