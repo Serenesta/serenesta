@@ -5,7 +5,7 @@
 /* PAGE HERO（極コンパクト） */
 .page-hero{
   padding:130px 40px 30px;
-  background:linear-gradient(180deg,var(--c-bg-pale) 0%,#F4DEE4 100%);
+  background:linear-gradient(180deg,var(--c-bg-pale) 0%,#F3E3D2 100%);
   text-align:center;
 }
 .page-hero-inner{max-width:680px;margin:0 auto}

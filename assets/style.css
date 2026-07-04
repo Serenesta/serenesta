@@ -840,3 +840,15 @@ ul{list-style:none}
 @media (max-width:768px){
   .one-line-img{max-width:260px;margin-top:22px}
 }
+
+
+/* 信頼の3点バー */
+.trust-bar{background:var(--c-bg-mid);padding:18px 24px}
+.trust-inner{max-width:960px;margin:0 auto;display:flex;justify-content:center;gap:40px;flex-wrap:wrap}
+.trust-item{font-size:.82rem;letter-spacing:.1em;color:var(--c-ink);display:flex;align-items:center;gap:8px}
+.trust-item::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c-accent-deep);flex-shrink:0}
+.trust-item span{font-size:.74rem;color:var(--c-text);opacity:.85}
+@media (max-width:640px){
+  .trust-bar{padding:14px 18px}
+  .trust-inner{flex-direction:column;gap:8px;align-items:flex-start;max-width:320px}
+}
