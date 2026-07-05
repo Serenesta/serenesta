@@ -540,12 +540,13 @@ ul{list-style:none}
   gap:24px;
   max-width:980px;margin:0 auto;
 }
-.trust-item{
+.trust-grid .trust-item{
   background:var(--c-white);
   padding:36px 20px;
   border-radius:14px;
   text-align:center;
   border:0.5px solid var(--c-line);
+  display:block;
 }
 .trust-icon{
   width:60px;height:60px;margin:0 auto 16px;
@@ -746,6 +747,7 @@ ul{list-style:none}
   .for-you-grid{grid-template-columns:1fr;gap:14px}
   .for-you-card{padding:26px 22px;display:flex;align-items:center;gap:18px;text-align:left}
   .for-you-icon{width:52px;height:52px;margin:0;flex-shrink:0}
+  .for-you-text{min-width:0;font-size:.9rem;letter-spacing:.03em;line-height:1.9}
   .for-you-text br{display:none}
   .one-line{padding:54px 22px}
   .one-line-text{font-size:1.05rem}
@@ -753,7 +755,7 @@ ul{list-style:none}
   .services-grid{grid-template-columns:1fr;gap:20px}
   .service-card{padding:36px 24px}
   .trust-grid{grid-template-columns:repeat(2,1fr);gap:14px}
-  .trust-item{padding:24px 14px}
+  .trust-grid .trust-item{padding:24px 14px}
   .flow-grid{grid-template-columns:1fr;gap:48px}
   .flow-grid::before{display:none}
   .footer-links{gap:10px 16px}
@@ -845,9 +847,9 @@ ul{list-style:none}
 /* 信頼の3点バー */
 .trust-bar{background:var(--c-bg-mid);padding:18px 24px}
 .trust-inner{max-width:960px;margin:0 auto;display:flex;justify-content:center;gap:40px;flex-wrap:wrap}
-.trust-item{font-size:.82rem;letter-spacing:.1em;color:var(--c-ink);display:flex;align-items:center;gap:8px}
-.trust-item::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c-accent-deep);flex-shrink:0}
-.trust-item span{font-size:.74rem;color:var(--c-text);opacity:.85}
+.trust-bar .trust-item{font-size:.82rem;letter-spacing:.1em;color:var(--c-ink);display:flex;align-items:center;gap:8px;background:none;padding:0;border:none;border-radius:0;text-align:left}
+.trust-bar .trust-item::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c-accent-deep);flex-shrink:0}
+.trust-bar .trust-item span{font-size:.74rem;color:var(--c-text);opacity:.85}
 @media (max-width:640px){
   .trust-bar{padding:14px 18px}
   .trust-inner{flex-direction:column;gap:8px;align-items:flex-start;max-width:320px}
