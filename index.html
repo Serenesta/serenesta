@@ -1,137 +1,325 @@
-/* ============================================================
-   Serenesta v2 — faq.html
-   ============================================================ */
+<!DOCTYPE html>
+<html lang="ja">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "additionalType": "https://schema.org/ChildCare",
+  "name": "Serenesta（セレネスタ）",
+  "description": "発達特性のある未就学児のご家庭に、担当シッターによる訪問型保育をお届けします。保育士資格者による継続的な家庭支援。",
+  "url": "https://serenesta.jp/",
+  "email": "info@serenesta.jp",
+  "areaServed": [
+    {"@type": "AdministrativeArea", "name": "東京都港区"},
+    {"@type": "AdministrativeArea", "name": "東京都中央区"},
+    {"@type": "AdministrativeArea", "name": "東京都文京区"},
+    {"@type": "AdministrativeArea", "name": "東京都目黒区"},
+    {"@type": "AdministrativeArea", "name": "東京都渋谷区"},
+    {"@type": "AdministrativeArea", "name": "東京都世田谷区"},
+    {"@type": "AdministrativeArea", "name": "東京都江東区"},
+    {"@type": "AdministrativeArea", "name": "東京都杉並区"},
+    {"@type": "AdministrativeArea", "name": "東京都品川区"}
+  ],
+  "founder": {
+    "@type": "Person",
+    "name": "渡邉 夏帆",
+    "jobTitle": "代表"
+  },
+  "priceRange": "$$$$",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Serenestaのサービス",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "プリサイスシッター",
+          "description": "発達特性のある未就学児のご家庭向けの担当制訪問保育。保育士資格者が継続的な家庭支援を行います。"
+        },
+        "url": "https://serenesta.jp/services/precise.html"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "グランドシッター",
+          "description": "保護者が就労しているご家庭向けの担当制訪問保育。家庭生活に継続して寄り添うケアを提供いたします。"
+        },
+        "url": "https://serenesta.jp/services/grand.html"
+      }
+    ]
+  }
+}
+</script>
+  <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serenesta｜発達特性のあるお子様の訪問型保育・東京都心部9区</title>
+<meta name="description" content="発達特性のある未就学児のご家庭に、担当シッターによる訪問型保育をお届けします。保育士資格者による継続的な家庭支援。東京都心部9区対応。事前面談受付中。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Serenesta">
+<meta property="og:title" content="Serenesta｜発達特性のあるお子様の訪問型保育・東京都心部9区">
+<meta property="og:description" content="発達特性のある未就学児のご家庭に、担当シッターによる訪問型保育をお届けします。保育士資格者による継続的な家庭支援。東京都心部9区対応。事前面談受付中。">
+<meta property="og:image" content="https://serenesta.jp/assets/img/ogp.png">
+<meta property="og:url" content="https://serenesta.jp/">
+    <link rel="canonical" href="https://serenesta.jp/">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Serenesta｜発達特性のあるお子様の訪問型保育・東京都心部9区">
+<meta name="twitter:description" content="発達特性のある未就学児のご家庭に、担当シッターによる訪問型保育をお届けします。保育士資格者による継続的な家庭支援。東京都心部9区対応。事前面談受付中。">
+<meta name="twitter:image" content="https://serenesta.jp/assets/img/ogp.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+JP:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+</head>
+<body>
 
-/* PAGE HERO */
-.page-hero{
-  padding:130px 40px 30px;
-  background:linear-gradient(180deg,var(--c-bg-pale) 0%,#F3E3D2 100%);
-  text-align:center;
-}
-.page-hero-inner{max-width:680px;margin:0 auto}
-.page-title{
-  font-family:var(--f-jp-serif);
-  font-weight:400;
-  font-size:clamp(1.8rem,3.2vw,2.4rem);
-  color:var(--c-ink);
-  letter-spacing:.16em;
-  margin:8px 0 16px;
-}
-.page-art{
-  width:150px;
-  margin:18px auto 4px;
-}
-.page-art img{
-  width:100%;
-  height:auto;
-  display:block;
-}
-.page-lead{
-  font-size:.95rem;
-  color:var(--c-ink-soft);
-  letter-spacing:.06em;
-  line-height:1.95;
-  margin-top:18px;
-}
+<!-- ========== NAV ========== -->
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-logo">Serenesta<span class="logo-kana">セレネスタ</span></a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li class="has-sub">
+      <a href="#">Services</a>
+      <ul class="sub">
+        <li><a href="services/precise.html">プリサイスシッター</a></li>
+        <li><a href="services/grand.html">グランドシッター</a></li>
+      </ul>
+    </li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="flow.html">Flow</a></li>
+    <li><a href="founder.html">Founder</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="company.html">運営者情報</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">INQUIRY</a>
+  <button class="nav-toggle" aria-label="menu"><span></span><span></span><span></span></button>
+</nav>
 
-/* FAQ */
-.faq-block{
-  padding:56px 40px;
-  background:var(--c-white);
-}
-.faq-list{
-  max-width:780px;
-  margin:0 auto;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
-.faq-item{
-  background:var(--c-white);
-  border:0.5px solid var(--c-line);
-  border-radius:12px;
-  overflow:hidden;
-  transition:border-color .25s;
-}
-.faq-item.open{
-  border-color:var(--c-rose);
-}
-.faq-q{
-  width:100%;
-  background:transparent;
-  border:0;
-  text-align:left;
-  cursor:pointer;
-  padding:22px 56px 22px 28px;
-  position:relative;
-  font-family:var(--f-jp-serif);
-  font-weight:500;
-  font-size:.98rem;
-  color:var(--c-ink);
-  letter-spacing:.06em;
-  line-height:1.7;
-}
-.faq-q::before{
-  content:"Q";
-  font-family:var(--f-en);
-  font-style:italic;
-  font-size:1.1rem;
-  color:var(--c-rose-deep);
-  margin-right:14px;
-  letter-spacing:.04em;
-}
-.faq-q::after{
-  content:"";
-  position:absolute;
-  right:28px;top:50%;
-  width:10px;height:10px;
-  border-right:1.4px solid var(--c-gold-deep);
-  border-bottom:1.4px solid var(--c-gold-deep);
-  transform:translateY(-70%) rotate(45deg);
-  transition:transform .3s;
-}
-.faq-item.open .faq-q::after{
-  transform:translateY(-30%) rotate(-135deg);
-}
-.faq-a{
-  max-height:0;
-  overflow:hidden;
-  transition:max-height .35s ease;
-  padding:0 28px;
-  color:var(--c-ink);
-  font-size:.92rem;
-  line-height:2;
-  letter-spacing:.04em;
-}
-.faq-item.open .faq-a{
-  max-height:600px;
-  padding:4px 28px 26px;
-}
-.faq-a p{margin-bottom:10px}
-.faq-a p:last-child{margin-bottom:0}
-.faq-a strong{
-  color:var(--c-ink);
-  font-weight:600;
-}
-.faq-a-note{
-  margin-top:14px;
-  padding-top:14px;
-  border-top:0.5px solid var(--c-line);
-  font-size:.84rem;
-  color:var(--c-ink-soft);
-}
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="hero-inner">
+    <h1 class="hero-art hero-art-wide reveal">
+      <img src="assets/img/watercolor/hero-logo-wide.webp" alt="Serenesta（セレネスタ）｜家庭訪問型ベビーシッター" loading="eager">
+    </h1>
+    <p class="hero-sub reveal">担当シッター制と、訪問後24時間以内の訪問記録。ご家庭に寄り添う訪問型保育です。</p>
+    <a href="#cta" class="btn-pill reveal">事前面談のご予約</a>
+  </div>
+</section>
 
-/* RESPONSIVE */
-@media (max-width: 880px){
-  .page-hero{padding:110px 22px 24px}
-  .page-art{width:130px}
-  .faq-block{padding:52px 22px}
-  .faq-q{padding:18px 48px 18px 22px;font-size:.92rem}
-  .faq-q::before{font-size:1rem;margin-right:10px}
-  .faq-q::after{right:20px}
-  .faq-a{padding:0 22px;font-size:.88rem}
-  .faq-item.open .faq-a{padding:4px 22px 22px}
-}
+<!-- ========== 信頼の3点 ========== -->
+<section class="trust-bar">
+  <div class="trust-inner">
+    <p class="trust-item">東京都へ設置届出済み</p>
+    <p class="trust-item">賠償責任保険加入<span>（対人1名1億円）</span></p>
+    <p class="trust-item">保育士資格者が在籍</p>
+  </div>
+</section>
 
-/* NAV ACTIVE */
-.nav-links a.active{color:var(--c-rose-deep);font-weight:500}
+<!-- ========== こんな方へ ========== -->
+<section class="for-you">
+  <div class="inner">
+    <div class="section-head reveal">
+      <p class="eyebrow">For You</p>
+      <h2 class="h-en">こんな方へ</h2>
+    </div>
+    <div class="for-you-grid for-you-grid-2">
+      <div class="for-you-card reveal">
+        <p class="for-you-text">日々忙しく、頼れる人がいないご家庭へ</p>
+      </div>
+      <div class="for-you-card reveal">
+        <p class="for-you-text">発達特性への理解がある人にお願いしたいご家庭へ</p>
+      </div>
+      <div class="for-you-card reveal">
+        <p class="for-you-text">お迎えや習い事の送迎をお願いしたいご家庭へ</p>
+      </div>
+      <div class="for-you-card reveal">
+        <p class="for-you-text">安心できる人に、長くお願いしたいご家庭へ</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Our Standard ========== -->
+<section class="standard">
+  <div class="inner">
+    <div class="standard-inner reveal">
+      <p class="eyebrow">Our Standard</p>
+      <div class="gold-divider"></div>
+      <p class="standard-text">発達特性のあるお子様に向き合うために磨いた、丁寧で繊細で根気強い関わり。</p>
+      <p class="standard-text">大切な命をお預かりする上での安心は、特別なサービスではなく、すべてのご家庭にお届けすべき当たり前の品質だと考えています。</p>
+      <p class="standard-text-em">Serenestaはこの水準を、すべてのシッターの基準とし、すべてのご家庭へお届けします。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 2 SERVICES ========== -->
+<section class="services">
+  <div class="inner">
+    <div class="section-head reveal">
+      <p class="eyebrow">Two Services</p>
+      <h2 class="h-en">2つのサービス</h2>
+      <p class="section-desc">ご家庭の状況やお子様の特性に合わせた、2つの専門サービス。</p>
+    </div>
+    <div class="services-grid">
+      <article class="service-card reveal">
+        <p class="service-tag">PRECISE SITTER</p>
+        <h3 class="service-name">プリサイスシッター</h3>
+        <p class="service-lead">発達特性のあるお子様の、家庭での日々を整える。</p>
+        <p class="service-price">6,000円<span>／時間（税込）</span></p>
+        <a href="services/precise.html" class="service-link">詳しくはこちら →</a>
+      </article>
+      <article class="service-card reveal">
+        <p class="service-tag">GRAND SITTER</p>
+        <h3 class="service-name">グランドシッター</h3>
+        <p class="service-lead">お忙しいご家庭に、高品質な家庭訪問を。</p>
+        <p class="service-price">4,400円<span>／時間（税込）</span></p>
+        <a href="services/grand.html" class="service-link">詳しくはこちら →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 安心バッジ ========== -->
+<section class="trust">
+  <div class="inner">
+    <div class="section-head reveal">
+      <p class="eyebrow">Our Promises</p>
+      <h2 class="h-en">安心への取り組み</h2>
+      <p class="trust-intro">ベビーシッターを探すとき、料金やサービス内容よりも先に気になるのは、"この会社に任せても大丈夫？"ということ。Serenestaは、基本を何より大切にしています。</p>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-item reveal">
+        <div class="trust-icon">
+          <svg viewBox="0 0 60 60" fill="none" stroke="#B8A080" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M30,8 L48,16 L48,30 C48,42 30,52 30,52 C30,52 12,42 12,30 L12,16 Z"/>
+            <path d="M22,30 L28,36 L40,24"/>
+          </svg>
+        </div>
+        <p class="trust-label">有資格者・経験者</p>
+        <p class="trust-sub">保育士・幼稚園教諭・発達支援経験者・子育て経験者から</p>
+      </div>
+      <div class="trust-item reveal">
+        <div class="trust-icon">
+          <svg viewBox="0 0 60 60" fill="none" stroke="#B8A080" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="12" y="14" width="36" height="36" rx="2"/>
+            <path d="M18,24 L42,24"/>
+            <path d="M18,32 L42,32"/>
+            <path d="M18,40 L34,40"/>
+            <circle cx="44" cy="46" r="6" fill="#B8A080"/>
+            <path d="M40,46 L43,49 L48,44" stroke="#fff" stroke-width="1.6"/>
+          </svg>
+        </div>
+        <p class="trust-label">研修制度</p>
+        <p class="trust-sub">スタンダード／プリサイス研修</p>
+      </div>
+      <div class="trust-item reveal">
+        <div class="trust-icon">
+          <svg viewBox="0 0 60 60" fill="none" stroke="#B8A080" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10,28 C10,18 18,10 30,10 C42,10 50,18 50,28 L50,32 L10,32 Z"/>
+            <path d="M30,32 L30,50"/>
+            <path d="M22,50 L38,50"/>
+          </svg>
+        </div>
+        <p class="trust-label">損害賠償保険</p>
+        <p class="trust-sub">万が一に備えた加入済み</p>
+      </div>
+      <div class="trust-item reveal">
+        <div class="trust-icon">
+          <svg viewBox="0 0 60 60" fill="none" stroke="#B8A080" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="14" y="10" width="32" height="42" rx="2"/>
+            <line x1="22" y1="22" x2="38" y2="22"/>
+            <line x1="22" y1="30" x2="38" y2="30"/>
+            <line x1="22" y1="38" x2="34" y2="38"/>
+          </svg>
+        </div>
+        <p class="trust-label">認可外保育施設届出</p>
+        <p class="trust-sub">東京都への届出を実施</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 対応エリア ========== -->
+<section class="area">
+  <div class="inner">
+    <div class="section-head reveal">
+      <p class="eyebrow">Service Area</p>
+      <h2 class="h-en">対応エリア</h2>
+      <p class="section-desc">東京都心部9区にて、家庭訪問型シッターサービスをお届けしています。エリア外のご家庭についても、ご要望の内容をお伺いのうえ、対応可能な場合にはお引き受けいたします。</p>
+    </div>
+    <div class="area-grid reveal">
+      <div class="area-item">港区</div>
+      <div class="area-item">中央区</div>
+      <div class="area-item">文京区</div>
+      <div class="area-item">目黒区</div>
+      <div class="area-item">渋谷区</div>
+      <div class="area-item">世田谷区</div>
+      <div class="area-item">江東区</div>
+      <div class="area-item">杉並区</div>
+      <div class="area-item">品川区</div>
+    </div>
+    <p class="area-note reveal">※今後、対応エリアを順次拡大していく予定です。</p>
+  </div>
+</section>
+
+<!-- ========== ひとこと ========== -->
+<section class="one-line">
+  <div class="inner">
+    <p class="one-line-text reveal">信頼できる人がいるだけで、子育ては少し軽くなる。</p>
+    <div class="one-line-img reveal">
+      <img src="assets/img/watercolor/blocks-laughing.webp" alt="シッターと子どもが積み木で楽しく遊ぶ様子" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ========== CTA ========== -->
+<section class="cta" id="cta">
+  <div class="inner reveal">
+    <p class="eyebrow">Contact</p>
+    <h2 class="cta-title">まずは、お気軽にご相談ください。</h2>
+    <p class="cta-sub">24時間以内にご連絡いたします。2026年7月7日開始に向け、創業期特別プラン（先着3家庭・2026年内のご契約限定）も受付中です。</p>
+    <div class="cta-actions">
+      <a href="https://line.me/R/ti/p/@769knnal" class="btn-pill line" target="_blank" rel="noopener noreferrer">LINEで相談する</a>
+      <a href="mailto:info@serenesta.jp" class="btn-pill ghost">メールで相談する</a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Serenesta<span class="logo-kana">セレネスタ</span></div>
+    <p class="footer-tag">Engage a smile of family</p>
+    <div class="footer-links">
+      <a href="about.html">About</a>
+      <a href="services/precise.html">プリサイスシッター</a>
+      <a href="services/grand.html">グランドシッター</a>
+      <a href="pricing.html">料金</a>
+      <a href="flow.html">ご利用の流れ</a>
+      <a href="founder.html">代表紹介</a>
+      <a href="faq.html">FAQ</a>
+      <a href="company.html">運営者情報</a>
+      <a href="tokushoho.html">特定商取引法に基づく表記</a>
+      <a href="privacy.html">プライバシーポリシー</a>
+      <a href="terms.html">利用規約</a>
+    </div>
+    <div class="footer-meta">
+      <p>株式会社Serenesta（セレネスタ）</p>
+      <p>家庭訪問型ベビーシッター事業（認可外保育施設・居宅訪問型）</p>
+      <p>対応エリア：東京都心部9区（順次拡大予定）</p>
+      <p>東京都台東区浅草橋1-31-12 北川ビル4階</p>
+      <p>TEL：03-6822-6677　MAIL：info@serenesta.jp</p>
+      <p class="copy">© 2026 Serenesta Inc. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js"></script>
+</body>
+</html>
