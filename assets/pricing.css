@@ -18,16 +18,14 @@
   margin-bottom:6px;
 }
 .page-lead{
-  font-family:var(--f-jp-serif);
-  font-weight:300;
   font-size:.95rem;
   color:var(--c-ink-soft);
-  letter-spacing:.1em;
+  letter-spacing:.06em;
+  line-height:1.95;
   margin-top:24px;
-  line-height:1.9;
 }
 .page-art{
-  width:120px;
+  width:150px;
   margin:28px auto 0;
 }
 .page-art img{
@@ -63,7 +61,7 @@
   font-weight:500;
   font-size:clamp(1.2rem,2.2vw,1.6rem);
   color:var(--c-ink);
-  letter-spacing:.12em;
+  letter-spacing:.16em;
   margin-bottom:18px;
 }
 .founding-text{
@@ -341,7 +339,7 @@
   font-weight:500;
   font-size:1.2rem;
   color:var(--c-ink);
-  letter-spacing:.12em;
+  letter-spacing:.16em;
   margin-bottom:8px;
 }
 .cross-text{
@@ -355,6 +353,7 @@
 /* RESPONSIVE */
 @media (max-width: 880px){
   .page-hero{padding:110px 22px 40px}
+  .page-art{width:130px}
   .founding-banner{padding:36px 22px}
   .founding-card{padding:32px 22px}
   .founding-meta{flex-direction:column;gap:10px}

@@ -18,7 +18,7 @@
   margin:8px 0 16px;
 }
 .page-art{
-  width:160px;
+  width:150px;
   margin:18px auto 4px;
 }
 .page-art img{
@@ -36,7 +36,7 @@
 
 /* FAQ */
 .faq-block{
-  padding:64px 40px;
+  padding:56px 40px;
   background:var(--c-white);
 }
 .faq-list{
@@ -110,8 +110,8 @@
 .faq-a p{margin-bottom:10px}
 .faq-a p:last-child{margin-bottom:0}
 .faq-a strong{
-  color:var(--c-rose-deep);
-  font-weight:500;
+  color:var(--c-ink);
+  font-weight:600;
 }
 .faq-a-note{
   margin-top:14px;

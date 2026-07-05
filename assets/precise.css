@@ -24,7 +24,7 @@
   margin:0 auto;
 }
 .approach-art{display:flex;justify-content:center}
-.approach-art img{width:auto;max-width:300px;max-height:240px;height:auto;object-fit:contain}
+.approach-art img{width:100%;max-width:240px;height:auto;object-fit:contain}
 .approach-text p{
   font-size:.94rem;
   color:var(--c-ink);
@@ -59,6 +59,6 @@
 @media (max-width: 880px){
   .approach-precise{padding:54px 22px}
   .approach-grid{grid-template-columns:1fr;gap:30px}
-  .approach-art img{max-width:220px}
+  .approach-art img{max-width:200px}
   .approach-note{margin-top:32px;padding:16px 20px}
 }

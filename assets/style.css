@@ -134,7 +134,7 @@ ul{list-style:none}
   padding:18px 44px;
   background:var(--c-rose-deep);
   color:#fff;
-  font-size:.85rem;letter-spacing:.2em;
+  font-size:.85rem;letter-spacing:.16em;
   border-radius:999px;
   border:0;cursor:pointer;
   transition:background .3s, transform .3s, box-shadow .3s;
@@ -640,7 +640,7 @@ ul{list-style:none}
 }
 .cta-sub{
   font-size:.92rem;
-  color:#5A4A4F;
+  color:var(--c-ink);
   letter-spacing:.06em;
   line-height:2;
   margin-bottom:48px;
@@ -722,7 +722,7 @@ ul{list-style:none}
 }
 /* CTA前のひとことセクション */
 .one-line{
-  padding:80px 40px;
+  padding:90px 40px;
   background:var(--c-bg-pale);
   text-align:center;
 }
@@ -741,13 +741,13 @@ ul{list-style:none}
   .nav-cta{display:none}
   .inner{padding:0 22px}
   .hero{padding:120px 22px 80px;min-height:auto}
-  .brand-statement,.for-you,.services,.trust,.flow,.cta{padding:64px 22px}
+  .brand-statement,.for-you,.services,.trust,.flow,.cta{padding:54px 22px}
   .section-head{margin-bottom:40px}
   .for-you-grid{grid-template-columns:1fr;gap:14px}
   .for-you-card{padding:26px 22px;display:flex;align-items:center;gap:18px;text-align:left}
   .for-you-icon{width:52px;height:52px;margin:0;flex-shrink:0}
   .for-you-text br{display:none}
-  .one-line{padding:56px 22px}
+  .one-line{padding:54px 22px}
   .one-line-text{font-size:1.05rem}
   .trust-intro{font-size:.86rem;text-align:left}
   .services-grid{grid-template-columns:1fr;gap:20px}
@@ -812,12 +812,12 @@ ul{list-style:none}
 }
 
 /* 水彩挿絵（共通） */
-.illust-inline{max-width:420px;margin:36px auto 0}
+.illust-inline{max-width:240px;margin:36px auto 0}
 .illust-inline img{width:100%;height:auto;border-radius:16px;display:block}
-.illust-sm{max-width:300px;margin:20px 0 0}
+.illust-sm{max-width:240px;margin:20px 0 0}
 @media (max-width:880px){
-  .illust-inline{max-width:280px;margin:24px auto 0}
-  .illust-sm{max-width:240px}
+  .illust-inline{max-width:200px;margin:24px auto 0}
+  .illust-sm{max-width:200px}
 }
 
 /* ヒーロー：ロゴワイド */
@@ -835,10 +835,10 @@ ul{list-style:none}
 .footer-logo .logo-kana{margin-top:4px;letter-spacing:0.42em}
 
 /* 一文セクション下のイラスト */
-.one-line-img{max-width:340px;margin:28px auto 0;}
+.one-line-img{max-width:240px;margin:28px auto 0;}
 .one-line-img img{width:100%;height:auto;border-radius:16px;display:block}
 @media (max-width:768px){
-  .one-line-img{max-width:260px;margin-top:22px}
+  .one-line-img{max-width:200px;margin-top:22px}
 }
 
 

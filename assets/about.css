@@ -57,7 +57,7 @@
   line-height:2.2;
 }
 .block-art{display:flex;justify-content:center}
-.block-art svg,.block-art img{width:100%;max-width:210px;height:auto;object-fit:contain}
+.block-art svg,.block-art img{width:100%;max-width:240px;height:auto;object-fit:contain}
 
 /* CONCEPT */
 .concept-head{text-align:center;margin-bottom:40px;max-width:680px;margin-left:auto;margin-right:auto}
@@ -72,15 +72,13 @@
   margin-bottom:8px;
 }
 .concept-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:50px;
-  align-items:center;
+  display:flex;
+  justify-content:center;
   max-width:880px;
   margin:0 auto;
 }
 .concept-art{display:flex;justify-content:center}
-.concept-art svg,.concept-art img{width:100%;max-width:225px;height:auto;object-fit:contain}
+.concept-art svg,.concept-art img{width:100%;max-width:420px;height:auto;object-fit:contain}
 .concept-desc{
   font-size:.95rem;
   color:var(--c-ink);
@@ -110,7 +108,7 @@
   margin:0 auto;
 }
 .why-art{display:flex;justify-content:center}
-.why-art svg,.why-art img{width:auto;max-width:225px;max-height:180px;height:auto;object-fit:contain}
+.why-art svg,.why-art img{width:100%;max-width:240px;height:auto;object-fit:contain}
 .why-text p{
   font-size:.95rem;
   color:var(--c-ink);
@@ -119,11 +117,6 @@
   margin-bottom:14px;
 }
 .why-lead{
-  font-family:var(--f-jp-serif);
-  font-weight:500;
-  font-size:1.05rem !important;
-  color:var(--c-rose-deep) !important;
-  letter-spacing:.08em;
   padding-bottom:14px;
   border-bottom:0.5px solid var(--c-line);
   margin-bottom:18px !important;
@@ -209,7 +202,7 @@
 }
 .training-head{text-align:center;margin-bottom:48px}
 .training-art{
-  width:90px;
+  width:150px;
   margin:20px auto 0;
 }
 .training-art img{width:100%;height:auto;display:block}
@@ -322,11 +315,13 @@
   .beliefs-block,.approach-block,.name-block{padding:54px 22px}
   .block-grid,.concept-grid,.why-grid{grid-template-columns:1fr;gap:32px}
   .block-art svg,.block-art img,
-  .concept-art svg,.concept-art img,
-  .why-art svg,.why-art img{max-width:170px}
-  .beliefs-grid{grid-template-columns:1fr 1fr;gap:14px}
-  .belief-card{padding:22px 16px}
+  .why-art svg,.why-art img{max-width:200px}
+  .concept-art svg,.concept-art img{max-width:300px}
+  .beliefs-grid{grid-template-columns:1fr;gap:14px}
+  .belief-card{padding:22px 18px}
   .approach-grid{grid-template-columns:1fr;gap:16px}
+  .training-grid{grid-template-columns:1fr;gap:16px}
+  .training-art{width:130px}
 }
 
 /* NAV ACTIVE */

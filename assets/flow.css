@@ -18,11 +18,10 @@
   margin-bottom:6px;
 }
 .page-lead{
-  font-family:var(--f-jp-serif);
-  font-weight:300;
   font-size:.95rem;
   color:var(--c-ink-soft);
-  letter-spacing:.12em;
+  letter-spacing:.06em;
+  line-height:1.95;
   margin-top:24px;
 }
 
@@ -53,7 +52,7 @@
   font-weight:500;
   font-size:clamp(1.3rem,2.4vw,1.7rem);
   color:var(--c-ink);
-  letter-spacing:.12em;
+  letter-spacing:.16em;
   margin-bottom:18px;
 }
 .founding-text{
@@ -98,12 +97,12 @@
 
 /* TIMELINE */
 .timeline-block{
-  padding:80px 40px;
+  padding:90px 40px;
   background:var(--c-white);
 }
 .timeline-head{text-align:center;margin-bottom:64px}
 .timeline-art{
-  width:105px;
+  width:150px;
   margin:20px auto 0;
 }
 .timeline-art img{width:100%;height:auto;display:block}
@@ -265,6 +264,7 @@
 /* RESPONSIVE */
 @media (max-width: 880px){
   .page-hero{padding:110px 22px 40px}
+  .timeline-art{width:130px}
   .founding-banner{padding:40px 22px}
   .founding-card{padding:32px 22px}
   .founding-meta{flex-direction:column;gap:10px}

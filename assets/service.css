@@ -18,13 +18,11 @@
   margin-bottom:6px;
 }
 .page-lead{
-  font-family:var(--f-jp-serif);
-  font-weight:300;
-  font-size:.98rem;
+  font-size:.95rem;
   color:var(--c-ink-soft);
-  letter-spacing:.12em;
+  letter-spacing:.06em;
+  line-height:1.95;
   margin-top:24px;
-  line-height:1.9;
 }
 .hero-price{
   display:inline-block;
@@ -151,7 +149,7 @@
   margin:0 auto;
 }
 .intro-art{display:flex;justify-content:center}
-.intro-art img{width:auto;max-width:225px;max-height:180px;height:auto;object-fit:contain}
+.intro-art img{width:100%;max-width:240px;height:auto;object-fit:contain}
 .intro-body{
   font-size:.95rem;
   color:var(--c-ink);
@@ -281,8 +279,6 @@
 .scene-list li{
   position:relative;
   padding:18px 22px 18px 50px;
-  background:var(--c-bg-cream);
-  border-radius:10px;
   margin-bottom:10px;
   font-family:var(--f-jp-serif);
   font-weight:400;
@@ -374,7 +370,7 @@
   font-weight:500;
   font-size:1.1rem;
   color:var(--c-ink);
-  letter-spacing:.12em;
+  letter-spacing:.16em;
   margin-bottom:12px;
 }
 .cross-text{
@@ -398,7 +394,7 @@
   .feature-block,.scene-block,.report-block,
   .cross-link{padding:54px 22px}
   .intro-grid{grid-template-columns:1fr;gap:30px}
-  .intro-art img{max-width:180px}
+  .intro-art img{max-width:200px}
   .target-grid{grid-template-columns:1fr;gap:14px}
   .target-card{padding:28px 22px}
   .spec-table,.report-table{padding:22px 24px}
