@@ -138,9 +138,9 @@ ul{list-style:none}
   border-radius:999px;
   border:0;cursor:pointer;
   transition:background .3s, transform .3s, box-shadow .3s;
-  box-shadow:0 8px 30px rgba(192,128,80,.28);
+  box-shadow:0 8px 30px rgba(120,90,60,.28);
 }
-.btn-pill:hover{background:var(--c-ink);transform:translateY(-2px);box-shadow:0 12px 40px rgba(192,128,80,.4)}
+.btn-pill:hover{background:var(--c-ink);transform:translateY(-2px);box-shadow:0 12px 40px rgba(120,90,60,.4)}
 .btn-pill.ghost{background:transparent;color:var(--c-rose-deep);border:1px solid var(--c-rose-deep);box-shadow:none}
 .btn-pill.ghost:hover{background:var(--c-rose-deep);color:#fff}
 .btn-pill.line{background:#06C755;color:#fff;box-shadow:0 8px 30px rgba(6,199,85,.25)}
@@ -288,7 +288,7 @@ ul{list-style:none}
   border:0.5px solid var(--c-line);
   transition:transform .4s, box-shadow .4s;
 }
-.for-you-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(192,128,80,.12)}
+.for-you-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(120,90,60,.12)}
 .for-you-icon{
   width:72px;height:72px;
   margin:0 auto 20px;
@@ -325,7 +325,7 @@ ul{list-style:none}
   border:0.5px solid var(--c-line);
   transition:transform .4s, box-shadow .4s;
 }
-.service-card:hover{transform:translateY(-6px);box-shadow:0 30px 70px rgba(192,128,80,.15)}
+.service-card:hover{transform:translateY(-6px);box-shadow:0 30px 70px rgba(120,90,60,.15)}
 .service-art{
   width:180px;height:140px;margin:0 auto 28px;
   display:flex;align-items:center;justify-content:center;
@@ -407,7 +407,7 @@ ul{list-style:none}
   text-align:left;
   transition:transform .4s, box-shadow .4s;
 }
-.strength-card:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(192,128,80,.12)}
+.strength-card:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(120,90,60,.12)}
 .strength-num{
   font-family:var(--f-en);
   font-style:italic;
@@ -600,7 +600,7 @@ ul{list-style:none}
   font-size:1.3rem;
   color:var(--c-rose-deep);
   letter-spacing:.04em;
-  box-shadow:0 14px 40px rgba(192,128,80,.1);
+  box-shadow:0 14px 40px rgba(120,90,60,.1);
 }
 .flow-art{
   width:80px;height:80px;margin:0 auto 18px;
@@ -853,4 +853,103 @@ ul{list-style:none}
 @media (max-width:640px){
   .trust-bar{padding:14px 18px}
   .trust-inner{flex-direction:column;gap:8px;align-items:flex-start;max-width:320px}
+}
+
+/* ============================================================
+   REVIEW UPLIFT — 2026-07 （デザインシステム刷新／配色は現行維持）
+   目的：ホテルの案内トーンの上質さ。ボタン・カード・余白・影を統一。
+   ============================================================ */
+:root{
+  /* 余白スケール（8/16/24/40/64/96） */
+  --sp-1:8px; --sp-2:16px; --sp-3:24px; --sp-4:40px; --sp-5:64px; --sp-6:96px;
+  /* 角丸 */
+  --r-btn:16px; --r-card:20px; --r-sm:12px;
+  /* 影（1系統に統一：同一色相・同一質感、静止＝極薄／ホバー＝1段だけ深く） */
+  --sh-xs:0 2px 14px rgba(120,90,60,.05);
+  --sh:0 12px 44px rgba(120,90,60,.10);
+}
+
+/* ---- A-1 ボタン再設計 ---- */
+.btn-pill{
+  min-height:56px;
+  padding:0 var(--sp-4);
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  font-family:var(--f-jp-sans);
+  font-weight:400;
+  font-size:17px;
+  letter-spacing:.05em;
+  border-radius:var(--r-btn);
+  background:var(--c-rose-deep);color:#fff;border:0;cursor:pointer;
+  box-shadow:var(--sh-xs);
+  transition:transform .3s ease, box-shadow .3s ease, background .3s ease, color .3s ease;
+}
+.btn-pill:hover{background:var(--c-ink);transform:translateY(-2px);box-shadow:var(--sh)}
+.btn-pill.ghost{background:var(--c-white);color:var(--c-rose-deep);border:1px solid var(--c-line);box-shadow:var(--sh-xs)}
+.btn-pill.ghost:hover{background:var(--c-rose-deep);color:#fff;border-color:var(--c-rose-deep);transform:translateY(-2px);box-shadow:var(--sh)}
+.btn-pill.line{background:#06C755;color:#fff;box-shadow:var(--sh-xs)}
+.btn-pill.line:hover{background:#05A847;transform:translateY(-2px);box-shadow:var(--sh)}
+.cta .btn-pill.ghost{background:var(--c-white);color:var(--c-ink);border-color:var(--c-line);box-shadow:var(--sh-xs)}
+.cta .btn-pill.ghost:hover{background:var(--c-ink);color:#fff;border-color:var(--c-ink)}
+.nav-cta{border-radius:var(--r-sm);padding:12px 26px;transition:background .3s, color .3s}
+
+/* CTA下：メール導線（テキストリンク・第3ボタンにしない） */
+.cta-mail-note{margin-top:var(--sp-3);font-size:.8rem;letter-spacing:.06em}
+.cta-mail-note a{color:var(--c-ink-soft);border-bottom:1px solid var(--c-line);padding-bottom:2px;transition:color .3s,border-color .3s}
+.cta-mail-note a:hover{color:var(--c-rose-deep);border-color:var(--c-rose-deep)}
+
+/* ---- A-2/A-4 カード＆影の統一（角丸20・極薄border・単一影・余白拡大） ---- */
+.for-you-card,.service-card,.strength-card,.trust-grid .trust-item{
+  border-radius:var(--r-card);
+  border:1px solid var(--c-line);
+  box-shadow:var(--sh-xs);
+  transition:transform .4s ease, box-shadow .4s ease;
+}
+.for-you-card{padding:var(--sp-4) var(--sp-3)}
+.service-card{padding:var(--sp-5) var(--sp-4)}
+.strength-card{padding:var(--sp-4)}
+.trust-grid .trust-item{padding:var(--sp-4) var(--sp-3)}
+.for-you-card:hover,.service-card:hover,.strength-card:hover{transform:translateY(-4px);box-shadow:var(--sh)}
+.trust-grid .trust-item:hover{transform:translateY(-4px);box-shadow:var(--sh)}
+
+/* ---- A-3 余白の拡大（セクションの縦リズムを一段ゆったりに） ---- */
+.for-you,.strengths,.standard,.area,.trust,.one-line,.brand-statement{padding-top:var(--sp-6);padding-bottom:var(--sp-6)}
+.section-head{margin-bottom:var(--sp-5)}
+
+/* ---- A-6 アイコンの統一（線・サイズを揃える） ---- */
+.trust-icon{width:56px;height:56px}
+.trust-icon svg{width:100%;height:100%}
+.trust-icon svg *{stroke-width:1.4px}
+
+/* ---- C-3 サービス比較表 ---- */
+.compare{padding:var(--sp-6) var(--sp-4);background:var(--c-bg-cream)}
+.compare-table{max-width:900px;margin:0 auto;background:var(--c-white);border:1px solid var(--c-line);border-radius:var(--r-card);box-shadow:var(--sh-xs);overflow:hidden}
+.compare-row{display:grid;grid-template-columns:1.1fr 1.4fr 1.4fr;border-top:1px solid var(--c-line)}
+.compare-row:first-child{border-top:0}
+.compare-row>div{padding:var(--sp-3) var(--sp-3);line-height:1.9;font-size:.9rem;letter-spacing:.03em}
+.compare-row .c-key{color:var(--c-ink-soft);font-size:.82rem;background:var(--c-bg-pale);display:flex;align-items:center}
+.compare-row.c-head>div{font-family:var(--f-jp-serif);font-weight:500;color:var(--c-ink);text-align:center;justify-content:center;background:var(--c-white)}
+.compare-row.c-head .c-key{background:var(--c-white)}
+.compare-row .c-p{color:var(--c-ink)}
+.compare-row .c-g{color:var(--c-ink)}
+.compare-tag{font-family:var(--f-en);font-style:italic;font-size:.72rem;letter-spacing:.2em;color:var(--c-gold);display:block;margin-bottom:2px}
+@media (max-width:880px){
+  .compare{padding:var(--sp-5) var(--sp-2)}
+  .compare-row{grid-template-columns:1fr}
+  .compare-row>div{border-top:1px solid var(--c-line-soft,var(--c-line))}
+  .compare-row .c-key{border-top:0}
+  .compare-row.c-head{display:none}
+  .compare-row .c-p::before{content:"プリサイス：";color:var(--c-gold);font-size:.78rem}
+  .compare-row .c-g::before{content:"グランド：";color:var(--c-gold);font-size:.78rem}
+}
+
+/* ---- C-4 料金：価値ブロック（料金の前に置く） ---- */
+.price-value-block{padding:var(--sp-5) var(--sp-4) 0}
+.price-value-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp-2)}
+.price-value-item{background:var(--c-white);border:1px solid var(--c-line);border-radius:var(--r-sm);box-shadow:var(--sh-xs);padding:var(--sp-3);text-align:center}
+.price-value-item .pv-t{font-family:var(--f-jp-serif);font-weight:500;font-size:.95rem;color:var(--c-ink);letter-spacing:.06em;margin-bottom:6px}
+.price-value-item .pv-d{font-size:.78rem;color:var(--c-ink-soft);line-height:1.8}
+@media (max-width:880px){
+  .price-value-block{padding:var(--sp-4) var(--sp-2) 0}
+  .price-value-grid{grid-template-columns:1fr 1fr;gap:var(--sp-1)}
+  .price-value-item{padding:var(--sp-2)}
 }
