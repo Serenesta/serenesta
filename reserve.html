@@ -37,12 +37,13 @@
 
 /* 担当シッター選択 */
 .staff-label{font-size:.8rem;letter-spacing:.12em;color:var(--c-gold-deep);margin:20px 0 14px;padding-top:18px;border-top:1px solid var(--c-line)}
-.staff-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:14px}
-.staff-item{display:flex;flex-direction:column;align-items:center;gap:10px;padding:20px 12px;background:var(--c-bg-pale);border:1px solid var(--c-line);border-radius:6px;text-decoration:none;transition:border-color .25s,background .25s,transform .25s}
+.staff-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}
+.staff-item{display:flex;flex-direction:column;align-items:center;gap:10px;width:200px;padding:26px 16px 20px;background:var(--c-bg-pale);border:1px solid var(--c-line);border-radius:6px;text-decoration:none;transition:border-color .25s,background .25s,transform .25s}
 .staff-item:hover{border-color:var(--c-gold-deep);background:var(--c-white);transform:translateY(-2px)}
 .staff-photo{width:76px;height:76px;border-radius:50%;object-fit:cover;display:flex;align-items:center;justify-content:center;background:var(--c-bg-mid);border:1px solid var(--c-line);font-family:var(--f-jp-serif);font-size:1.3rem;color:var(--c-gold-deep);letter-spacing:.04em}
 .staff-name{font-family:var(--f-jp-serif);font-size:.94rem;letter-spacing:.08em;color:var(--c-ink)}
 .staff-role{font-size:.72rem;letter-spacing:.06em;color:var(--c-ink-soft)}
+.staff-cta{font-size:.78rem;letter-spacing:.1em;color:var(--c-rose-deep);margin-top:6px;border-bottom:1px solid var(--c-rose-deep);padding-bottom:2px}
 
 @media (max-width:720px){
   .reserve-hero{padding:104px 20px 26px}
@@ -50,7 +51,7 @@
   .reserve-card{padding:24px 20px}
   .reserve-card-text{font-size:.8125rem}
   .reserve-lead{font-size:.8125rem}
-  .staff-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .staff-item{width:100%;max-width:280px}
   .staff-item{padding:16px 8px}
   .staff-photo{width:64px;height:64px;font-size:1.15rem}
 }
@@ -110,7 +111,7 @@
     <h2 class="reserve-card-title">会員の方（ご入会済みのご家庭）</h2>
     <p class="reserve-card-text">仮予約の受付後、本部が内容を確認し、24時間以内に確定と料金のご案内をお送りします。</p>
 
-    <p class="staff-label">担当をお選びください</p>
+    <p class="staff-label">担当シッター</p>
     <div class="staff-grid">
 
       <!-- ▼ シッター1名につきこのブロックを1つ複製し、写真・名前・URLの3か所を差し替えてください -->
@@ -118,6 +119,7 @@
         <span class="staff-photo">か</span>
         <span class="staff-name">わたなべ かほ</span>
         <span class="staff-role">代表</span>
+        <span class="staff-cta">ご予約へ →</span>
       </a>
       <!-- ▲ ここまでが1枚分 -->
 
