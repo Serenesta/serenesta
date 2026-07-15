@@ -1,93 +1,100 @@
 /* ============================================================
-   Serenesta mobile refine v2
-   設計方針：静かな高級感（額装フレーム／13px本文／強調数値は維持）
+   Serenesta mobile refine v4
+   方針：静かな高級感／モバイル圧縮（見出し縮小・余白調整・両端揃え）
+   額装：角丸フレーム＋頂部ダイヤ飾り（単調な四角の解消）
    全ページで最後に読み込むこと
    ============================================================ */
 
-/* --- 額装フレーム（全画面固定・操作不可侵・ナビより上で一貫） --- */
+/* --- 額装フレーム（角丸・全画面固定・操作不可侵） --- */
 body::before{
   content:"";position:fixed;inset:9px;
-  border:1px solid rgba(139,114,86,.55);
-  /* 四隅のコーナーティック（誂え感） */
-  background:
-    linear-gradient(rgba(139,114,86,.75),rgba(139,114,86,.75)) left 0 top 0/16px 1px no-repeat,
-    linear-gradient(rgba(139,114,86,.75),rgba(139,114,86,.75)) left 0 top 0/1px 16px no-repeat,
-    linear-gradient(rgba(139,114,86,.75),rgba(139,114,86,.75)) right 0 top 0/16px 1px no-repeat,
-    linear-gradient(rgba(139,114,86,.75),rgba(139,114,86,.75)) right 0 top 0/1px 16px no-repeat,
-    linear-gradient(rgba(139,114,86,.75),rgba(139,114,86,.75)) left 0 bottom 0/16px 1px no-repeat,
-    linear-gradient(rgba(139,114,86,.75),rgba(139,114,86,.75)) left 0 bottom 0/1px 16px no-repeat,
-    linear-gradient(rgba(139,114,86,.75),rgba(139,114,86,.75)) right 0 bottom 0/16px 1px no-repeat,
-    linear-gradient(rgba(139,114,86,.75),rgba(139,114,86,.75)) right 0 bottom 0/1px 16px no-repeat;
+  border:1px solid rgba(139,114,86,.5);
+  border-radius:18px;
   pointer-events:none;z-index:100;
 }
+/* 頂部中央のダイヤ飾り（留め具モチーフ） */
 body::after{
-  content:"";position:fixed;inset:15px;
-  border:1px solid rgba(184,160,128,.25);
-  pointer-events:none;z-index:100;
+  content:"";position:fixed;
+  top:5px;left:50%;
+  width:9px;height:9px;
+  transform:translateX(-50%) rotate(45deg);
+  background:#FBF6EC;
+  border:1px solid rgba(139,114,86,.65);
+  pointer-events:none;z-index:101;
 }
 
 /* --- 組版（全画面共通） --- */
 p,li,dd,dt{line-break:strict;overflow-wrap:break-word;text-wrap:pretty}
 h1,h2,h3,h4{text-wrap:balance}
 
-/* --- モバイルタイポグラフィ --- */
+/* --- モバイル（≤720px） --- */
 @media (max-width:720px){
-  body::before{inset:6px}
-  body::after{inset:11px}
+  body::before{inset:6px;border-radius:14px}
+  body::after{top:2px}
 
-  /* ヒーロー副文のみ14pxで格を保つ */
+  /* 1. 見出しの圧縮（レターも締める） */
+  .page-title{font-size:1.3rem;letter-spacing:.12em}
+  .block-title{font-size:1.15rem;letter-spacing:.1em}
+  .founding-title{font-size:1.05rem;letter-spacing:.08em}
+  .cta-title{font-size:1.2rem}
+  .concept-en{font-size:1.25rem}
+  .h-en{font-size:1.25rem}
+  .brand-en{font-size:1.4rem}
+  .quote-text{font-size:1rem}
+  .hero-title{font-size:2.1rem}
+
+  /* 2. ヒーロー副文のみ14px（格を保つ） */
   .hero-sub{font-size:.875rem}
 
-  /* 本文系は約13pxに統一（注記0.8rem・見出し・料金等の強調数値は変更しない） */
-  .block-desc{font-size:.8125rem}
-  .block-statement{font-size:.8125rem}
-  .concept-desc{font-size:.8125rem}
-  .concept-emphasis{font-size:.8125rem}
-  .why-text p{font-size:.8125rem}
-  .why-styles dt{font-size:.8125rem}
-  .why-styles dd{font-size:.8125rem}
-  .belief-card p{font-size:.8125rem}
-  .training-card p{font-size:.8125rem}
-  .approach-card p{font-size:.8125rem}
-  .name-text p{font-size:.8125rem}
-  .page-lead{font-size:.8125rem}
-  .faq-a{font-size:.8125rem}
-  .founding-text{font-size:.8125rem}
-  .step-desc{font-size:.8125rem}
-  .step-bullets li{font-size:.8125rem}
-  .quote-caption{font-size:.8125rem}
-  .career-text p{font-size:.8125rem}
-  .career-list dl{font-size:.8125rem}
-  .connection-text{font-size:.8125rem}
-  .vision-text p{font-size:.8125rem}
-  .approach-text p{font-size:.8125rem}
-  .price-label{font-size:.8125rem}
-  .cross-text{font-size:.8125rem}
-  .overview-intro{font-size:.8125rem}
-  .overview-list{font-size:.8125rem}
-  .intro-body{font-size:.8125rem}
-  .target-text{font-size:.8125rem}
-  .spec-label{font-size:.8125rem}
-  .spec-value{font-size:.8125rem}
-  .feature-card p{font-size:.8125rem}
-  .scene-list li{font-size:.8125rem}
-  .report-label{font-size:.8125rem}
-  .report-value{font-size:.8125rem}
-  .section-desc{font-size:.8125rem}
-  .brand-jp{font-size:.8125rem}
-  .brand-emphasis{font-size:.8125rem}
-  .for-you-text{font-size:.8125rem}
-  .service-lead{font-size:.8125rem}
-  .service-link{font-size:.8125rem}
-  .strength-text{font-size:.8125rem}
-  .strength-link{font-size:.8125rem}
-  .standard-text{font-size:.8125rem}
-  .standard-text-em{font-size:.8125rem}
-  .area-item{font-size:.8125rem}
-  .trust-label{font-size:.8125rem}
-  .flow-label{font-size:.8125rem}
-  .cta-sub{font-size:.8125rem}
-  .trust-intro{font-size:.8125rem}
-  .one-line-text{font-size:.8125rem}
-  .compare-row>div{font-size:.8125rem}
+  /* 3. 本文を約13pxに統一・行間を1.85に圧縮
+        （注記0.8rem・料金等の強調数値は変更しない） */
+  .block-desc,.block-statement,.concept-desc,.concept-emphasis,
+  .why-text p,.why-styles dt,.why-styles dd,
+  .belief-card p,.training-card p,.approach-card p,.name-text p,
+  .page-lead,.faq-a,.founding-text,.step-desc,.step-bullets li,
+  .quote-caption,.career-text p,.career-list dl,.connection-text,
+  .vision-text p,.approach-text p,.price-label,.cross-text,
+  .overview-intro,.overview-list,.intro-body,.target-text,
+  .spec-label,.spec-value,.feature-card p,.scene-list li,
+  .report-label,.report-value,.section-desc,.brand-jp,.brand-emphasis,
+  .for-you-text,.service-lead,.service-link,.strength-text,.strength-link,
+  .standard-text,.standard-text-em,.area-item,.trust-label,.flow-label,
+  .cta-sub,.trust-intro,.one-line-text,.compare-row>div{
+    font-size:.8125rem;
+    line-height:1.85;
+  }
+
+  /* 4. 右側の空きが目立つ段落は両端揃えに（中央寄せの短文は対象外） */
+  .approach-text p,.step-desc,.faq-a,.founding-text,
+  .overview-intro,.intro-body,.why-text p,.concept-desc,
+  .career-text p,.vision-text p,.connection-text,.target-text,
+  .feature-card p,.belief-card p,.training-card p,.approach-card p,
+  .name-text p,.cross-text,.strength-text,.standard-text,.for-you-text{
+    text-align:justify;
+  }
+
+  /* 5. 余白の圧縮（間延びの解消） */
+  .page-hero{padding-top:96px;padding-bottom:32px}
+  .founding-banner{padding:28px 18px}
+  .founding-card{padding:24px 18px}
+  .timeline-block{padding:40px 18px}
+
+  /* 6. ご利用の流れ：本文列を広げる（番号を小さく） */
+  .timeline-step{grid-template-columns:40px 1fr;gap:12px}
+  .timeline-num{width:40px;height:40px;font-size:.85rem}
+  .timeline::before{left:20px}
+  .timeline-content{padding:16px 16px}
+}
+
+/* --- モバイルメニュー確定修正（iOSの100vh問題対策・完全不透明） --- */
+@media (max-width:880px){
+  .nav-links{
+    background:#fff;
+    top:60px;left:0;right:0;bottom:0;
+    height:auto;max-height:none;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior:contain;
+    padding-bottom:calc(40px + env(safe-area-inset-bottom));
+  }
 }
