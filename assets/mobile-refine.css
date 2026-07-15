@@ -1,0 +1,93 @@
+/* ============================================================
+   Serenesta mobile refine v2
+   設計方針：静かな高級感（額装フレーム／13px本文／強調数値は維持）
+   全ページで最後に読み込むこと
+   ============================================================ */
+
+/* --- 額装フレーム（全画面固定・操作不可侵・ナビより上で一貫） --- */
+body::before{
+  content:"";position:fixed;inset:9px;
+  border:1px solid rgba(139,114,86,.55);
+  /* 四隅のコーナーティック（誂え感） */
+  background:
+    linear-gradient(rgba(139,114,86,.75),rgba(139,114,86,.75)) left 0 top 0/16px 1px no-repeat,
+    linear-gradient(rgba(139,114,86,.75),rgba(139,114,86,.75)) left 0 top 0/1px 16px no-repeat,
+    linear-gradient(rgba(139,114,86,.75),rgba(139,114,86,.75)) right 0 top 0/16px 1px no-repeat,
+    linear-gradient(rgba(139,114,86,.75),rgba(139,114,86,.75)) right 0 top 0/1px 16px no-repeat,
+    linear-gradient(rgba(139,114,86,.75),rgba(139,114,86,.75)) left 0 bottom 0/16px 1px no-repeat,
+    linear-gradient(rgba(139,114,86,.75),rgba(139,114,86,.75)) left 0 bottom 0/1px 16px no-repeat,
+    linear-gradient(rgba(139,114,86,.75),rgba(139,114,86,.75)) right 0 bottom 0/16px 1px no-repeat,
+    linear-gradient(rgba(139,114,86,.75),rgba(139,114,86,.75)) right 0 bottom 0/1px 16px no-repeat;
+  pointer-events:none;z-index:100;
+}
+body::after{
+  content:"";position:fixed;inset:15px;
+  border:1px solid rgba(184,160,128,.25);
+  pointer-events:none;z-index:100;
+}
+
+/* --- 組版（全画面共通） --- */
+p,li,dd,dt{line-break:strict;overflow-wrap:break-word;text-wrap:pretty}
+h1,h2,h3,h4{text-wrap:balance}
+
+/* --- モバイルタイポグラフィ --- */
+@media (max-width:720px){
+  body::before{inset:6px}
+  body::after{inset:11px}
+
+  /* ヒーロー副文のみ14pxで格を保つ */
+  .hero-sub{font-size:.875rem}
+
+  /* 本文系は約13pxに統一（注記0.8rem・見出し・料金等の強調数値は変更しない） */
+  .block-desc{font-size:.8125rem}
+  .block-statement{font-size:.8125rem}
+  .concept-desc{font-size:.8125rem}
+  .concept-emphasis{font-size:.8125rem}
+  .why-text p{font-size:.8125rem}
+  .why-styles dt{font-size:.8125rem}
+  .why-styles dd{font-size:.8125rem}
+  .belief-card p{font-size:.8125rem}
+  .training-card p{font-size:.8125rem}
+  .approach-card p{font-size:.8125rem}
+  .name-text p{font-size:.8125rem}
+  .page-lead{font-size:.8125rem}
+  .faq-a{font-size:.8125rem}
+  .founding-text{font-size:.8125rem}
+  .step-desc{font-size:.8125rem}
+  .step-bullets li{font-size:.8125rem}
+  .quote-caption{font-size:.8125rem}
+  .career-text p{font-size:.8125rem}
+  .career-list dl{font-size:.8125rem}
+  .connection-text{font-size:.8125rem}
+  .vision-text p{font-size:.8125rem}
+  .approach-text p{font-size:.8125rem}
+  .price-label{font-size:.8125rem}
+  .cross-text{font-size:.8125rem}
+  .overview-intro{font-size:.8125rem}
+  .overview-list{font-size:.8125rem}
+  .intro-body{font-size:.8125rem}
+  .target-text{font-size:.8125rem}
+  .spec-label{font-size:.8125rem}
+  .spec-value{font-size:.8125rem}
+  .feature-card p{font-size:.8125rem}
+  .scene-list li{font-size:.8125rem}
+  .report-label{font-size:.8125rem}
+  .report-value{font-size:.8125rem}
+  .section-desc{font-size:.8125rem}
+  .brand-jp{font-size:.8125rem}
+  .brand-emphasis{font-size:.8125rem}
+  .for-you-text{font-size:.8125rem}
+  .service-lead{font-size:.8125rem}
+  .service-link{font-size:.8125rem}
+  .strength-text{font-size:.8125rem}
+  .strength-link{font-size:.8125rem}
+  .standard-text{font-size:.8125rem}
+  .standard-text-em{font-size:.8125rem}
+  .area-item{font-size:.8125rem}
+  .trust-label{font-size:.8125rem}
+  .flow-label{font-size:.8125rem}
+  .cta-sub{font-size:.8125rem}
+  .trust-intro{font-size:.8125rem}
+  .one-line-text{font-size:.8125rem}
+  .compare-row>div{font-size:.8125rem}
+}
