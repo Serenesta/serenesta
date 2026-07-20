@@ -1,10 +1,10 @@
 /* ============================================================
-   Serenesta mobile refine v4
-   方針：静かな高級感／モバイル圧縮（見出し縮小・余白調整・両端揃え）
+   Serenesta mobile refine v5
+   方針：静かな高級感／モバイル圧縮（見出し縮小・余白調整）
+   両端揃えは複数行の長文段落のみ（短文カードは左揃え）
    額装：角丸フレーム＋頂部ダイヤ飾り（単調な四角の解消）
    全ページで最後に読み込むこと
    ============================================================ */
-
 /* --- 額装フレーム（角丸・全画面固定・操作不可侵） --- */
 body::before{
   content:"";position:fixed;inset:9px;
@@ -22,16 +22,13 @@ body::after{
   border:1px solid rgba(139,114,86,.65);
   pointer-events:none;z-index:101;
 }
-
 /* --- 組版（全画面共通） --- */
 p,li,dd,dt{line-break:strict;overflow-wrap:break-word;text-wrap:pretty}
 h1,h2,h3,h4{text-wrap:balance}
-
 /* --- モバイル（≤720px） --- */
 @media (max-width:720px){
   body::before{inset:6px;border-radius:14px}
   body::after{top:2px}
-
   /* 1. 見出しの圧縮（レターも締める） */
   .page-title{font-size:1.3rem;letter-spacing:.12em}
   .block-title{font-size:1.15rem;letter-spacing:.1em}
@@ -42,10 +39,8 @@ h1,h2,h3,h4{text-wrap:balance}
   .brand-en{font-size:1.4rem}
   .quote-text{font-size:1rem}
   .hero-title{font-size:2.1rem}
-
   /* 2. ヒーロー副文のみ14px（格を保つ） */
   .hero-sub{font-size:.875rem}
-
   /* 3. 本文を約13pxに統一・行間を1.85に圧縮
         （注記0.8rem・料金等の強調数値は変更しない） */
   .block-desc,.block-statement,.concept-desc,.concept-emphasis,
@@ -63,29 +58,29 @@ h1,h2,h3,h4{text-wrap:balance}
     font-size:.8125rem;
     line-height:1.85;
   }
-
-  /* 4. 右側の空きが目立つ段落は両端揃えに（中央寄せの短文は対象外） */
+  /* 4. 両端揃えは複数行の長文段落のみに適用
+        （短文カードは字間が不自然に開くため対象外） */
   .approach-text p,.step-desc,.faq-a,.founding-text,
   .overview-intro,.intro-body,.why-text p,.concept-desc,
-  .career-text p,.vision-text p,.connection-text,.target-text,
+  .career-text p,.vision-text p,.connection-text,
   .feature-card p,.belief-card p,.training-card p,.approach-card p,
-  .name-text p,.cross-text,.strength-text,.standard-text,.for-you-text{
+  .name-text p,.cross-text,.strength-text,.standard-text,
+  .cta-sub,.trust-intro{
     text-align:justify;
   }
-
+  /* 4-2. 短文カードは左揃えに固定（字間を均一に保つ） */
+  .for-you-text{text-align:left}
   /* 5. 余白の圧縮（間延びの解消） */
   .page-hero{padding-top:96px;padding-bottom:32px}
   .founding-banner{padding:28px 18px}
   .founding-card{padding:24px 18px}
   .timeline-block{padding:40px 18px}
-
   /* 6. ご利用の流れ：本文列を広げる（番号を小さく） */
   .timeline-step{grid-template-columns:40px 1fr;gap:12px}
   .timeline-num{width:40px;height:40px;font-size:.85rem}
   .timeline::before{left:20px}
   .timeline-content{padding:16px 16px}
 }
-
 /* --- モバイルメニュー確定修正（iOSの100vh問題対策・完全不透明） --- */
 @media (max-width:880px){
   .nav-links{
