@@ -72,7 +72,7 @@
   }
   .hero-title{
     font-family:"Noto Serif JP",serif;
-    font-size:42px;font-weight:500;line-height:1.5;letter-spacing:0.05em;
+    font-size:28px;font-weight:500;line-height:1.6;letter-spacing:0.05em;
     margin-bottom:24px;color:var(--c-text);
   }
   .hero-title .accent{color:var(--c-cta)}
@@ -324,13 +324,54 @@
     border-left:3px solid var(--c-cta);
   }
 
+
+  /* 折りたたみ（details） */
+  .fold{margin-top:28px;border-top:1px solid rgba(0,0,0,0.08);padding-top:20px}
+  .fold>summary{
+    list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;
+    font-size:14px;letter-spacing:0.04em;color:var(--c-cta);font-weight:500;
+  }
+  .fold>summary::-webkit-details-marker{display:none}
+  .fold>summary::after{content:"＋";font-size:13px}
+  .fold[open]>summary::after{content:"−"}
+  .fold>summary:hover{color:var(--c-cta-hover)}
+  .fold-body{margin-top:18px}
+  .fold-body p{margin-bottom:16px;font-size:15px;line-height:2}
+  /* 要点ブロック */
+  .point-list{display:grid;gap:24px;margin-top:28px}
+  .point-item{padding-left:16px;border-left:2px solid var(--c-cta)}
+  .point-title{font-family:"Noto Serif JP",serif;font-size:17px;font-weight:500;margin-bottom:8px;line-height:1.6}
+  .point-desc{font-size:14.5px;line-height:1.95;color:var(--c-text)}
+  .lead-text{font-size:15px;line-height:2}
+  /* 募集要項サマリー */
+  .req-summary{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:8px}
+  .req-summary-item{background:var(--c-white);padding:18px 20px;border-radius:4px}
+  .req-summary-label{font-size:12px;letter-spacing:0.08em;color:var(--c-sub);margin-bottom:6px}
+  .req-summary-value{font-size:14.5px;line-height:1.8}
+  /* スマホ追従CTA */
+  .sticky-cta{display:none}
+  @media (max-width:840px){
+    .req-summary{grid-template-columns:1fr}
+    .point-title{font-size:16px}
+    .sticky-cta{
+      display:block;position:fixed;left:0;right:0;bottom:0;z-index:200;
+      padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+      background:rgba(255,255,255,0.96);border-top:1px solid rgba(0,0,0,0.08);
+    }
+    .sticky-cta a{
+      display:block;text-align:center;background:var(--c-cta);color:#fff;
+      padding:14px;border-radius:4px;font-size:15px;letter-spacing:0.06em;
+    }
+    body{padding-bottom:76px}
+  }
+
   /* レスポンシブ */
   @media (max-width:840px){
     .hero{min-height:auto;padding:48px 20px}
     .hero-inner{grid-template-columns:1fr;gap:32px;text-align:center}
     .hero-image-bg{width:280px;height:280px}
     .hero-image img{width:240px}
-    .hero-title{font-size:28px}
+    .hero-title{font-size:20px}
     .hero-meta{justify-content:center}
     .hero-cta-row{justify-content:center}
     .section{padding:64px 20px}
@@ -407,10 +448,30 @@
     <div class="section-eyebrow">Our Philosophy</div>
     <h2 class="section-title">私たちの想い</h2>
     <div class="philosophy-text">
-      <p>Serenestaは、ご家庭の希望スタイルに応じて、定期枠の担当を中心とした柔軟な働き方を採用しております。ご家庭は「担当重視」（同じシッターによる定期訪問）または「スポット依頼」（その日に対応可能なシッターによる訪問）のいずれかをお選びいただきます。「担当重視」のご家庭からは、訪問日程を毎月1か月前にご提出いただく仕組みとしており、シッターの皆様は事前にスケジュールを把握した上で計画的に勤務できます。決まったお子様のもとへ通い続けることで、その子の個性や生活リズムを深く理解しながら、保護者様との信頼関係も丁寧に育てていく働き方です。Serenestaでは「担当重視」「スポット依頼」の両方のシッターを募集しておりますが、担当重視は安定した稼働と収入を得やすく、ご家庭との継続的な関係を築きやすい働き方です。回を重ねるごとに「次もあなたに来てほしい」と言っていただける——シッターご自身にとっても大きなやりがいにつながる環境だと考えております。</p>
-      <p>その分、Serenestaのシッターには、丁寧な保育と、訪問ごとの記録・ご報告をお願いしております。お子様の様子を観察し、その日の関わりや気づきをレポートとして保護者様にお届けすること——これがSerenestaのサービスの根幹です。</p>
-      <p>時給をプリサイスシッター2,500円から、グランドシッター2,200円からと設定しているのも、こうした専門性に正当にお応えするためです。保育・子育て支援はかけがえのない仕事でありながら、報酬面で長く課題を抱えてきた領域でもあります。Serenestaは、シッターの専門性と誠実な仕事に見合う対価をお支払いすることを大切にし、今後さらに水準を高めていく方針です。</p>
-      <p>ご家庭との関係が深まれば、月次契約や専属契約へと進むこともあり、その場合は報酬も段階的に引き上げてまいります。質の高い保育を求めるご家庭、そして専門性を活かして長く働き続けたいシッター。Serenestaは、その双方にとって誠実であり続ける場でありたいと願っております。</p>
+      <p class="lead-text">Serenestaには2つの働き方があります。同じご家庭に通い続ける「担当重視」と、その日に対応できるシッターが伺う「スポット依頼」です。どちらの働き方も募集しております。</p>
+      <div class="point-list">
+        <div class="point-item">
+          <div class="point-title">勤務可能日をご提出いただき、その中から訪問が決まります</div>
+          <p class="point-desc">ご自身の生活のリズムに合わせて働ける仕組みです。担当のご家庭が決まれば、毎月同じ曜日に通い続けることもできます。</p>
+        </div>
+        <div class="point-item">
+          <div class="point-title">お子様の様子を、記録として保護者様へお届けします</div>
+          <p class="point-desc">その日の関わり方の工夫や気づきを含め、レポートとしてお伝えします。記録の作成にかかる時間も時給の対象です。書き方は研修でお伝えしますので、初めての方でもご安心ください。</p>
+        </div>
+        <div class="point-item">
+          <div class="point-title">専門性に見合う時給を設定しています</div>
+          <p class="point-desc">時給はプリサイスシッター2,500円から、グランドシッターは2,200円から。業務内容・資格に応じて単価改定を行います。</p>
+        </div>
+      </div>
+      <details class="fold">
+        <summary>Serenestaの考え方をもっと読む</summary>
+        <div class="fold-body">
+        <p>Serenestaは、ご家庭の希望スタイルに応じて、定期枠の担当を中心とした柔軟な働き方を採用しております。ご家庭は「担当重視」（同じシッターによる定期訪問）または「スポット依頼」（その日に対応可能なシッターによる訪問）のいずれかをお選びいただきます。「担当重視」のご家庭からは、翌月の訪問日程を前月15日までにご提出いただきます。シッターの皆様には前月20日までに翌月のシフトをお知らせしますので、事前にスケジュールを把握した上で計画的に勤務できます。決まったお子様のもとへ通い続けることで、その子の個性や生活リズムを深く理解しながら、保護者様との信頼関係も丁寧に育てていく働き方です。Serenestaでは「担当重視」「スポット依頼」の両方のシッターを募集しておりますが、担当重視は安定した稼働と収入を得やすく、ご家庭との継続的な関係を築きやすい働き方です。回を重ねるごとに「次もあなたに来てほしい」と言っていただける——シッターご自身にとっても大きなやりがいにつながる環境だと考えております。</p>
+        <p>その分、Serenestaのシッターには、丁寧な保育と、訪問ごとの記録・ご報告をお願いしております。お子様の様子を観察し、その日の関わりや気づきをレポートとして保護者様にお届けすること——これがSerenestaのサービスの根幹です。</p>
+        <p>時給をプリサイスシッター2,500円から、グランドシッター2,200円からと設定しているのも、こうした専門性に正当にお応えするためです。保育・子育て支援はかけがえのない仕事でありながら、報酬面で長く課題を抱えてきた領域でもあります。Serenestaは、シッターの専門性と誠実な仕事に見合う対価をお支払いすることを大切にし、今後さらに水準を高めていく方針です。</p>
+        <p>ご家庭との関係が深まれば、月次契約や専属契約へと進むこともあり、その場合は報酬も段階的に引き上げてまいります。質の高い保育を求めるご家庭、そして専門性を活かして長く働き続けたいシッター。Serenestaは、その双方にとって誠実であり続ける場でありたいと願っております。</p>
+        </div>
+      </details>
     </div>
   </div>
 </section>
@@ -425,7 +486,7 @@
         <div class="service-card-num">01</div>
         <div class="service-card-name">プリサイスシッター</div>
         <div class="service-card-en">Precise Sitter</div>
-        <p class="service-card-desc">発達特性のあるお子様のご家庭に対し、外部支援施設（療育施設・発達支援施設・通級指導教室など）での取り組みを保護者様から伺い、同じ視点・同じ関わり方を訪問保育の中で再現するサービスです。</p>
+        <p class="service-card-desc">発達特性のあるお子様のご家庭へ。外部支援施設での取り組みを保護者様から伺い、同じ視点・同じ関わり方をご家庭で再現します。</p>
         <div class="service-card-fee">
           時給<strong>2,500円〜3,000円</strong>
           <span style="font-size:12px;color:var(--c-sub)">業務内容・資格に応じた単価改定あり</span>
@@ -439,7 +500,7 @@
         <div class="service-card-num">02</div>
         <div class="service-card-name">グランドシッター</div>
         <div class="service-card-en">Grand Sitter</div>
-        <p class="service-card-desc">お子様の生活と個性に合わせた、きめ細やかな保育を求めるご家庭を対象とした家庭保育サービスです。担当制・継続支援・丁寧な記録共有を通じて、ご家庭と長期的な信頼関係を築きます。</p>
+        <p class="service-card-desc">お子様の生活と個性に合わせた、きめ細やかな保育を求めるご家庭へ。担当制と丁寧な記録共有で、長期的な信頼関係を築きます。</p>
         <div class="service-card-fee">
           時給<strong>2,200円〜2,400円</strong>
           <span style="font-size:12px;color:var(--c-sub)">業務内容・資格に応じた単価改定あり</span>
@@ -450,10 +511,14 @@
         </div>
       </div>
     </div>
-    <div class="quote-card">
-      <strong style="display:block;margin-bottom:8px">プリサイスシッターについて</strong>
-      医療行為・療育行為は含みません。研修とサポート体制を整えたうえでご担当いただきますので、初めての方でも安心してご就業いただけます。
-    </div>
+    <details class="fold">
+      <summary>2つのサービスの詳細を見る</summary>
+      <div class="fold-body">
+        <p><strong>プリサイスシッター</strong><br>発達特性のあるお子様のご家庭に対し、外部支援施設（療育施設・発達支援施設・通級指導教室など）での取り組みを保護者様から伺い、同じ視点・同じ関わり方を訪問保育の中で再現するサービスです。</p>
+        <p><strong>グランドシッター</strong><br>お子様の生活と個性に合わせた、きめ細やかな保育を求めるご家庭を対象とした家庭保育サービスです。担当制・継続支援・丁寧な記録共有を通じて、ご家庭と長期的な信頼関係を築きます。</p>
+        <p><strong>プリサイスシッターについて</strong><br>医療行為・療育行為は含みません。研修とサポート体制を整えたうえでご担当いただきますので、初めての方でも安心してご就業いただけます。</p>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -487,10 +552,31 @@
   <div class="section-inner">
     <div class="section-eyebrow">Requirements</div>
     <h2 class="section-title">募集要項</h2>
+    <div class="req-summary">
+      <div class="req-summary-item">
+        <div class="req-summary-label">時給</div>
+        <div class="req-summary-value">プリサイスシッター 2,500円〜3,000円<br>グランドシッター 2,200円〜2,400円</div>
+      </div>
+      <div class="req-summary-item">
+        <div class="req-summary-label">勤務日数</div>
+        <div class="req-summary-value">週1日〜・応相談</div>
+      </div>
+      <div class="req-summary-item">
+        <div class="req-summary-label">勤務エリア</div>
+        <div class="req-summary-value">東京都心9区</div>
+      </div>
+      <div class="req-summary-item">
+        <div class="req-summary-label">交通費</div>
+        <div class="req-summary-value">訪問1回あたり一律1,100円（税込）</div>
+      </div>
+    </div>
+    <details class="fold">
+      <summary>募集要項をすべて見る</summary>
+      <div class="fold-body">
     <table class="req-table">
       <tr><th>雇用形態</th><td>パートタイム雇用（週20時間未満）<br><span style="font-size:12px;color:var(--c-sub)">※研修を修了し、独立して訪問を担当できる方は、ご本人のご希望により随時、正社員への転換を検討いたします</span></td></tr>
       <tr><th>勤務エリア</th><td>東京都心9区<br>港区・中央区・文京区・目黒区・渋谷区・世田谷区・江東区・杉並区・品川区<br>※ご家庭からのご要望によりエリア外への訪問が発生する場合があります。</td></tr>
-      <tr><th>勤務日数</th><td>週1日〜・応相談（担当重視のご家庭からは1か月前に日程をご提出いただくため、安定した稼働・収入が可能です）</td></tr>
+      <tr><th>勤務日数</th><td>週1日〜・応相談<br>勤務可能日は前月10日までにご提出いただき、翌月のシフトは前月20日までにお知らせいたします</td></tr>
       <tr><th>時給</th><td>プリサイスシッター：2,500円〜3,000円<br>グランドシッター：2,200円〜2,400円<br><br><span style="font-size:12px;color:var(--c-sub)">研修期間中：1,300円／時</span></td></tr>
       <tr><th>加算</th><td>22時〜翌7時 ＋25％</td></tr>
       <tr><th>交通費</th><td>訪問1回あたり一律1,100円（税込）を支給いたします<br>研修会場への交通費は実費を支給いたします（上限：往復2,000円）</td></tr>
@@ -499,6 +585,8 @@
       <tr><th>社会保険</th><td>労災保険に加入いたします<br>週の所定労働時間が20時間以上の場合は雇用保険、30時間以上の場合は健康保険・厚生年金保険に加入いたします</td></tr>
       <tr><th>研修</th><td>入職時に研修を実施。訪問保育の基礎・安全管理・記録の書き方などを学んでいただきます。詳細は面談時にご案内いたします</td></tr>
     </table>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -565,23 +653,19 @@
     <h2 class="section-title">代表メッセージ</h2>
     <div class="ceo-message">
       <p class="ceo-message-text">
-        私自身、保育士として乳幼児から発達特性のあるお子様まで、長年保育の現場に携わってまいりました。その中で感じ続けてきた3つの想いが、セレネスタを立ち上げるきっかけとなっております。
+        私自身、保育士として乳幼児から発達特性のあるお子様まで、長年保育の現場に携わってまいりました。その中で強く感じてきたのは、お子様の大切な時期に携わるやりがいに満ちた仕事でありながら、報酬水準が低いために優れた人材が離職してしまうことへのもどかしさです。ご家庭・お子様・シッターの三者が、安心して長く関わり続けられる場をつくりたい。それが、セレネスタを立ち上げた理由です。
       </p>
-      <p class="ceo-message-text">
-        　一つは、保護者様の心の余裕がお子様の成長に深く関わるということ。お子様のことはもちろん、保護者様ご自身も人生を充実していただける環境を整えたいと考えました。
-      </p>
-      <p class="ceo-message-text">
-        　二つめは、発達特性のあるお子様とそのご家庭が、日々の生活の中で受けられる支援がまだ少ないという課題意識です。
-      </p>
-      <p class="ceo-message-text">
-        　三つめは、お子様の大切な時期に携わる、やりがいに満ちたお仕事であるにもかかわらず、報酬水準が低いために優れた人材が離職してしまうことへのもどかしさです。
-      </p>
-      <p class="ceo-message-text">
-        セレネスタが目指すのは、ご家庭・お子様・シッターの三者すべてが安心して長く関わり続けられる場です。担当制と時給水準、丁寧なレポートと研修・サポート体制——それらすべては、シッターの皆様が専門性を発揮し、誇りを持って働ける環境を整えるためのものです。
-      </p>
-      <p class="ceo-message-text">
-        お子様の個性に丁寧に向き合うこと。保護者様の不安に寄り添うこと。その積み重ねが、家族の笑顔につながると信じています。私たちと一緒に、ご家庭の安心をつくる仕事に取り組んでいただける方をお待ちしております。
-      </p>
+      <details class="fold">
+        <summary>代表の想いをすべて読む</summary>
+        <div class="fold-body">
+          <p>私自身、保育士として乳幼児から発達特性のあるお子様まで、長年保育の現場に携わってまいりました。その中で感じ続けてきた3つの想いが、セレネスタを立ち上げるきっかけとなっております。</p>
+          <p>一つは、保護者様の心の余裕がお子様の成長に深く関わるということ。お子様のことはもちろん、保護者様ご自身も人生を充実していただける環境を整えたいと考えました。</p>
+          <p>二つめは、発達特性のあるお子様とそのご家庭が、日々の生活の中で受けられる支援がまだ少ないという課題意識です。</p>
+          <p>三つめは、お子様の大切な時期に携わる、やりがいに満ちたお仕事であるにもかかわらず、報酬水準が低いために優れた人材が離職してしまうことへのもどかしさです。</p>
+          <p>セレネスタが目指すのは、ご家庭・お子様・シッターの三者すべてが安心して長く関わり続けられる場です。担当制と時給水準、丁寧なレポートと研修・サポート体制——それらすべては、シッターの皆様が専門性を発揮し、誇りを持って働ける環境を整えるためのものです。</p>
+          <p>お子様の個性に丁寧に向き合うこと。保護者様の不安に寄り添うこと。その積み重ねが、家族の笑顔につながると信じています。私たちと一緒に、ご家庭の安心をつくる仕事に取り組んでいただける方をお待ちしております。</p>
+        </div>
+      </details>
       <div class="ceo-message-sign">
         株式会社Serenesta　代表取締役<strong>渡邉 夏帆</strong>
       </div>
@@ -648,5 +732,6 @@
 <script>
   // FAQの初期表示は閉じた状態
 </script>
+<div class="sticky-cta"><a href="#apply">応募する</a></div>
 </body>
 </html>
