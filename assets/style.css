@@ -46,11 +46,19 @@ ul{list-style:none}
   display:flex;align-items:center;justify-content:space-between;
   transition:background .4s, padding .4s, box-shadow .4s;
 }
+/* 2026-07-21改修：ぼかしを疑似要素に移設（スクロール時にモバイルメニューが潰れる不具合の対策） */
 .nav.scrolled{
-  background:rgba(255,255,255,.9);
-  backdrop-filter:blur(14px);
+  background:transparent;
   padding:14px 40px;
   box-shadow:0 1px 30px rgba(120,90,60,.06);
+}
+.nav.scrolled::before{
+  content:"";
+  position:absolute;inset:0;
+  background:rgba(255,255,255,.9);
+  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(14px);
+  z-index:-1;
 }
 .nav-logo{
   font-family:var(--f-en);
@@ -965,9 +973,7 @@ ul{list-style:none}
 .one-line-text,.service-name,.strength-title,.trust-label{
   text-wrap:balance;
 }
-.section-desc,.cta-sub,.service-lead,.page-lead,.trust-intro{
-  text-wrap:pretty;
-}
+/* 2026-07-21改修：text-wrap:prettyを廃止（Safariで各行の右側が余る不具合の対策） */
 body{line-break:strict}
 
 @media (max-width:880px){

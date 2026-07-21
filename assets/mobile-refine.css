@@ -1,8 +1,9 @@
 /* ============================================================
-   Serenesta mobile refine v7
+   Serenesta mobile refine v8
    方針：静かな高級感／モバイル圧縮（見出し縮小・余白調整）
    両端揃えは全廃（本文は左揃え・CTA文は中央揃え）
    こんな方へ：カード枠を廃止し罫線区切りのリストに変更
+   v8：本文のtext-wrap:prettyを廃止（右側の余白不具合の対策）
    額装：角丸フレーム＋頂部ダイヤ飾り（単調な四角の解消）
    全ページで最後に読み込むこと
    ============================================================ */
@@ -24,7 +25,7 @@ body::after{
   pointer-events:none;z-index:101;
 }
 /* --- 組版（全画面共通） --- */
-p,li,dd,dt{line-break:strict;overflow-wrap:break-word;text-wrap:pretty}
+p,li,dd,dt{line-break:strict;overflow-wrap:break-word}
 h1,h2,h3,h4{text-wrap:balance}
 /* --- モバイル（≤720px） --- */
 @media (max-width:720px){
