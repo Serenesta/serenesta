@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+
+<title>Serenesta LINE定型文ツール（本部用）</title>
+<style>
+  :root{
+    --c1:#C8DCE8; --c2:#DDEAF1; --c3:#F2F7FA;
+    --ink:#1A3A4A; --sub:#5A6E78; --line:#D5E2EA;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  body{margin:0; font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+       background:#FBFDFE; color:var(--ink); font-size:15px; line-height:1.7;}
+  header{position:sticky; top:0; z-index:10; background:#FBFDFE;
+         border-bottom:1px solid var(--line); padding:10px 12px 8px;}
+  h1{font-size:16px; margin:0 0 8px; letter-spacing:.02em;}
+  h1 small{font-weight:normal; color:var(--sub); font-size:11px; margin-left:6px;}
+  #q{width:100%; font-size:16px; padding:10px 12px; border:1px solid var(--line);
+     border-radius:10px; background:#fff; color:var(--ink);}
+  #q:focus{outline:2px solid var(--c1);}
+  .tabs{display:flex; gap:6px; margin-top:8px; overflow-x:auto; padding-bottom:2px;}
+  .tab{flex:0 0 auto; border:1px solid var(--line); background:#fff; color:var(--ink);
+       border-radius:999px; padding:6px 12px; font-size:12.5px; cursor:pointer;}
+  .tab.on{background:var(--c1); border-color:var(--c1); font-weight:bold;}
+  main{padding:10px 12px 60px; max-width:720px; margin:0 auto;}
+  .count{color:var(--sub); font-size:12px; margin:4px 2px 8px;}
+  .card{background:#fff; border:1px solid var(--line); border-radius:12px;
+        padding:12px 12px 10px; margin-bottom:12px;}
+  .meta{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-bottom:6px;}
+  .badge{font-size:11px; padding:2px 8px; border-radius:999px; background:var(--c2);}
+  .cid{font-size:11px; color:var(--sub);}
+  .ttl{font-weight:bold; font-size:14.5px; margin:2px 0 4px;}
+  .timing{font-size:12px; color:var(--sub); margin-bottom:8px;}
+  .msg{white-space:pre-wrap; background:var(--c3); border-radius:8px;
+       padding:10px; font-size:14.5px;}
+  .msg mark{background:#FFE9A8; padding:0 1px; border-radius:2px;}
+  .row{display:flex; gap:8px; margin-top:8px;}
+  .copy{flex:1; font-size:14px; padding:10px; border:none; border-radius:8px;
+        background:var(--ink); color:#fff; cursor:pointer;}
+  .copy.done{background:#3E7D5B;}
+  .notebtn{flex:0 0 auto; font-size:12.5px; padding:10px 12px; border:1px solid var(--line);
+        border-radius:8px; background:#fff; color:var(--sub); cursor:pointer;}
+  .note{display:none; font-size:12px; color:var(--sub); margin-top:8px;
+        border-top:1px dashed var(--line); padding-top:8px;}
+  .note.show{display:block;}
+  .empty{color:var(--sub); text-align:center; padding:40px 0;}
+  footer{color:var(--sub); font-size:11px; text-align:center; padding:16px 12px 24px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>Serenesta LINE定型文ツール<small>本部用</small></h1>
+  <input id="q" type="search" placeholder="キーワードで検索（例：発熱・遅刻・キャンセル・請求）" autocomplete="off">
+  <div class="tabs" id="tabs"></div>
+</header>
+<main>
+  <div class="count" id="count"></div>
+  <div id="list"></div>
+</main>
+<footer>〈 〉は差し込み箇所です。コピー後に置き換えてから送信してください。<br>体調変化・事故・災害の第一報は必ず電話で行います（LINEは電話内容の文書化）。<br>請求・キャンセル料の文面と金額は料金計算ツールの出力が正です。</footer>
+<script>
+const DB = {"parts": ["本部→シッター", "本部→保護者様"], "cards": [{"part": 0, "id": "1-1", "title": "予約確定のご依頼連絡", "sender": "本部", "timing": "予約を承認した後、なるべく早く", "body": "〈シッター名〉さん\nおつかれさまです、本部です。以下のご予約が確定しましたので、ご対応をお願いいたします😊\n・日時：〈日時〉\n・サービス：〈プリサイスシッター／グランドシッター〉\n・ご家庭：〈ご家庭名〉様（〈お子様のお名前〉ちゃん・〈年齢〉）\n・場所：〈ご住所・最寄り駅〉\n・共有事項：〈事前面談等での共有事項・留意点〉\n前日のご連絡と当日の訪問をよろしくお願いいたします。ご不明点があればいつでもご連絡ください。", "note": "ご家庭情報の共有はプライバシー保護の取り扱い（業務マニュアル）に従う。初回のご家庭の場合は事前面談の記録もあわせて共有する。"}, {"part": 0, "id": "1-2", "title": "キャンセル・日程変更の連絡", "sender": "本部", "timing": "保護者様からの連絡を受け付けた後、直ちに", "body": "〈シッター名〉さん\n本部です。〈ご家庭名〉様の〈日時〉のご予約について、〈キャンセル／日程変更〉のご連絡がありました。\n〈日程変更の場合：変更後は〈変更後の日時〉です。〉\nお手数ですが、ご予定の調整をお願いいたします。ご都合が難しい場合はお知らせください。", "note": "キャンセルの場合は3行目を削除する。変更後の日程がシッターの受付時間外の場合は、承諾を得てからSelectTypeの予約を編集する。"}, {"part": 0, "id": "1-3", "title": "訪問記録の確認結果（承認／修正のお願い）｜承認の場合", "sender": "本部", "timing": "シッターから記録の提出を受け、内容を確認した後", "body": "〈シッター名〉さん\nおつかれさまです。〈訪問日〉分の〈ケアサマリー／デイリーレポート〉を確認しました。このまま保護者様へお送りください😊\nいつも丁寧な記録をありがとうございます。", "note": "修正依頼は理由と直し方をセットで伝える（本部は、シッターに求める水準を自らの伝え方でも体現する）。記録は本部確認後、訪問終了から24時間以内に保護者様へ送付する。"}, {"part": 0, "id": "1-3", "title": "訪問記録の確認結果（承認／修正のお願い）｜修正をお願いする場合", "sender": "本部", "timing": "シッターから記録の提出を受け、内容を確認した後", "body": "〈シッター名〉さん\nおつかれさまです。〈訪問日〉分の〈ケアサマリー／デイリーレポート〉を確認しました。1点だけお願いです。\n〈修正箇所とお願いの内容（例：様子の欄の「〜が原因と思われます」を、見たままの事実の表現に直してください）〉\n修正後にもう一度ご共有ください。保護者様への送付は、本部確認のあとにお願いいたします。", "note": "修正依頼は理由と直し方をセットで伝える（本部は、シッターに求める水準を自らの伝え方でも体現する）。記録は本部確認後、訪問終了から24時間以内に保護者様へ送付する。"}, {"part": 0, "id": "1-4", "title": "体調変化・事故の報告を受けた際の受領と指示", "sender": "本部", "timing": "シッターからの電話・報告を受けた直後", "body": "〈シッター名〉さん\nご報告ありがとうございます。状況、承知しました。落ち着いて対応いただき、ありがとうございます。\n〈本部からの指示（例：引き続き1時間ごとに検温し、保護者様のご帰宅まで安静に見守ってください）〉\nご様子に変化があれば、すぐにお電話ください。\n〈事故報告書／ヒヤリハット記録〉の作成は本日中にお願いいたします。", "note": "緊急時の第一報・対応手順は訪問型ベビーシッター 事故・感染症・災害対応マニュアル（東京都届出対応版）が正（保護者様への電話→本部への報告の順）。本文面は本部からの折り返し連絡に使う。救急要請を伴う事案では、LINEではなく電話でやり取りする。"}, {"part": 0, "id": "1-5", "title": "代替訪問の可否照会", "sender": "本部", "timing": "担当シッターの稼働が難しくなった時点で、直ちに", "body": "〈シッター名〉さん\n本部です。急なご相談で恐れ入ります。\n〈日時〉に〈ご家庭名〉様への代替訪問をお願いできそうか、ご都合を伺えますでしょうか。\n・サービス：〈プリサイスシッター／グランドシッター〉\n・時間：〈開始時刻〜終了時刻〉\nご対応いただける場合は、通常の時給に加えて300円/hの加算をお支払いします。\n難しい場合も、遠慮なくお知らせください。よろしくお願いいたします。", "note": "照会は、月次シフト提出時に任意で申告のあった対応可能日のシッターから順に行う。承諾を得たら、保護者様への連絡（第2部の担当変更・代替のご連絡）とご家庭情報の共有を行う。"}, {"part": 0, "id": "1-6", "title": "月次シフト提出のお願い", "sender": "本部", "timing": "毎月の定例時期（提出期限の1週間前を目安に）", "body": "〈シッター名〉さん\nおつかれさまです、本部です。〈対象月〉のシフト提出をお願いいたします😊\n・提出期限：〈期限日〉\nあわせて、代替訪問にご協力いただける日がありましたら、任意でお知らせください。\nいつもありがとうございます。よろしくお願いいたします。", "note": "代替訪問の可能日の申告は任意であることを毎回明示する（義務と受け取られない表現を保つ）。"}, {"part": 0, "id": "1-7", "title": "研修・面談日程のご連絡", "sender": "本部", "timing": "日程確定後、なるべく早く", "body": "〈シッター名〉さん\n本部です。〈研修名／面談〉のご案内をお送りします。\n・日時：〈日時〉\n・場所／方法：〈場所またはオンラインのURL〉\n・お持ちいただくもの：〈持ち物〉\nご都合が難しい場合は、お早めにご相談ください。当日お会いできるのを楽しみにしております😊", "note": "研修時間は給与の対象（研修時給）であるため、開始・終了時刻を明確に伝える。"}, {"part": 1, "id": "2-1", "title": "仮予約受領のご連絡", "sender": "本部", "timing": "SelectTypeの予約通知を確認後、なるべく当日中（承認前）", "body": "〈保護者様のお名前〉様\nご予約のお申し込みをありがとうございます😊\n以下の内容で承り、ただいま確認を進めております。\n・日時：〈日時〉\n・サービス：〈プリサイスシッター／グランドシッター〉\n・担当：〈シッター名〉\n確認が済みましたら、あらためて確定のご連絡をお送りいたします。少々お待ちくださいませ。", "note": "SelectTypeの自動通知メールと重複するため、送信は任意。仮予約から承認まで時間が空く場合に使用する。"}, {"part": 1, "id": "2-2", "title": "予約確定のご連絡", "sender": "本部", "timing": "SelectTypeで予約を承認した直後", "body": "〈保護者様のお名前〉様\nお待たせいたしました。以下のご予約が確定いたしました😊\n・日時：〈日時〉\n・サービス：〈プリサイスシッター／グランドシッター〉\n・担当：〈シッター名〉\n当日は〈シッター名〉が〈訪問予定時刻〉頃にお伺いいたします。\nご不明点がございましたら、いつでもこちらのLINEにご連絡ください。", "note": "承認時にSelectTypeの承認メール（料金・締め日の案内を含む）が自動送信されるため、本文面では料金に触れない。"}, {"part": 1, "id": "2-3", "title": "事前面談の日程確定・Google Meet URLのご案内", "sender": "本部", "timing": "オンライン面談の場合、面談前日まで", "body": "〈保護者様のお名前〉様\n事前面談のご案内をお送りいたします😊\n・日時：〈面談日時〉\n・方法：オンライン（Google Meet）\n・URL：〈Google MeetのURL〉\nお時間になりましたら、上のURLからご参加ください。\n〈お子様のお名前〉ちゃんのご様子やご希望を、ゆっくりお伺いできることを楽しみにしております。", "note": "ご訪問での面談の場合はURLの2行を削除し、「・場所：ご自宅」等に差し替える。お子様の呼称（ちゃん・くん・さん）はご家庭の呼び方に合わせる（以下すべての文面で同じ）。"}, {"part": 1, "id": "2-4", "title": "事前面談の御礼", "sender": "本部", "timing": "面談終了後、当日中", "body": "〈保護者様のお名前〉様\n本日は事前面談のお時間をいただき、ありがとうございました😊\n〈お子様のお名前〉ちゃんのご様子やご希望を伺うことができ、大変うれしく思っております。\nご入会をご希望の際は、こちらのLINEにひと言お送りください。お手続きのご案内をお送りいたします。\nご質問やご相談も、どうぞお気軽にご連絡ください。", "note": "面談で伺った内容に一言触れると印象が深まる（例：「〇〇がお好きとのこと、当日が楽しみです」）。無理に加える必要はない。"}, {"part": 1, "id": "2-5", "title": "ご入会時のご案内（事前面談料・入会金）｜参考文例（正本は料金計算ツールの出力）", "sender": "本部", "timing": "入会承認後、Stripe請求書の確定直後", "body": "【Serenesta ご請求のご案内（事前面談料・入会金）】\n〈保護者様のお名前〉様\nこのたびはご入会いただき、誠にありがとうございます。\n以下の内容でご請求申し上げます。\n・事前面談：〈金額〉（税込）\n・入会金：〈金額〉（税込）\n・お支払期限：〈期限日〉\nお支払いは以下のリンクよりお手続きをお願いいたします。\n〈Stripe支払い確認ページURL〉\nご不明点がございましたら、本アカウントまでお気軽にご連絡ください。\nSerenesta本部", "note": "文面の正本は料金計算ツール（初回請求タブ）の出力とする。ツールが金額・構成を自動生成するため、本書の文例はツールが使用できない場合の予備。"}, {"part": 1, "id": "2-6", "title": "キャンセル受付のご返信（キャンセル料が発生しない場合）", "sender": "本部", "timing": "キャンセルのご連絡を受けた後、なるべく早く", "body": "〈保護者様のお名前〉様\nご連絡ありがとうございます。〈日時〉のご予約のキャンセルを承りました。\n〈お子様のお名前〉ちゃんとまたお会いできる日を楽しみにしております。\n次回のご予約もお待ちしております😊", "note": "前日18時より前のキャンセルはキャンセル料なし。受付後、SelectTypeの予約一覧で該当予約をキャンセルにし、担当シッターへも連絡する（第1部1-2）。"}, {"part": 1, "id": "2-7", "title": "キャンセル料のご案内｜参考文例（正本は料金計算ツールの出力）", "sender": "本部", "timing": "前日18時以降または当日のキャンセルを受け付けた後", "body": "【Serenesta キャンセル料のご案内】\n〈保護者様のお名前〉様\n以下のご予約のキャンセルを承りました。\n・サービス：〈プリサイスシッター／グランドシッター〉\n・日時：〈日時〉\n・キャンセル時期：〈前日18時以降のキャンセル／当日のキャンセル〉\n・キャンセル料：〈キャンセル料の金額〉（税込・時間料金の〈料率〉%）\n利用規約第10条に基づき、上記のキャンセル料を申し受けます。\n翌月のご請求書に合算してご請求いたします。\nご不明点がございましたら、本アカウントまでお気軽にご連絡ください。\nSerenesta本部", "note": "文面と金額の正本は料金計算ツール（キャンセル料タブ）の出力とする。本書の文例はツールが使用できない場合の予備。金額を手計算で記載しない。算出したキャンセル料は月次請求への合算を忘れず、売上管理表等にメモする。"}, {"part": 1, "id": "2-8", "title": "日程変更受付のご返信", "sender": "本部", "timing": "変更のご連絡を受け、SelectTypeの予約編集を終えた後", "body": "〈保護者様のお名前〉様\nご連絡ありがとうございます。以下のとおりご予約の日程を変更いたしました😊\n・変更前：〈変更前の日時〉\n・変更後：〈変更後の日時〉\n当日は〈シッター名〉がお伺いいたします。どうぞよろしくお願いいたします。", "note": "日程変更はキャンセル扱いとせず、予約詳細の「編集する」で日時を変更する。前日18時以降の変更依頼に対するキャンセル料の要否は本部判断（初回は柔軟対応を推奨）。変更後、担当シッターへも連絡する（第1部1-2）。"}, {"part": 1, "id": "2-9", "title": "お子様の発熱等で当日お預かりを見合わせる場合", "sender": "本部", "timing": "保護者様からの体調連絡を受け、対応を確認した後", "body": "〈保護者様のお名前〉様\nご連絡ありがとうございます。〈お子様のお名前〉ちゃんのご体調、ご心配のことと思います。\n本日のお預かりは見合わせとさせていただきます。\nキャンセル料は〈キャンセル料の該当条件・金額〉となります。\n〈お子様のお名前〉ちゃんが早く元気になられますように。回復されましたら、またのご予約をお待ちしております。", "note": "お預かり可否の判断は本部が行う（感染症対応の可否・条件は利用規約と本部判断が正）。担当シッターが先に連絡を受けた場合は、返信せずまず本部へ共有する。キャンセル料に触れない対応とする場合は該当行を削除する。"}, {"part": 1, "id": "2-10", "title": "物損のお詫び", "sender": "本部（現場ではシッターが口頭でお詫び）", "timing": "シッターからの報告を受けた後、当日中", "body": "〈保護者様のお名前〉様\n本日のシッティング中に〈物品名〉を破損してしまい、誠に申し訳ございませんでした。\n経緯を確認のうえ、修理・弁償等の対応につきまして、あらためてご連絡させていただきます。\nご心配とご迷惑をおかけしましたことを、心よりお詫び申し上げます。\nSerenesta本部", "note": "会社としての対応表明のため本部名義で送る。賠償の可否・方法は保険（賠償責任保険）の確認後に案内し、この時点で金額や責任の断定はしない。"}, {"part": 1, "id": "2-11", "title": "シッター遅刻時の本部フォロー", "sender": "本部", "timing": "遅れが大きい場合、シッターの第一報の後に", "body": "〈保護者様のお名前〉様\nSerenesta本部です。担当の〈シッター名〉の到着が遅れており、ご迷惑をおかけし申し訳ございません。\n到着は〈到着見込み時刻〉頃の見込みです。\nご予定に支障がある場合は、こちらのLINEまたはお電話でお知らせください。対応いたします。", "note": "遅れた時間分の料金の取り扱いは本部が判断し、必要に応じて請求時に調整する。シッターの第一報は第3部3-10。"}, {"part": 1, "id": "2-12", "title": "シッター都合による当日の訪問中止・代替のご連絡", "sender": "本部", "timing": "シッターから中止報告を受けた後、直ちに", "body": "〈保護者様のお名前〉様\nSerenesta本部です。本日〈時刻〉からのご予約について、担当の〈シッター名〉が体調不良のため、お伺いすることが難しくなりました。誠に申し訳ございません。\n〈対応のご提案（例：同じ研修を修了したシッター〈シッター名〉が同時刻にお伺いできます／本日は見合わせとし、料金はいただきません）〉\nご意向をお聞かせいただけますでしょうか。\nご迷惑をおかけしましたことを、心よりお詫び申し上げます。", "note": "シッター自身に発熱等がある場合は訪問中止（訪問型ベビーシッター 事故・感染症・災害対応マニュアル（東京都届出対応版））。代替訪問は事前共有済みの制度に沿って提案する。当社都合の中止のため、料金は請求しない。"}, {"part": 1, "id": "2-13", "title": "担当シッター変更のご連絡（事前調整）", "sender": "本部", "timing": "変更が確定した時点で、適用日より十分前に", "body": "〈保護者様のお名前〉様\nいつもご利用いただきありがとうございます。Serenesta本部です。\n〈変更理由（例：担当シッターの勤務体制の変更）〉に伴い、〈適用日〉より担当を〈新しいシッター名〉に変更させていただきたく、ご連絡いたしました。\n〈新しいシッター名〉はSerenestaの研修を修了しており、これまでの記録をもとに、〈お子様のお名前〉ちゃんへの関わりを丁寧に引き継ぎます。\nご不安な点やご希望がございましたら、どうぞお気軽にお聞かせください。", "note": "担当制サービスの根幹に関わる連絡のため、一方的な通知にせず、ご不安の受け止めと引き継ぎの安心材料（研修修了・記録の引き継ぎ）を必ず含める。"}, {"part": 1, "id": "2-14", "title": "荒天が見込まれる場合の事前連絡", "sender": "本部", "timing": "荒天が見込まれる前日まで", "body": "〈保護者様のお名前〉様\nSerenesta本部です。〈日付〉は〈気象状況（例：台風の接近）〉が見込まれております。\nお子様とシッターの安全を最優先に、〈対応方針（例：当日朝までに訪問可否をあらためてご連絡いたします）〉。\nキャンセル・変更をご希望の場合の取り扱いは〈キャンセル料の取り扱い〉となります。\nどうぞ安全を最優先にお過ごしください。", "note": "災害時の行動基準は訪問型ベビーシッター 事故・感染症・災害対応マニュアル（東京都届出対応版）が正。荒天時のキャンセル料の取り扱いは本部が都度判断し、差し込み欄に記載する。"}, {"part": 1, "id": "2-15", "title": "月次請求のご案内｜参考文例（正本は料金計算ツールの出力）", "sender": "本部", "timing": "月初、Stripe請求書の確定後", "body": "【Serenesta ご請求のご案内】\n〈保護者様のお名前〉様\nいつもご利用いただきありがとうございます。\n〈対象月〉分のご請求書を発行いたしました。\n・ご請求金額：〈金額〉（税込）\n・お支払期限：〈翌月25日の日付〉\nお支払いは以下のリンクよりお手続きをお願いいたします。\n〈Stripe支払い確認ページURL〉\nご不明点がございましたら、本アカウントまでお気軽にご連絡ください。\nSerenesta本部", "note": "文面と金額の正本は料金計算ツール（月次請求タブ）の出力とする。送信前に、宛先のお客様と請求書の顧客名の一致を必ず確認する（誤送信は個人情報漏えいになる）。"}, {"part": 1, "id": "2-16", "title": "お支払いのご確認（督促）｜本部運用マニュアル第8章より転載", "sender": "本部", "timing": "支払期限（翌月25日）の翌営業日、Stripeで未払いを確認した後", "body": "【お支払いのご確認】\n〈保護者様のお名前〉様\nいつもご利用いただきありがとうございます。\n〈対象月〉分のご請求（〈支払期限日〉期限）について、本日時点でお支払いの確認ができておりません。行き違いでお手続き済みの場合は何卒ご容赦ください。\nお手続きがお済みでない場合は、お送りした請求書リンクよりお支払いをお願いいたします。\nご事情がある場合は、お気軽にご相談ください。", "note": "初回督促では遅延損害金（規約第9条8項・年率14.6%）に触れず、2回目以降の督促で記載を検討する。2ヶ月以上の滞納時の対応（新規予約停止・契約解除）は本部運用マニュアル第8章が正。"}, {"part": 1, "id": "2-17", "title": "休業・営業に関するお知らせ", "sender": "本部", "timing": "休業の2週間前を目安に（一斉送信可）", "body": "【〈年末年始等〉の営業について】\nいつもSerenestaをご利用いただきありがとうございます😊\n誠に勝手ながら、〈休業期間〉はお休みをいただきます。\n期間中にいただいたご連絡には、〈営業再開日〉より順次お返事いたします。\nご不便をおかけしますが、どうぞよろしくお願いいたします。", "note": "休業期間中の緊急連絡の取り扱い（既存のご予約がある場合の連絡先）を決めたうえで、必要に応じて一文を追加する。"}]};
+let curPart = -1; // -1 = すべて
+let curQ = "";
+
+const tabsEl = document.getElementById("tabs");
+const listEl = document.getElementById("list");
+const countEl = document.getElementById("count");
+const qEl = document.getElementById("q");
+
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));}
+function hl(s,q){
+  const e = esc(s);
+  if(!q) return e;
+  const eq = esc(q).replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  return e.replace(new RegExp(eq,"g"),m=>"<mark>"+m+"</mark>");
+}
+
+function renderTabs(){
+  const names = ["すべて"].concat(DB.parts);
+  tabsEl.innerHTML = names.map((n,i)=>
+    '<button class="tab'+((i-1)===curPart?" on":"")+'" data-p="'+(i-1)+'">'+n+'</button>').join("");
+}
+tabsEl.addEventListener("click",e=>{
+  const b = e.target.closest(".tab"); if(!b) return;
+  curPart = Number(b.dataset.p); renderTabs(); renderList();
+});
+
+qEl.addEventListener("input",()=>{ curQ = qEl.value.trim(); renderList(); });
+
+function renderList(){
+  const q = curQ;
+  const hits = DB.cards.filter(c=>{
+    if(curPart>=0 && c.part!==curPart) return false;
+    if(!q) return true;
+    return (c.title+c.body+c.timing+c.note+c.id).includes(q);
+  });
+  countEl.textContent = hits.length + "件" + (q? "（「"+q+"」で検索）":"");
+  if(!hits.length){ listEl.innerHTML = '<div class="empty">該当する文面がありません。<br>短い言葉（例：発熱／遅刻）で試してください。</div>'; return; }
+  listEl.innerHTML = hits.map((c,i)=>
+    '<div class="card">'+
+      '<div class="meta"><span class="badge">'+esc(DB.parts[c.part])+'</span><span class="cid">'+esc(c.id)+'</span></div>'+
+      '<div class="ttl">'+hl(c.title,q)+'</div>'+
+      '<div class="timing">送るタイミング：'+hl(c.timing,q)+'</div>'+
+      '<div class="msg">'+hl(c.body,q)+'</div>'+
+      '<div class="row"><button class="copy" data-i="'+DB.cards.indexOf(c)+'">文面をコピー</button>'+
+      '<button class="notebtn" data-n="'+i+'">注意点</button></div>'+
+      '<div class="note" id="note-'+i+'">'+hl(c.note,q)+'</div>'+
+    '</div>').join("");
+}
+
+listEl.addEventListener("click",e=>{
+  const cb = e.target.closest(".copy");
+  if(cb){
+    const txt = DB.cards[Number(cb.dataset.i)].body;
+    const done = ()=>{ cb.textContent="コピーしました"; cb.classList.add("done");
+      setTimeout(()=>{cb.textContent="文面をコピー"; cb.classList.remove("done");},1500); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done).catch(()=>fallback(txt,done));
+    } else fallback(txt,done);
+    return;
+  }
+  const nb = e.target.closest(".notebtn");
+  if(nb){ document.getElementById("note-"+nb.dataset.n).classList.toggle("show"); }
+});
+
+function fallback(txt,done){
+  const ta = document.createElement("textarea");
+  ta.value = txt; ta.style.position="fixed"; ta.style.opacity="0";
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand("copy"); done(); }catch(e){ alert("コピーできませんでした。文面を長押しで選択してください。"); }
+  document.body.removeChild(ta);
+}
+
+renderTabs(); renderList();
+</script>
+</body>
+</html>

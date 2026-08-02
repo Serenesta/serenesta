@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+
+<title>Serenesta 料金計算ツール（本部用）</title>
+<style>
+  :root{
+    --main:#7A97A8;   /* アッシュブルー メイン */
+    --sub:#C4CDD3;    /* サブ */
+    --base:#F0F3F5;   /* ベース */
+    --ink:#3A4750;
+    --white:#FFFFFF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","Meiryo",sans-serif;
+    background:var(--base);
+    color:var(--ink);
+    line-height:1.7;
+    padding:16px;
+  }
+  .wrap{max-width:640px;margin:0 auto;}
+  header{
+    background:var(--main);
+    color:var(--white);
+    border-radius:10px 10px 0 0;
+    padding:14px 20px;
+  }
+  header h1{font-size:16px;font-weight:600;letter-spacing:0.06em;}
+  header p{font-size:11px;opacity:.85;margin-top:2px;}
+  .tabs{display:flex;background:var(--sub);}
+  .tabs button{
+    flex:1;border:none;background:transparent;color:var(--ink);
+    padding:11px 4px;font-size:13px;cursor:pointer;font-family:inherit;
+  }
+  .tabs button.active{background:var(--white);font-weight:700;}
+  .panel{background:var(--white);border-radius:0 0 10px 10px;padding:20px;}
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-size:12px;font-weight:600;margin-bottom:4px;}
+  .field input[type="date"],.field input[type="time"],.field input[type="text"],.field select{
+    width:100%;padding:9px 10px;border:1px solid var(--sub);border-radius:6px;
+    font-size:15px;font-family:inherit;background:var(--white);color:var(--ink);
+  }
+  .row{display:flex;gap:10px;}
+  .row .field{flex:1;}
+  .check{display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:14px;}
+  .check input{width:18px;height:18px;accent-color:var(--main);}
+  .btn{
+    width:100%;padding:12px;border:none;border-radius:6px;
+    background:var(--main);color:var(--white);font-size:15px;font-weight:700;
+    cursor:pointer;font-family:inherit;letter-spacing:0.1em;
+  }
+  .btn:active{opacity:.85;}
+  .result{
+    margin-top:18px;background:var(--base);border-radius:8px;padding:16px;
+    display:none;
+  }
+  .result h2{font-size:13px;color:var(--main);font-weight:700;margin-bottom:8px;letter-spacing:.05em;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  td{padding:5px 0;vertical-align:top;}
+  td.amt{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;}
+  tr.total td{border-top:1px solid var(--sub);padding-top:8px;font-weight:700;font-size:15px;}
+  .note{font-size:11px;color:#6b7a84;margin-top:8px;}
+  .msgbox{
+    margin-top:14px;width:100%;min-height:220px;padding:12px;
+    border:1px solid var(--sub);border-radius:6px;font-size:12.5px;
+    font-family:inherit;line-height:1.7;white-space:pre-wrap;background:var(--white);color:var(--ink);
+  }
+  .copybtn{
+    margin-top:8px;width:100%;padding:10px;border:1px solid var(--main);border-radius:6px;
+    background:var(--white);color:var(--main);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;
+  }
+  .copybtn.copied{background:var(--main);color:var(--white);}
+  .err{color:#b0564e;font-size:12px;margin-top:8px;display:none;}
+  .hidden{display:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Serenesta 料金計算ツール</h1>
+    <p>本部用｜単価・加算は利用規約第9条・第10条に準拠｜円未満切り捨て</p>
+  </header>
+
+  <div class="tabs">
+    <button id="tabCare" class="active" onclick="switchTab('care')">保育料金</button>
+    <button id="tabMonthly" onclick="switchTab('monthly')">月次請求</button>
+    <button id="tabMendan" onclick="switchTab('mendan')">初回請求</button>
+    <button id="tabCancel" onclick="switchTab('cancel')">キャンセル料</button>
+  </div>
+
+  <div class="panel">
+
+    <!-- ===== 保育料金 ===== -->
+    <div id="paneCare">
+      <div class="field">
+        <label>サービス種別</label>
+        <select id="c_service">
+          <option value="precise">プリサイスシッター（6,000円/時間・税込）</option>
+          <option value="grand">グランドシッター（4,400円/時間・税込）</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>保育日</label>
+        <input type="date" id="c_date">
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>開始時刻</label>
+          <input type="time" id="c_start" step="300">
+        </div>
+        <div class="field">
+          <label>終了時刻（開始より前の時刻は翌日扱い）</label>
+          <input type="time" id="c_end" step="300">
+        </div>
+      </div>
+      <div class="check">
+        <input type="checkbox" id="c_transport" checked>
+        <label for="c_transport">交通費（一律1,100円 税込・規約上は一律請求）</label>
+      </div>
+      <div class="check">
+        <input type="checkbox" id="c_infection">
+        <label for="c_infection">感染症対応（＋2,000円 税込）</label>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>担当シッター名</label>
+          <input type="text" id="c_sitter" placeholder="例：わたなべ かほ">
+        </div>
+        <div class="field">
+          <label>お客様名（敬称なしで入力）</label>
+          <input type="text" id="c_customer" placeholder="例：山田">
+        </div>
+      </div>
+      <button class="btn" onclick="calcCare()">計算する</button>
+      <p class="err" id="c_err"></p>
+
+      <div class="result" id="c_result">
+        <h2>ご請求内訳</h2>
+        <table id="c_table"></table>
+        <p class="note" id="c_note"></p>
+        <h2 style="margin-top:16px;">お客様送付用文面（Stripeリンクは作成後に貼り付け）</h2>
+        <textarea class="msgbox" id="c_msg"></textarea>
+        <button class="copybtn" onclick="copyMsg('c_msg',this)">文面をコピー</button>
+      </div>
+    </div>
+
+    <!-- ===== 月次請求 ===== -->
+    <div id="paneMonthly" class="hidden">
+      <div class="row">
+        <div class="field">
+          <label>請求対象月</label>
+          <input type="month" id="m2_month">
+        </div>
+        <div class="field">
+          <label>お客様名（敬称なしで入力）</label>
+          <input type="text" id="m2_customer" placeholder="例：山田">
+        </div>
+      </div>
+
+      <p class="note" style="margin-bottom:10px;">下の欄で1件ずつ予約を入力し、「明細に追加」を押してください。全件追加したら「請求書を作成」を押します。</p>
+
+      <div class="field">
+        <label>サービス種別</label>
+        <select id="m2_service">
+          <option value="precise">プリサイスシッター（6,000円/時間・税込）</option>
+          <option value="grand">グランドシッター（4,400円/時間・税込）</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>保育日</label>
+        <input type="date" id="m2_date">
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>開始時刻</label>
+          <input type="time" id="m2_start" step="300">
+        </div>
+        <div class="field">
+          <label>終了時刻（開始より前は翌日扱い）</label>
+          <input type="time" id="m2_end" step="300">
+        </div>
+      </div>
+      <div class="check">
+        <input type="checkbox" id="m2_transport" checked>
+        <label for="m2_transport">交通費（1,100円 税込）</label>
+      </div>
+      <div class="check">
+        <input type="checkbox" id="m2_infection">
+        <label for="m2_infection">感染症対応（＋2,000円 税込）</label>
+      </div>
+      <button class="copybtn" onclick="addItem()" style="border-color:var(--main);">＋ 明細に追加</button>
+      <p class="err" id="m2_err"></p>
+
+      <div id="m2_list" style="margin-top:16px;"></div>
+
+      <div class="check" style="margin-top:14px;">
+        <input type="checkbox" id="m2_fee" checked>
+        <label for="m2_fee">月会費 8,800円（税込）を加算する</label>
+      </div>
+      <button class="btn" onclick="calcMonthly()">請求書を作成</button>
+
+      <div class="result" id="m2_result">
+        <h2>ご請求内訳</h2>
+        <table id="m2_table"></table>
+        <h2 style="margin-top:16px;">Stripe請求書 入力用の項目リスト</h2>
+        <textarea class="msgbox" id="m2_items" style="min-height:140px;"></textarea>
+        <button class="copybtn" onclick="copyMsg('m2_items',this)">項目リストをコピー</button>
+        <h2 style="margin-top:16px;">お客様送付用文面（Stripeリンクは作成後に貼り付け）</h2>
+        <textarea class="msgbox" id="m2_msg"></textarea>
+        <button class="copybtn" onclick="copyMsg('m2_msg',this)">文面をコピー</button>
+      </div>
+    </div>
+
+    <!-- ===== 初回請求（事前面談・入会金） ===== -->
+    <div id="paneMendan" class="hidden">
+      <p class="note" style="margin-bottom:12px;">請求する項目にチェックを入れてください。両方にチェックを入れると1枚の請求書にまとめられます。</p>
+
+      <div class="check">
+        <input type="checkbox" id="m_useMendan" checked onchange="toggleInitial()">
+        <label for="m_useMendan"><strong>事前面談料 4,400円（税込・1時間程度）</strong></label>
+      </div>
+      <div id="m_mendanBox" style="padding-left:26px;margin-bottom:14px;">
+        <div class="row">
+          <div class="field">
+            <label>面談日</label>
+            <input type="date" id="m_date">
+          </div>
+          <div class="field">
+            <label>開始時刻</label>
+            <input type="time" id="m_start" step="300">
+          </div>
+        </div>
+      </div>
+
+      <div class="check">
+        <input type="checkbox" id="m_useNyukai" onchange="toggleInitial()">
+        <label for="m_useNyukai"><strong>入会金</strong></label>
+      </div>
+      <div id="m_nyukaiBox" style="padding-left:26px;margin-bottom:14px;" class="hidden">
+        <div class="field">
+          <label>入会金の区分（利用規約第7条）</label>
+          <select id="m_nyukaiType">
+            <option value="110000">通常入会金 110,000円（税込）</option>
+            <option value="55000">創業期特別価格 55,000円（税込・先着3組限定／2026年内契約のみ）</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>入会承認日（支払期限＝承認後7日以内を自動算出）</label>
+          <input type="date" id="m_nyukaiDate">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>お客様名（敬称なしで入力）</label>
+        <input type="text" id="m_customer" placeholder="例：山田">
+      </div>
+      <button class="btn" onclick="calcMendan()">請求書を作成</button>
+      <p class="err" id="m_err"></p>
+
+      <div class="result" id="m_result">
+        <h2>ご請求内訳</h2>
+        <table id="m_table"></table>
+        <h2 style="margin-top:16px;">Stripe請求書 入力用の項目リスト</h2>
+        <textarea class="msgbox" id="m_items" style="min-height:100px;"></textarea>
+        <button class="copybtn" onclick="copyMsg('m_items',this)">項目リストをコピー</button>
+        <h2 style="margin-top:16px;">お客様送付用文面（Stripeリンクは作成後に貼り付け）</h2>
+        <textarea class="msgbox" id="m_msg"></textarea>
+        <button class="copybtn" onclick="copyMsg('m_msg',this)">文面をコピー</button>
+      </div>
+    </div>
+
+    <!-- ===== キャンセル料 ===== -->
+    <div id="paneCancel" class="hidden">
+      <div class="field">
+        <label>サービス種別</label>
+        <select id="x_service">
+          <option value="precise">プリサイスシッター（6,000円/時間・税込）</option>
+          <option value="grand">グランドシッター（4,400円/時間・税込）</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>キャンセルされた予約の保育日</label>
+        <input type="date" id="x_date">
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>開始時刻</label>
+          <input type="time" id="x_start" step="300">
+        </div>
+        <div class="field">
+          <label>終了時刻（開始より前の時刻は翌日扱い）</label>
+          <input type="time" id="x_end" step="300">
+        </div>
+      </div>
+      <div class="field">
+        <label>キャンセル時期（利用規約第10条）</label>
+        <select id="x_timing">
+          <option value="50">前日18時以降のキャンセル（時間料金の50%）</option>
+          <option value="100">当日のキャンセル（時間料金の100%）</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>お客様名（敬称なしで入力）</label>
+        <input type="text" id="x_customer" placeholder="例：山田">
+      </div>
+      <button class="btn" onclick="calcCancel()">計算する</button>
+      <p class="err" id="x_err"></p>
+
+      <div class="result" id="x_result">
+        <h2>キャンセル料内訳</h2>
+        <table id="x_table"></table>
+        <p class="note">算定基礎＝当該予約の時間料金（基本料金＋夜間・早朝加算）。感染症対応は含みません。</p>
+        <h2 style="margin-top:16px;">お客様送付用文面（Stripeリンクは作成後に貼り付け）</h2>
+        <textarea class="msgbox" id="x_msg"></textarea>
+        <button class="copybtn" onclick="copyMsg('x_msg',this)">文面をコピー</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ---------- 定数（利用規約第9条・第10条） ---------- */
+const RATES = { precise: 6000, grand: 4400 };
+const NAMES = { precise: "プリサイスシッター", grand: "グランドシッター" };
+const INFECTION_FEE = 2000;
+const TRANSPORT_FEE = 1100; /* 交通費 一律・税込（規約第9条2項）。事前面談には適用しない */
+const MENDAN_FEE = 4400;
+const MONTHLY_FEE = 8800; /* 月会費（税込・規約第8条1項） */
+const MIN_MINUTES = 120;   /* 最低利用時間2時間 */
+const UNIT = 30;           /* 延長は30分単位・端数切り上げ */
+
+/* ---------- 共通関数 ---------- */
+function toMin(t){ const [h,m] = t.split(":").map(Number); return h*60+m; }
+function fmtYen(n){ return n.toLocaleString("ja-JP") + "円"; }
+function fmtTime(min){
+  const d = Math.floor(min/1440);
+  const h = Math.floor((min%1440)/60);
+  const m = min%60;
+  return (d>0?"翌":"") + String(h) + ":" + String(m).padStart(2,"0");
+}
+function fmtDate(dateStr){
+  if(!dateStr) return "";
+  const [y,mo,d] = dateStr.split("-").map(Number);
+  const dt = new Date(y, mo-1, d);
+  const w = ["日","月","火","水","木","金","土"][dt.getDay()];
+  return y + "年" + mo + "月" + d + "日（" + w + "）";
+}
+function fmtHours(min){
+  const h = Math.floor(min/60), m = min%60;
+  return m===0 ? h + "時間" : h + "時間" + m + "分";
+}
+
+/* 保育料金の中核計算（純関数） */
+function calcFee(service, startStr, endStr, infection){
+  const rate = RATES[service];
+  const s = toMin(startStr);
+  let e = toMin(endStr);
+  if (e <= s) e += 1440; /* 日跨ぎ */
+  const actual = e - s;
+  const billed = Math.max(MIN_MINUTES, Math.ceil(actual/UNIT)*UNIT);
+  const billedEnd = s + billed; /* 切り上げ分は終了時刻直後の時間帯に適用 */
+
+  let nightMin = 0;
+  for (let m = s; m < billedEnd; m++){
+    const h = Math.floor((m % 1440) / 60);
+    if (h >= 22 || h < 7) nightMin++;
+  }
+  const baseFee = Math.floor(rate * billed / 60);              /* 基本料金（請求時間全体×単価） */
+  const surcharge = Math.floor(rate * nightMin / 60 * 0.25);   /* 夜間・早朝加算25%（円未満切り捨て） */
+  const infectionFee = infection ? INFECTION_FEE : 0;
+  const total = baseFee + surcharge + infectionFee;
+
+  return { rate, s, e, actual, billed, billedEnd, nightMin, baseFee, surcharge, infectionFee, total };
+}
+
+function switchTab(name){
+  const map = { care:"Care", monthly:"Monthly", mendan:"Mendan", cancel:"Cancel" };
+  for (const k in map){
+    document.getElementById("pane"+map[k]).classList.toggle("hidden", k!==name);
+    document.getElementById("tab"+map[k]).classList.toggle("active", k===name);
+  }
+}
+
+function copyMsg(id, btn){
+  const ta = document.getElementById(id);
+  ta.select();
+  navigator.clipboard.writeText(ta.value).then(()=>{
+    btn.textContent = "コピーしました";
+    btn.classList.add("copied");
+    setTimeout(()=>{ btn.textContent="文面をコピー"; btn.classList.remove("copied"); }, 1500);
+  });
+}
+
+/* ---------- 保育料金 ---------- */
+function calcCare(){
+  const err = document.getElementById("c_err");
+  err.style.display = "none";
+  const date = document.getElementById("c_date").value;
+  const st = document.getElementById("c_start").value;
+  const en = document.getElementById("c_end").value;
+  if (!date || !st || !en){ err.textContent = "保育日・開始時刻・終了時刻をすべて入力してください。"; err.style.display="block"; return; }
+  if (st === en){ err.textContent = "開始時刻と終了時刻が同じです。ご確認ください。"; err.style.display="block"; return; }
+
+  const service = document.getElementById("c_service").value;
+  const infection = document.getElementById("c_infection").checked;
+  const transport = document.getElementById("c_transport").checked;
+  const sitter = document.getElementById("c_sitter").value.trim();
+  const customer = document.getElementById("c_customer").value.trim();
+
+  const r = calcFee(service, st, en, infection);
+  const transportFee = transport ? TRANSPORT_FEE : 0;
+  const grandTotal = r.total + transportFee;
+
+  /* 内訳表 */
+  let rows = "";
+  rows += "<tr><td>基本料金（" + NAMES[service] + "・請求時間" + fmtHours(r.billed) + "）</td><td class='amt'>" + fmtYen(r.baseFee) + "</td></tr>";
+  if (r.surcharge > 0){
+    rows += "<tr><td>夜間・早朝加算（22時〜7時 " + fmtHours(r.nightMin) + "分・25%）</td><td class='amt'>" + fmtYen(r.surcharge) + "</td></tr>";
+  }
+  if (r.infectionFee > 0){
+    rows += "<tr><td>感染症対応</td><td class='amt'>" + fmtYen(r.infectionFee) + "</td></tr>";
+  }
+  if (transportFee > 0){
+    rows += "<tr><td>交通費（一律）</td><td class='amt'>" + fmtYen(transportFee) + "</td></tr>";
+  }
+  rows += "<tr class='total'><td>合計（税込）</td><td class='amt'>" + fmtYen(grandTotal) + "</td></tr>";
+  document.getElementById("c_table").innerHTML = rows;
+
+  /* 注記 */
+  let note = "実利用予定 " + fmtTime(r.s) + "〜" + fmtTime(r.e) + "（" + fmtHours(r.actual) + "）";
+  if (r.billed !== r.actual){
+    note += " → 請求時間 " + fmtHours(r.billed) + "（" + fmtTime(r.s) + "〜" + fmtTime(r.billedEnd) + "）";
+    note += r.actual < MIN_MINUTES ? "※最低利用時間2時間適用" : "※30分単位切り上げ適用";
+  }
+  document.getElementById("c_note").textContent = note;
+
+  /* 文面 */
+  const custLine = customer ? customer + "様\n" : "";
+  const sitterLine = sitter ? "・担当シッター：" + sitter + "\n" : "";
+  let breakdown = "　基本料金（" + fmtHours(r.billed) + "）：" + fmtYen(r.baseFee) + "\n";
+  if (r.surcharge > 0) breakdown += "　夜間・早朝加算（25%）：" + fmtYen(r.surcharge) + "\n";
+  if (r.infectionFee > 0) breakdown += "　感染症対応：" + fmtYen(r.infectionFee) + "\n";
+  if (transportFee > 0) breakdown += "　交通費（一律）：" + fmtYen(transportFee) + "\n";
+
+  const msg =
+"【Serenesta ご予約確定と料金のご案内】\n" +
+custLine +
+"このたびは仮予約をいただきありがとうございます。\n" +
+"以下の内容でご予約を確定いたしました。\n" +
+"\n" +
+"・サービス：" + NAMES[service] + "\n" +
+sitterLine +
+"・日時：" + fmtDate(date) + " " + fmtTime(r.s) + "〜" + fmtTime(r.e) + "\n" +
+"・ご請求内訳（すべて税込）\n" +
+breakdown +
+"　合計：" + fmtYen(grandTotal) + "\n" +
+"\n" +
+"お支払いは以下のリンクよりお手続きをお願いいたします。\n" +
+"（ここにStripeの支払いリンクを貼り付け）\n" +
+"\n" +
+"ご不明点がございましたら、本アカウントまでお気軽にご連絡ください。\n" +
+"Serenesta本部";
+
+  document.getElementById("c_msg").value = msg;
+  document.getElementById("c_result").style.display = "block";
+}
+
+/* ---------- 月次請求 ---------- */
+let monthlyItems = [];
+
+function addItem(){
+  const err = document.getElementById("m2_err");
+  err.style.display = "none";
+  const date = document.getElementById("m2_date").value;
+  const st = document.getElementById("m2_start").value;
+  const en = document.getElementById("m2_end").value;
+  if (!date || !st || !en){ err.textContent = "保育日・開始時刻・終了時刻をすべて入力してください。"; err.style.display="block"; return; }
+  if (st === en){ err.textContent = "開始時刻と終了時刻が同じです。ご確認ください。"; err.style.display="block"; return; }
+
+  const service = document.getElementById("m2_service").value;
+  const infection = document.getElementById("m2_infection").checked;
+  const transport = document.getElementById("m2_transport").checked;
+  const r = calcFee(service, st, en, infection);
+  const transportFee = transport ? TRANSPORT_FEE : 0;
+
+  monthlyItems.push({
+    date, st, en, service, infection, transport,
+    baseFee: r.baseFee, surcharge: r.surcharge, infectionFee: r.infectionFee,
+    transportFee, billed: r.billed, nightMin: r.nightMin,
+    s: r.s, e: r.e,
+    total: r.total + transportFee
+  });
+  monthlyItems.sort((a,b)=> a.date.localeCompare(b.date) || a.st.localeCompare(b.st));
+
+  document.getElementById("m2_date").value = "";
+  document.getElementById("m2_start").value = "";
+  document.getElementById("m2_end").value = "";
+  document.getElementById("m2_infection").checked = false;
+  document.getElementById("m2_transport").checked = true;
+  renderList();
+}
+
+function removeItem(i){
+  monthlyItems.splice(i,1);
+  renderList();
+  document.getElementById("m2_result").style.display = "none";
+}
+
+function renderList(){
+  const box = document.getElementById("m2_list");
+  if (monthlyItems.length === 0){ box.innerHTML = ""; return; }
+  let html = "<h2 style='font-size:13px;color:var(--main);font-weight:700;margin-bottom:6px;'>登録済み明細（" + monthlyItems.length + "件）</h2><table>";
+  monthlyItems.forEach((it,i)=>{
+    const d = it.date.split("-");
+    const label = Number(d[1]) + "/" + Number(d[2]) + " " + NAMES[it.service].replace("シッター","") + " " + fmtTime(it.s) + "〜" + fmtTime(it.e);
+    html += "<tr><td style='font-size:12px;'>" + label + "</td><td class='amt' style='font-size:12px;'>" + fmtYen(it.total) + "</td>"
+         + "<td style='text-align:right;width:28px;'><a href='javascript:void(0)' onclick='removeItem(" + i + ")' style='color:#b0564e;text-decoration:none;font-size:14px;'>×</a></td></tr>";
+  });
+  html += "</table>";
+  box.innerHTML = html;
+}
+
+function calcMonthly(){
+  const err = document.getElementById("m2_err");
+  err.style.display = "none";
+  if (monthlyItems.length === 0){ err.textContent = "明細が1件も登録されていません。"; err.style.display="block"; return; }
+  const month = document.getElementById("m2_month").value;
+  if (!month){ err.textContent = "請求対象月を入力してください。"; err.style.display="block"; return; }
+  const customer = document.getElementById("m2_customer").value.trim();
+  const withFee = document.getElementById("m2_fee").checked;
+
+  const [yy, mm] = month.split("-").map(Number);
+  const monthLabel = yy + "年" + mm + "月";
+  /* 支払期限＝翌月25日（規約第8条3項・第9条9項） */
+  const dueY = mm === 12 ? yy + 1 : yy;
+  const dueM = mm === 12 ? 1 : mm + 1;
+  const dueLabel = dueY + "年" + dueM + "月25日";
+
+  let sumBase = 0, sumSur = 0, sumInf = 0, sumTra = 0;
+  const byService = { precise: { count:0, base:0 }, grand: { count:0, base:0 } };
+  monthlyItems.forEach(it=>{
+    sumBase += it.baseFee; sumSur += it.surcharge; sumInf += it.infectionFee; sumTra += it.transportFee;
+    byService[it.service].count++;
+    byService[it.service].base += it.baseFee;
+  });
+  const feeAmt = withFee ? MONTHLY_FEE : 0;
+  const grand = sumBase + sumSur + sumInf + sumTra + feeAmt;
+
+  /* 内訳表 */
+  let rows = "";
+  ["precise","grand"].forEach(sv=>{
+    if (byService[sv].count > 0){
+      rows += "<tr><td>保育料金（" + NAMES[sv] + "・" + byService[sv].count + "回）</td><td class='amt'>" + fmtYen(byService[sv].base) + "</td></tr>";
+    }
+  });
+  if (sumSur > 0) rows += "<tr><td>夜間・早朝加算（22時〜7時・25%）</td><td class='amt'>" + fmtYen(sumSur) + "</td></tr>";
+  if (sumInf > 0) rows += "<tr><td>感染症対応</td><td class='amt'>" + fmtYen(sumInf) + "</td></tr>";
+  if (sumTra > 0) rows += "<tr><td>交通費（" + monthlyItems.length + "回）</td><td class='amt'>" + fmtYen(sumTra) + "</td></tr>";
+  if (feeAmt > 0) rows += "<tr><td>月会費</td><td class='amt'>" + fmtYen(feeAmt) + "</td></tr>";
+  rows += "<tr class='total'><td>合計（税込）</td><td class='amt'>" + fmtYen(grand) + "</td></tr>";
+  document.getElementById("m2_table").innerHTML = rows;
+
+  /* Stripe請求書 入力用の項目リスト */
+  let items = "【Stripe請求書 項目入力用】" + monthLabel + "分\n\n";
+  items += "■項目（項目名：金額）\n";
+  ["precise","grand"].forEach(sv=>{
+    if (byService[sv].count > 0){
+      items += "保育料金（" + NAMES[sv] + "・" + monthLabel + "・" + byService[sv].count + "回）：" + byService[sv].base + "\n";
+    }
+  });
+  if (sumSur > 0) items += "夜間・早朝加算（22時〜7時・25%）：" + sumSur + "\n";
+  if (sumInf > 0) items += "感染症対応：" + sumInf + "\n";
+  if (sumTra > 0) items += "交通費（" + monthlyItems.length + "回）：" + sumTra + "\n";
+  if (feeAmt > 0) items += "月会費（" + monthLabel + "）：" + feeAmt + "\n";
+  items += "合計：" + grand + "\n\n";
+  items += "■ご利用明細（メモ欄への貼り付け用）\n";
+  monthlyItems.forEach(it=>{
+    const d = it.date.split("-");
+    let line = Number(d[1]) + "/" + Number(d[2]) + "　" + NAMES[it.service] + "　"
+      + fmtTime(it.s) + "〜" + fmtTime(it.e) + "（" + fmtHours(it.billed) + "）　" + fmtYen(it.total);
+    if (it.infection) line += "　※感染症対応";
+    items += line + "\n";
+  });
+  document.getElementById("m2_items").value = items;
+
+  /* お客様送付用文面 */
+  const custLine = customer ? customer + "様\n" : "";
+  let detail = "";
+  monthlyItems.forEach(it=>{
+    const d = it.date.split("-");
+    detail += "　" + Number(d[1]) + "/" + Number(d[2]) + "　" + NAMES[it.service] + "　"
+      + fmtTime(it.s) + "〜" + fmtTime(it.e) + "（" + fmtHours(it.billed) + "）\n";
+  });
+  let breakdown = "";
+  ["precise","grand"].forEach(sv=>{
+    if (byService[sv].count > 0){
+      breakdown += "　保育料金（" + NAMES[sv] + "・" + byService[sv].count + "回）：" + fmtYen(byService[sv].base) + "\n";
+    }
+  });
+  if (sumSur > 0) breakdown += "　夜間・早朝加算（25%）：" + fmtYen(sumSur) + "\n";
+  if (sumInf > 0) breakdown += "　感染症対応：" + fmtYen(sumInf) + "\n";
+  if (sumTra > 0) breakdown += "　交通費：" + fmtYen(sumTra) + "\n";
+  if (feeAmt > 0) breakdown += "　月会費：" + fmtYen(feeAmt) + "\n";
+
+  const msg =
+"【Serenesta " + monthLabel + "分 ご請求のご案内】\n" +
+custLine +
+"いつもご利用いただきありがとうございます。\n" +
+monthLabel + "分のご請求をお送りいたします。\n" +
+"\n" +
+"・ご利用明細\n" +
+detail +
+"\n" +
+"・ご請求内訳（すべて税込）\n" +
+breakdown +
+"　合計：" + fmtYen(grand) + "\n" +
+"\n" +
+"・お支払期限：" + dueLabel + "\n" +
+"\n" +
+"お支払いは以下のリンクよりお手続きをお願いいたします。\n" +
+"（ここにStripeの支払いリンクを貼り付け）\n" +
+"\n" +
+"ご不明点がございましたら、本アカウントまでお気軽にご連絡ください。\n" +
+"Serenesta本部";
+
+  document.getElementById("m2_msg").value = msg;
+  document.getElementById("m2_result").style.display = "block";
+}
+
+/* ---------- 初回請求（事前面談・入会金） ---------- */
+function toggleInitial(){
+  document.getElementById("m_mendanBox").classList.toggle("hidden", !document.getElementById("m_useMendan").checked);
+  document.getElementById("m_nyukaiBox").classList.toggle("hidden", !document.getElementById("m_useNyukai").checked);
+}
+
+function addDays(dateStr, days){
+  const [y,m,d] = dateStr.split("-").map(Number);
+  const dt = new Date(y, m-1, d);
+  dt.setDate(dt.getDate() + days);
+  return dt.getFullYear() + "-" + String(dt.getMonth()+1).padStart(2,"0") + "-" + String(dt.getDate()).padStart(2,"0");
+}
+
+function calcMendan(){
+  const err = document.getElementById("m_err");
+  err.style.display = "none";
+  const useMendan = document.getElementById("m_useMendan").checked;
+  const useNyukai = document.getElementById("m_useNyukai").checked;
+  if (!useMendan && !useNyukai){ err.textContent = "請求する項目にチェックを入れてください。"; err.style.display="block"; return; }
+
+  let mendanDate = "", mendanStart = "";
+  if (useMendan){
+    mendanDate = document.getElementById("m_date").value;
+    mendanStart = document.getElementById("m_start").value;
+    if (!mendanDate || !mendanStart){ err.textContent = "面談日・開始時刻を入力してください。"; err.style.display="block"; return; }
+  }
+  let nyukaiAmt = 0, nyukaiLabel = "", nyukaiDate = "", nyukaiDue = "";
+  if (useNyukai){
+    const sel = document.getElementById("m_nyukaiType");
+    nyukaiAmt = Number(sel.value);
+    nyukaiLabel = nyukaiAmt === 55000 ? "入会金（創業期特別価格）" : "入会金";
+    nyukaiDate = document.getElementById("m_nyukaiDate").value;
+    if (!nyukaiDate){ err.textContent = "入会承認日を入力してください。"; err.style.display="block"; return; }
+    nyukaiDue = addDays(nyukaiDate, 7);
+  }
+
+  const customer = document.getElementById("m_customer").value.trim();
+  const mendanAmt = useMendan ? MENDAN_FEE : 0;
+  const total = mendanAmt + nyukaiAmt;
+
+  /* 内訳表 */
+  let rows = "";
+  if (useMendan) rows += "<tr><td>事前面談（1時間程度）</td><td class='amt'>" + fmtYen(MENDAN_FEE) + "</td></tr>";
+  if (useNyukai) rows += "<tr><td>" + nyukaiLabel + "</td><td class='amt'>" + fmtYen(nyukaiAmt) + "</td></tr>";
+  rows += "<tr class='total'><td>合計（税込）</td><td class='amt'>" + fmtYen(total) + "</td></tr>";
+  document.getElementById("m_table").innerHTML = rows;
+
+  /* Stripe請求書 項目リスト */
+  let items = "【Stripe請求書 項目入力用】\n\n■項目（項目名：金額）\n";
+  if (useMendan) items += "事前面談料（" + fmtDate(mendanDate) + "）：" + MENDAN_FEE + "\n";
+  if (useNyukai) items += nyukaiLabel + "：" + nyukaiAmt + "\n";
+  items += "合計：" + total + "\n\n";
+  items += "■支払期限\n";
+  if (useNyukai){
+    items += "入会金：" + fmtDate(nyukaiDue) + "（入会承認日から7日以内・利用規約第7条2項）\n";
+  }
+  if (useMendan && !useNyukai){
+    items += "事前面談料：請求書送付から7日以内\n";
+  }
+  document.getElementById("m_items").value = items;
+
+  /* お客様送付用文面 */
+  const custLine = customer ? customer + "様\n" : "";
+  let title, intro, detail = "", note = "";
+
+  if (useMendan && useNyukai){
+    title = "【Serenesta ご請求のご案内（事前面談料・入会金）】";
+    intro = "このたびはご入会いただき、誠にありがとうございます。\n以下の内容でご請求申し上げます。";
+    detail += "・事前面談（1時間程度）　" + fmtDate(mendanDate) + " " + mendanStart + "〜：" + fmtYen(MENDAN_FEE) + "\n";
+    detail += "・" + nyukaiLabel + "：" + fmtYen(nyukaiAmt) + "\n";
+    note = "・お支払期限：" + fmtDate(nyukaiDue) + "（入会承認日から7日以内）\n";
+  } else if (useMendan){
+    title = "【Serenesta 事前面談のご案内】";
+    intro = "このたびは事前面談のお申し込みをいただきありがとうございます。\n以下の内容で承りました。";
+    detail += "・内容：事前面談（1時間程度）\n";
+    detail += "・日時：" + fmtDate(mendanDate) + " " + mendanStart + "〜\n";
+    detail += "・料金：" + fmtYen(MENDAN_FEE) + "（税込）\n";
+    note = "";
+  } else {
+    title = "【Serenesta 入会金のご案内】";
+    intro = "このたびはご入会いただき、誠にありがとうございます。\n以下の内容でご請求申し上げます。";
+    detail += "・" + nyukaiLabel + "：" + fmtYen(nyukaiAmt) + "（税込）\n";
+    note = "・お支払期限：" + fmtDate(nyukaiDue) + "（入会承認日から7日以内）\n";
+  }
+
+  let msg =
+title + "\n" +
+custLine +
+intro + "\n" +
+"\n" +
+detail;
+  if (useMendan && useNyukai) msg += "\n　合計：" + fmtYen(total) + "（税込）\n";
+  if (note) msg += "\n" + note;
+  msg +=
+"\n" +
+"お支払いは以下のリンクよりお手続きをお願いいたします。\n" +
+"（ここにStripeの支払いリンクを貼り付け）\n" +
+"\n";
+  if (useMendan && !useNyukai){
+    msg += "当日は、お子様のご様子やご要望をゆっくりお伺いいたします。\n";
+  }
+  msg +=
+"ご不明点がございましたら、本アカウントまでお気軽にご連絡ください。\n" +
+"Serenesta本部";
+
+  document.getElementById("m_msg").value = msg;
+  document.getElementById("m_result").style.display = "block";
+}
+
+/* ---------- キャンセル料 ---------- */
+function calcCancel(){
+  const err = document.getElementById("x_err");
+  err.style.display = "none";
+  const date = document.getElementById("x_date").value;
+  const st = document.getElementById("x_start").value;
+  const en = document.getElementById("x_end").value;
+  if (!date || !st || !en){ err.textContent = "保育日・開始時刻・終了時刻をすべて入力してください。"; err.style.display="block"; return; }
+  if (st === en){ err.textContent = "開始時刻と終了時刻が同じです。ご確認ください。"; err.style.display="block"; return; }
+
+  const service = document.getElementById("x_service").value;
+  const pct = Number(document.getElementById("x_timing").value);
+  const customer = document.getElementById("x_customer").value.trim();
+
+  const r = calcFee(service, st, en, false);
+  const basis = r.baseFee + r.surcharge; /* 時間料金＝基本料金＋夜間・早朝加算 */
+  const fee = Math.floor(basis * pct / 100);
+  const timingLabel = pct === 50 ? "前日18時以降のキャンセル" : "当日のキャンセル";
+
+  let rows = "";
+  rows += "<tr><td>時間料金（" + NAMES[service] + "・" + fmtHours(r.billed) + "）</td><td class='amt'>" + fmtYen(basis) + "</td></tr>";
+  rows += "<tr><td>キャンセル料率（" + timingLabel + "）</td><td class='amt'>" + pct + "%</td></tr>";
+  rows += "<tr class='total'><td>キャンセル料（税込）</td><td class='amt'>" + fmtYen(fee) + "</td></tr>";
+  document.getElementById("x_table").innerHTML = rows;
+
+  const custLine = customer ? customer + "様\n" : "";
+  const msg =
+"【Serenesta キャンセル料のご案内】\n" +
+custLine +
+"以下のご予約のキャンセルを承りました。\n" +
+"\n" +
+"・サービス：" + NAMES[service] + "\n" +
+"・日時：" + fmtDate(date) + " " + fmtTime(r.s) + "〜" + fmtTime(r.e) + "\n" +
+"・キャンセル時期：" + timingLabel + "\n" +
+"・キャンセル料：" + fmtYen(fee) + "（税込・時間料金の" + pct + "%）\n" +
+"\n" +
+"利用規約第10条に基づき、上記のキャンセル料を申し受けます。\n" +
+"お支払いは以下のリンクよりお手続きをお願いいたします。\n" +
+"（ここにStripeの支払いリンクを貼り付け）\n" +
+"\n" +
+"ご不明点がございましたら、本アカウントまでお気軽にご連絡ください。\n" +
+"Serenesta本部";
+
+  document.getElementById("x_msg").value = msg;
+  document.getElementById("x_result").style.display = "block";
+}
+</script>
+</body>
+</html>
