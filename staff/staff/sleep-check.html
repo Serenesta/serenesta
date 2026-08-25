@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>睡眠チェック表｜Serenesta</title>
+<style>
+:root{
+  --main:#C8DCE8;      /* スモーキーアクア */
+  --sub:#DDEAF1;       /* ペールスカイ */
+  --base:#F2F7FA;      /* ミストホワイト */
+  --line:#B9CBD6;
+  --text:#22303a;
+  --muted:#6b7c88;
+  --warn:#9c3b4b;
+  --warnbg:#f6e6ea;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{
+  margin:0;padding:0 0 90px;background:var(--base);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif;
+  font-size:16px;line-height:1.6;
+}
+header{
+  background:var(--main);padding:14px 16px;position:sticky;top:0;z-index:20;
+  border-bottom:1px solid var(--line);
+}
+header h1{margin:0;font-size:17px;font-weight:700;letter-spacing:.02em}
+header .sub{font-size:12px;color:#3d5462}
+.wrap{padding:12px}
+.card{
+  background:#fff;border:1px solid var(--line);border-radius:12px;
+  padding:14px;margin-bottom:12px;
+}
+.card h2{
+  margin:0 0 10px;font-size:14px;font-weight:700;color:#33505f;
+  padding-bottom:8px;border-bottom:1px solid var(--sub);
+}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid .full{grid-column:1 / -1}
+label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+input,select,textarea{
+  width:100%;padding:11px 10px;font-size:16px;font-family:inherit;
+  border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--text);
+}
+textarea{min-height:70px;resize:vertical}
+.btn{
+  display:inline-block;border:none;border-radius:9px;padding:13px 16px;
+  font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;
+  background:var(--main);color:#20323d;
+}
+.btn.wide{width:100%}
+.btn.ghost{background:#fff;border:1px solid var(--line);color:#33505f;font-weight:600}
+.btn.sm{padding:9px 12px;font-size:13px}
+.row-btn{display:flex;gap:8px;margin-top:10px}
+.row-btn .btn{flex:1}
+
+/* 睡眠ブロック */
+.block{margin-bottom:14px}
+.block-head{
+  display:flex;align-items:center;gap:10px;
+  background:var(--sub);border:1px solid var(--line);border-radius:10px 10px 0 0;
+  padding:10px 12px;
+}
+.block-head .ttl{font-weight:700;font-size:15px;color:#2c4653}
+.block-head .st{margin-left:auto;display:flex;align-items:center;gap:6px}
+.block-head .st input{width:112px;padding:7px 8px;font-size:14px}
+.block-body{
+  background:#fff;border:1px solid var(--line);border-top:none;
+  border-radius:0 0 10px 10px;padding:12px;
+}
+.check{
+  border:1px solid var(--line);border-radius:10px;padding:11px;margin-bottom:10px;
+  position:relative;background:#fff;
+}
+.check.alert{border-color:var(--warn);background:var(--warnbg)}
+.check .top{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.check .num{
+  font-size:12px;font-weight:700;color:#fff;background:#7d9aa9;
+  border-radius:20px;padding:3px 10px;
+}
+.check .top input{width:120px;padding:8px;font-size:15px}
+.check .del{
+  margin-left:auto;background:none;border:none;color:var(--muted);
+  font-size:19px;cursor:pointer;padding:2px 6px;font-family:inherit;
+}
+.seg-label{font-size:12px;color:var(--muted);margin:8px 0 5px}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.seg.two{grid-template-columns:repeat(2,1fr)}
+.seg button{
+  padding:11px 4px;font-size:13px;font-weight:600;font-family:inherit;
+  border:1px solid var(--line);border-radius:8px;background:#fff;color:#4a6270;
+  cursor:pointer;line-height:1.3;
+}
+.seg button .mk{display:block;font-size:16px;font-weight:700}
+.seg button.on{background:var(--main);border-color:#8fb2c4;color:#1d2f39}
+.seg button.on.warn{background:var(--warn);border-color:var(--warn);color:#fff}
+.note-in{margin-top:9px}
+.hint{font-size:12px;color:var(--muted);margin:8px 0 0}
+.summary{
+  background:var(--base);border:1px solid var(--line);border-radius:8px;
+  padding:11px;font-size:14px;white-space:pre-wrap;min-height:60px;
+}
+.copied{font-size:12px;color:#2f6b4f;margin-left:8px;opacity:0;transition:opacity .25s}
+.copied.on{opacity:1}
+.bar{
+  position:fixed;left:0;right:0;bottom:0;background:#fff;
+  border-top:1px solid var(--line);padding:10px 12px;display:flex;gap:8px;z-index:30;
+}
+.bar .btn{flex:1}
+.legend{font-size:12px;color:var(--muted);line-height:1.9}
+.legend b{color:var(--text)}
+
+@media print{
+  body{background:#fff;padding:0;font-size:11pt}
+  header,.bar,.btn,.no-print{display:none !important}
+  .card,.block-body,.block-head,.check{border-color:#999;break-inside:avoid}
+  .wrap{padding:0}
+  @page{size:A4;margin:12mm}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>睡眠チェック表</h1>
+  <div class="sub">Serenesta ／ 本部保管用</div>
+</header>
+
+<div class="wrap">
+
+  <div class="card">
+    <h2>基本情報</h2>
+    <div class="grid">
+      <div><label for="f-date">日付</label><input type="date" id="f-date"></div>
+      <div><label for="f-name">お子様名</label><input type="text" id="f-name"></div>
+      <div><label for="f-rec">シッター名</label><input type="text" id="f-rec"></div>
+      <div><label for="f-weather">天気</label><input type="text" id="f-weather" placeholder="例：晴れ"></div>
+      <div><label for="f-temp">室温（℃）</label><input type="number" id="f-temp" step="0.1" inputmode="decimal" placeholder="24"></div>
+      <div><label for="f-hum">湿度（％）</label><input type="number" id="f-hum" step="1" inputmode="numeric" placeholder="50"></div>
+      <div class="full">
+        <label for="f-interval">確認の間隔</label>
+        <select id="f-interval">
+          <option value="5">5分（0歳）</option>
+          <option value="10">10分（1〜2歳）</option>
+          <option value="15">15分（3歳以上）</option>
+        </select>
+      </div>
+    </div>
+    <p class="hint">あおむけを基本とします。うつ伏せに気づいたらすぐ仰向けに戻し、記録してください。</p>
+  </div>
+
+  <div id="blocks"></div>
+
+  <button class="btn ghost wide no-print" id="btn-addblock">＋ 睡眠を追加（睡眠②・③…）</button>
+
+  <div class="card" style="margin-top:12px">
+    <h2>記録の要約 <span class="copied" id="copied">コピーしました</span></h2>
+    <div class="summary" id="summary">まだ記録がありません。</div>
+    <div class="row-btn no-print">
+      <button class="btn ghost sm" id="btn-copy">要約をコピー</button>
+    </div>
+    <p class="hint">シッティングレポートの睡眠欄に貼り付けてください。</p>
+  </div>
+
+  <div class="card">
+    <h2>記号の凡例（紙様式と共通）</h2>
+    <div class="legend">
+      <b>姿勢</b>　↑ 仰向け　／　→ 横向き　／　↓ うつ伏せ寝　／　↓→↑ うつ伏せを直した場合<br>
+      <b>顔色・呼吸</b>　✔ 異常なし<br>
+      <b>備考</b>　セ＝咳　／　ネ＝熱
+    </div>
+    <p class="hint">呼吸が弱い・止まっている、顔色が青白い（チアノーゼ）場合は、記録より対応を優先します。声をかけ、反応と呼吸を確認し、なければ直ちに119番通報と胸骨圧迫を行い、保護者・本部へ連絡してください。</p>
+  </div>
+
+</div>
+
+<div class="bar no-print">
+  <button class="btn ghost" id="btn-print">印刷・PDF</button>
+  <button class="btn ghost" id="btn-reset">リセット</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var POS = [
+    {mk:"↑", tx:"仰向け"},
+    {mk:"→", tx:"横向き"},
+    {mk:"↓", tx:"うつ伏せ"},
+    {mk:"↓→↑", tx:"直した"}
+  ];
+  var BR = [{mk:"✔", tx:"異常なし"}, {mk:"！", tx:"要注意"}];
+  var POS_WARN = 2, BR_WARN = 1;
+  var KEY = "serenesta_sleepcheck_v1";
+
+  var state = { meta:{}, interval:"5", blocks:[] };
+
+  /* ---------- 保存・復元 ---------- */
+  function save(){
+    try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+  }
+  function load(){
+    try{
+      var s = localStorage.getItem(KEY);
+      if(s){ state = JSON.parse(s); }
+    }catch(e){}
+    if(!state.blocks || !state.blocks.length){ state.blocks = [newBlock()]; }
+  }
+  function newBlock(){ return { start:"", rows:[] }; }
+
+  /* ---------- 時刻ヘルパー ---------- */
+  function toMin(t){
+    if(!t) return null;
+    var p = t.split(":");
+    return parseInt(p[0],10)*60 + parseInt(p[1],10);
+  }
+  function toStr(m){
+    m = ((m % 1440) + 1440) % 1440;
+    var h = Math.floor(m/60), mi = m%60;
+    return (h<10?"0":"")+h+":"+(mi<10?"0":"")+mi;
+  }
+  function nextTime(b){
+    var iv = parseInt(state.interval,10) || 5;
+    if(b.rows.length === 0) return b.start || "";
+    var last = null;
+    for(var i=b.rows.length-1;i>=0;i--){ if(b.rows[i].time){ last = b.rows[i].time; break; } }
+    if(last === null) return b.start || "";
+    return toStr(toMin(last) + iv);
+  }
+
+  /* ---------- 入力欄 ---------- */
+  var META_IDS = ["date","name","rec","weather","temp","hum"];
+  function bindMeta(){
+    META_IDS.forEach(function(k){
+      var el = document.getElementById("f-"+k);
+      if(state.meta[k] != null) el.value = state.meta[k];
+      el.addEventListener("input", function(){ state.meta[k] = el.value; save(); });
+    });
+    var iv = document.getElementById("f-interval");
+    iv.value = state.interval;
+    iv.addEventListener("change", function(){ state.interval = iv.value; save(); });
+  }
+
+  /* ---------- 描画 ---------- */
+  var blocksEl = document.getElementById("blocks");
+
+  function render(){
+    blocksEl.innerHTML = "";
+    state.blocks.forEach(function(b, bi){
+      var wrap = document.createElement("div");
+      wrap.className = "block";
+
+      /* 見出し */
+      var head = document.createElement("div");
+      head.className = "block-head";
+      var ttl = document.createElement("span");
+      ttl.className = "ttl";
+      ttl.textContent = "睡眠" + circled(bi+1);
+      head.appendChild(ttl);
+
+      var st = document.createElement("div");
+      st.className = "st";
+      var stl = document.createElement("span");
+      stl.style.fontSize = "12px"; stl.style.color = "#5c7482";
+      stl.textContent = "開始";
+      var sti = document.createElement("input");
+      sti.type = "time"; sti.value = b.start || "";
+      sti.addEventListener("change", function(){ b.start = sti.value; save(); renderSummary(); });
+      st.appendChild(stl); st.appendChild(sti);
+      head.appendChild(st);
+
+      if(state.blocks.length > 1){
+        var rm = document.createElement("button");
+        rm.className = "del no-print";
+        rm.textContent = "✕";
+        rm.setAttribute("aria-label","この睡眠を削除");
+        rm.addEventListener("click", function(){
+          state.blocks.splice(bi,1); save(); render();
+        });
+        head.appendChild(rm);
+      }
+      wrap.appendChild(head);
+
+      /* 本体 */
+      var body = document.createElement("div");
+      body.className = "block-body";
+
+      if(b.rows.length === 0){
+        var p = document.createElement("p");
+        p.className = "hint";
+        p.textContent = "開始時刻を入れて「確認を追加」を押してください。";
+        body.appendChild(p);
+      }
+
+      b.rows.forEach(function(r, ri){
+        body.appendChild(checkCard(b, r, ri));
+      });
+
+      var add = document.createElement("button");
+      add.className = "btn wide no-print";
+      add.textContent = "＋ 確認を追加";
+      add.addEventListener("click", function(){
+        b.rows.push({ time: nextTime(b), pos:0, br:0, note:"" });
+        save(); render();
+      });
+      body.appendChild(add);
+
+      wrap.appendChild(body);
+      blocksEl.appendChild(wrap);
+    });
+    renderSummary();
+  }
+
+  function circled(n){
+    var c = ["①","②","③","④","⑤","⑥","⑦","⑧","⑨","⑩"];
+    return c[n-1] || ("("+n+")");
+  }
+
+  function checkCard(b, r, ri){
+    var c = document.createElement("div");
+    c.className = "check" + ((r.pos === POS_WARN || r.br === BR_WARN) ? " alert" : "");
+
+    var top = document.createElement("div");
+    top.className = "top";
+    var num = document.createElement("span");
+    num.className = "num";
+    num.textContent = "#" + (ri+1);
+    top.appendChild(num);
+
+    var ti = document.createElement("input");
+    ti.type = "time"; ti.value = r.time || "";
+    ti.addEventListener("change", function(){ r.time = ti.value; save(); renderSummary(); });
+    top.appendChild(ti);
+
+    var del = document.createElement("button");
+    del.className = "del no-print";
+    del.textContent = "✕";
+    del.setAttribute("aria-label","この確認を削除");
+    del.addEventListener("click", function(){ b.rows.splice(ri,1); save(); render(); });
+    top.appendChild(del);
+    c.appendChild(top);
+
+    c.appendChild(segLabel("姿勢"));
+    c.appendChild(seg(POS, r.pos, POS_WARN, false, function(v){ r.pos = v; save(); render(); }));
+
+    c.appendChild(segLabel("顔色・呼吸"));
+    c.appendChild(seg(BR, r.br, BR_WARN, true, function(v){ r.br = v; save(); render(); }));
+
+    var nd = document.createElement("div");
+    nd.className = "note-in";
+    var ni = document.createElement("input");
+    ni.type = "text";
+    ni.placeholder = "備考（セ＝咳／ネ＝熱／体位を直した 等）";
+    ni.value = r.note || "";
+    ni.addEventListener("input", function(){ r.note = ni.value; save(); renderSummary(); });
+    nd.appendChild(ni);
+    c.appendChild(nd);
+
+    return c;
+  }
+
+  function segLabel(t){
+    var d = document.createElement("div");
+    d.className = "seg-label";
+    d.textContent = t;
+    return d;
+  }
+
+  function seg(opts, sel, warnIdx, two, cb){
+    var w = document.createElement("div");
+    w.className = "seg" + (two ? " two" : "");
+    opts.forEach(function(o, i){
+      var b = document.createElement("button");
+      b.type = "button";
+      b.innerHTML = '<span class="mk">' + o.mk + '</span>' + o.tx;
+      if(i === sel) b.className = "on" + (i === warnIdx ? " warn" : "");
+      b.addEventListener("click", function(){ cb(i); });
+      w.appendChild(b);
+    });
+    return w;
+  }
+
+  /* ---------- 要約 ---------- */
+  function renderSummary(){
+    document.getElementById("summary").textContent = buildSummary();
+  }
+
+  function buildSummary(){
+    var iv = state.interval;
+    var out = [];
+    var any = false;
+
+    state.blocks.forEach(function(b, bi){
+      var rows = b.rows.filter(function(r){ return r.time; });
+      if(rows.length === 0) return;
+      any = true;
+
+      var times = rows.map(function(r){ return r.time; }).sort();
+      var range = times[0] + "〜" + times[times.length-1];
+
+      var s = "睡眠" + circled(bi+1) + "（" + range + "）は" + iv + "分間隔で、姿勢・顔色・呼吸を確認しました。";
+
+      var nons = rows.filter(function(r){ return r.pos !== 0; });
+      var caut = rows.filter(function(r){ return r.br === BR_WARN; });
+
+      if(nons.length === 0 && caut.length === 0){
+        s += "終始あおむけで、顔色・呼吸に気になる点はありませんでした。";
+      }else{
+        if(nons.length > 0){
+          s += nons.map(function(r){ return r.time + "に" + POS[r.pos].tx; }).join("、")
+             + "が見られ、あおむけに直しました。";
+        }
+        if(caut.length > 0){
+          s += "顔色・呼吸で気になった時刻：" + caut.map(function(r){
+            return r.time + (r.note ? "（" + r.note + "）" : "");
+          }).join("、") + "。";
+        }
+      }
+
+      var notes = rows.filter(function(r){ return r.note && r.br !== BR_WARN; });
+      if(notes.length > 0){
+        s += "備考：" + notes.map(function(r){ return r.time + " " + r.note; }).join("、") + "。";
+      }
+      out.push(s);
+    });
+
+    if(!any) return "まだ記録がありません。";
+
+    var m = state.meta;
+    var head = [];
+    if(m.weather) head.push("天気" + m.weather);
+    if(m.temp) head.push("室温" + m.temp + "℃");
+    if(m.hum) head.push("湿度" + m.hum + "％");
+    if(head.length) out.push("環境：" + head.join("　"));
+
+    return out.join("\n\n");
+  }
+
+  /* ---------- 操作 ---------- */
+  document.getElementById("btn-addblock").addEventListener("click", function(){
+    state.blocks.push(newBlock());
+    save(); render();
+    window.scrollTo(0, document.body.scrollHeight);
+  });
+
+  document.getElementById("btn-copy").addEventListener("click", function(){
+    var t = buildSummary();
+    var done = function(){
+      var e = document.getElementById("copied");
+      e.className = "copied on";
+      setTimeout(function(){ e.className = "copied"; }, 1600);
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(done, function(){ fallback(t, done); });
+    }else{
+      fallback(t, done);
+    }
+  });
+
+  function fallback(t, done){
+    var ta = document.createElement("textarea");
+    ta.value = t;
+    ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    try{ document.execCommand("copy"); done(); }catch(e){}
+    document.body.removeChild(ta);
+  }
+
+  document.getElementById("btn-print").addEventListener("click", function(){ window.print(); });
+
+  document.getElementById("btn-reset").addEventListener("click", function(){
+    if(!confirm("入力内容をすべて消去します。よろしいですか。")) return;
+    state = { meta:{}, interval:"5", blocks:[newBlock()] };
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    META_IDS.forEach(function(k){ document.getElementById("f-"+k).value = ""; });
+    document.getElementById("f-interval").value = "5";
+    render();
+  });
+
+  /* ---------- 起動 ---------- */
+  load();
+  bindMeta();
+  if(!state.meta.date){
+    var d = new Date();
+    var v = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + ("0"+d.getDate()).slice(-2);
+    document.getElementById("f-date").value = v;
+    state.meta.date = v;
+    save();
+  }
+  render();
+})();
+</script>
+</body>
+</html>

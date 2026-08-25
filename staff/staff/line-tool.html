@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Serenesta LINE定型文ツール</title>
+<style>
+  :root{
+    --c1:#C8DCE8; --c2:#DDEAF1; --c3:#F2F7FA;
+    --ink:#1A3A4A; --sub:#5A6E78; --line:#D5E2EA;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  body{margin:0; font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+       background:#FBFDFE; color:var(--ink); font-size:15px; line-height:1.7;}
+  header{position:sticky; top:0; z-index:10; background:#FBFDFE;
+         border-bottom:1px solid var(--line); padding:10px 12px 8px;}
+  h1{font-size:16px; margin:0 0 8px; letter-spacing:.02em;}
+  h1 small{font-weight:normal; color:var(--sub); font-size:11px; margin-left:6px;}
+  #q{width:100%; font-size:16px; padding:10px 12px; border:1px solid var(--line);
+     border-radius:10px; background:#fff; color:var(--ink);}
+  #q:focus{outline:2px solid var(--c1);}
+  .tabs{display:flex; gap:6px; margin-top:8px; overflow-x:auto; padding-bottom:2px;}
+  .tab{flex:0 0 auto; border:1px solid var(--line); background:#fff; color:var(--ink);
+       border-radius:999px; padding:6px 12px; font-size:12.5px; cursor:pointer;}
+  .tab.on{background:var(--c1); border-color:var(--c1); font-weight:bold;}
+  main{padding:10px 12px 60px; max-width:720px; margin:0 auto;}
+  .count{color:var(--sub); font-size:12px; margin:4px 2px 8px;}
+  .card{background:#fff; border:1px solid var(--line); border-radius:12px;
+        padding:12px 12px 10px; margin-bottom:12px;}
+  .meta{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-bottom:6px;}
+  .badge{font-size:11px; padding:2px 8px; border-radius:999px; background:var(--c2);}
+  .cid{font-size:11px; color:var(--sub);}
+  .ttl{font-weight:bold; font-size:14.5px; margin:2px 0 4px;}
+  .timing{font-size:12px; color:var(--sub); margin-bottom:8px;}
+  .msg{white-space:pre-wrap; background:var(--c3); border-radius:8px;
+       padding:10px; font-size:14.5px;}
+  .msg mark{background:#FFE9A8; padding:0 1px; border-radius:2px;}
+  .row{display:flex; gap:8px; margin-top:8px;}
+  .copy{flex:1; font-size:14px; padding:10px; border:none; border-radius:8px;
+        background:var(--ink); color:#fff; cursor:pointer;}
+  .copy.done{background:#3E7D5B;}
+  .notebtn{flex:0 0 auto; font-size:12.5px; padding:10px 12px; border:1px solid var(--line);
+        border-radius:8px; background:#fff; color:var(--sub); cursor:pointer;}
+  .note{display:none; font-size:12px; color:var(--sub); margin-top:8px;
+        border-top:1px dashed var(--line); padding-top:8px;}
+  .note.show{display:block;}
+  .empty{color:var(--sub); text-align:center; padding:40px 0;}
+  footer{color:var(--sub); font-size:11px; text-align:center; padding:16px 12px 24px;}
+  nav.topnav{padding:12px 12px 0; max-width:760px; margin:0 auto;}
+  nav.topnav .t{font-size:11.5px; color:var(--sub); margin-bottom:6px;}
+  nav.topnav .row2{display:flex; flex-wrap:wrap; gap:8px;}
+  nav.topnav .row2 a{flex:1 1 30%; text-align:center; text-decoration:none; font-size:12.5px;
+       padding:10px 6px; background:#fff; border:1px solid var(--line);
+       color:var(--ink); font-weight:600; border-radius:8px;}
+</style>
+</head>
+<body>
+<nav class="topnav"><div class="t">ほかのページ</div><div class="row2"><a href="index.html">シッターページ</a><a href="report.html">記録の提出</a><a href="sleep-check.html">睡眠チェック</a><a href="https://docs.google.com/forms/d/e/1FAIpQLSeigVvHSf836908M3Xd1PEdaT3NI7IdizlYOxUYCvRJ0vMa1w/viewform">シフト提出</a><a href="guide.html">持ち物・心得</a><a href="emergency.html">緊急時対応</a></div></nav>
+<header>
+  <h1>Serenesta LINE定型文ツール<small>シッター用</small></h1>
+  <input id="q" type="search" placeholder="キーワードで検索（例：発熱・遅刻・キャンセル・請求）" autocomplete="off">
+  <div class="tabs" id="tabs"></div>
+</header>
+<main>
+  <div class="count" id="count"></div>
+  <div id="list"></div>
+</main>
+<footer>〈 〉は差し込み箇所です。コピー後に置き換えてから送信してください。<br>体調変化・事故・災害の第一報は必ず電話で行います（LINEは電話内容の文書化）。</footer>
+<script>
+const DB = {"parts": ["シッター→保護者様"], "cards": [{"part": 0, "id": "1-1", "title": "初回訪問前のご挨拶", "sender": "担当シッター", "timing": "初回訪問の2〜3日前", "body": "〈保護者様のお名前〉様\nはじめまして。〈訪問日〉に担当させていただきます、Serenestaシッターの〈シッター名〉です😊\n〈お子様のお名前〉ちゃんにお会いできるのをとても楽しみにしております。\n当日は〈訪問予定時刻〉頃にお伺いいたします。ご準備いただくものやご心配なことがございましたら、お気軽にお知らせください。\nどうぞよろしくお願いいたします。", "note": "担当制の最初の接点。事前面談の共有内容（好きな遊び等）に一言触れてもよい。"}, {"part": 0, "id": "1-2", "title": "前日のご連絡（体調・検温のお願いを含む）", "sender": "担当シッター", "timing": "訪問前日の日中（夕方まで）", "body": "〈保護者様のお名前〉様\n明日〈日時〉にお伺いいたします、〈シッター名〉です😊\n〈お子様のお名前〉ちゃんの最近のご様子やご体調で、共有しておきたいことがございましたらお知らせください。\n恐れ入りますが、明日の朝に検温をお願いできますと幸いです。\nそれでは、明日お会いできるのを楽しみにしております。", "note": "キャンセル料の基準（前日18時）より前に届くよう、夕方までの送信を徹底する。体調に不安がある場合、保護者様が18時前に判断できる。"}, {"part": 0, "id": "1-3", "title": "当日のご連絡（訪問前）", "sender": "担当シッター", "timing": "当日、自宅等を出発する頃", "body": "〈保護者様のお名前〉様\nおはようございます、〈シッター名〉です😊\n本日〈訪問予定時刻〉頃にお伺いいたします。\nどうぞよろしくお願いいたします。", "note": "時間帯により冒頭のあいさつを差し替える（こんにちは等）。"}, {"part": 0, "id": "1-4", "title": "シッティング後のご連絡", "sender": "担当シッター", "timing": "退出後、当日中（訪問記録の送付前）", "body": "〈保護者様のお名前〉様\n本日はありがとうございました😊\n〈お子様のお名前〉ちゃん、〈当日の様子ひと言（例：公園でたくさん体を動かして、にこにこ過ごされていました）〉。\n詳しいご様子は〈シッティングレポート〉にまとめてお送りいたしますので、少々お待ちくださいませ。\nまた次回もどうぞよろしくお願いいたします。", "note": "様子のひと言は事実ベースで書く。評価・決めつけ表現（「〜という特性があるようです」等）は使わない。保育終了時に口頭で引き継いだ内容と矛盾しないようにする。"}, {"part": 0, "id": "1-5", "title": "訪問記録の送付（シッティングレポート）｜プリサイスシッター用", "sender": "担当シッター", "timing": "訪問終了後24時間以内（本部確認後）", "body": "〈保護者様のお名前〉様\n本日のシッティングレポートをお送りいたします😊\nご不明な点や、ご家庭でのご様子で気になることがございましたら、お気軽にお知らせください。\n次回は〈次回訪問日時〉にお伺いいたします。どうぞよろしくお願いいたします。", "note": "PDFの添付とあわせて送信する。次回予約が未定の場合は次回の行を削除する。睡眠があった日は、睡眠チェック表（スマホ用）をPDFで保存し、シッター公式LINEから本部公式LINEへ送付する。保護者様へは送付せず、シッティングレポートの睡眠チェック欄に時間帯と確認間隔のみ記載する。"}, {"part": 0, "id": "1-5", "title": "訪問記録の送付（シッティングレポート）｜グランドシッター用", "sender": "担当シッター", "timing": "訪問終了後24時間以内（本部確認後）", "body": "〈保護者様のお名前〉様\n本日のシッティングレポートをお送りいたします😊\nご不明な点がございましたら、お気軽にお知らせください。\n次回は〈次回訪問日時〉にお伺いいたします。どうぞよろしくお願いいたします。", "note": "PDFの添付とあわせて送信する。次回予約が未定の場合は次回の行を削除する。睡眠があった日は、睡眠チェック表（スマホ用）をPDFで保存し、シッター公式LINEから本部公式LINEへ送付する。保護者様へは送付せず、シッティングレポートの睡眠チェック欄に時間帯と確認間隔のみ記載する。"}, {"part": 0, "id": "1-6", "title": "延長発生時のご連絡", "sender": "担当シッター（第一報）", "timing": "保護者様から延長のご連絡を受けた直後", "body": "〈保護者様のお名前〉様\n承知いたしました。〈終了予定時刻〉以降も引き続き〈お子様のお名前〉ちゃんをお預かりいたしますので、どうぞお気をつけてお戻りください😊\nなお、延長分の料金は30分単位で計算され、月末締めのご請求に合算されます。", "note": "延長の可否（次の予定との関係）を確認してから返信する。対応できない場合は本部へ即時連絡し、本部が保護者様と調整する。"}, {"part": 0, "id": "1-7", "title": "シッティング中の体調変化のご報告", "sender": "担当シッター（電話での第一報の後）", "timing": "保護者様への電話連絡の直後", "body": "〈保護者様のお名前〉様\n先ほどお電話でお伝えした内容を、あらためて文面でもお送りいたします。\n・〈時刻〉頃、〈事実（例：検温で38.2℃の発熱を確認しました）〉\n・現在は〈現在のご様子（例：水分を取り、横になって過ごしています）〉\n引き続き〈行う対応（例：1時間ごとに検温し、水分補給を続けます）〉。\nご様子に変化がありましたら、すぐにお電話いたします。", "note": "第一報は必ず電話で行い、保護者様の指示を仰ぐ。LINEは電話内容の文書化（認識の相違を防ぐため）。原因の推測や診断的な表現は書かない（事実→一般的な知見→判断は保護者様へ返す）。電話がつながらない場合は留守電にメッセージを残したうえで本文面を送る。"}, {"part": 0, "id": "1-8", "title": "負傷・事故のご報告", "sender": "担当シッター（電話での第一報の後）", "timing": "保護者様への電話連絡・本部報告の直後", "body": "〈保護者様のお名前〉様\n先ほどお電話でお伝えした内容を、あらためて文面でもお送りいたします。\n・発生時刻：〈時刻〉\n・状況：〈事実のみ（例：リビングで転倒し、右ひざを打ちました）〉\n・現在のご様子：〈現在のご様子〉\n・行った手当：〈応急手当の内容〉\nご心配をおかけし、申し訳ございません。\n引き続き注意して見守り、変化がありましたらすぐにご連絡いたします。", "note": "対応手順（119番通報・受診判断・本部報告）は訪問型ベビーシッター 事故・感染症・災害対応マニュアル（東京都届出対応版）が正。本文面はその中の連絡文のみを担う。過失や責任の有無に触れる表現（「当社の過失です」等）は書かず、事実の報告・お詫び・今後の対応の順で構成する。事故報告書は当日中に作成する。"}, {"part": 0, "id": "1-9", "title": "ヒヤリハットの共有", "sender": "担当シッター", "timing": "当日中（訪問記録の送付とあわせてでも可）", "body": "〈保護者様のお名前〉様\n本日のシッティング中、〈事実（例：ソファの上で立ち上がろうとする場面）〉がございました。\nおけがはなく、その後は変わらず元気にお過ごしでした。\n今後は〈再発防止の対応（例：ソファで遊ぶ際はすぐ横で見守る）〉、より一層注意してお預かりいたします。", "note": "ヒヤリハット記録様式への記録と本部への共有を必ず行う。保護者様への共有要否は事案の程度により本部と相談してよい。"}, {"part": 0, "id": "1-10", "title": "遅刻・交通遅延の第一報", "sender": "担当シッター", "timing": "遅れが見込まれた時点で直ちに（本部へも同時に報告）", "body": "〈保護者様のお名前〉様\n申し訳ございません。〈理由（例：電車の遅延）〉により、到着が〈到着見込み時刻〉頃になる見込みです。\n状況が分かり次第、あらためてご連絡いたします。\n大変申し訳ございませんが、少々お待ちくださいませ。", "note": "保護者様への連絡と同時に本部へも報告する。遅れが大きい場合は本部がフォローの連絡を送る。"}, {"part": 0, "id": "1-11", "title": "シッティング中の発災時のご報告", "sender": "担当シッター（電話での第一報の後）", "timing": "安全確保と電話連絡の後", "body": "〈保護者様のお名前〉様\n先ほどお電話でお伝えしたとおり、〈お子様のお名前〉ちゃんは無事で、〈現在の場所・状況〉で安全に過ごしています。\n今後は〈行動予定（例：ご自宅で待機し、状況が変わり次第ご連絡します）〉。\nご様子は引き続きこちらのLINEでもお知らせいたします。", "note": "安全確保・避難・連絡の行動基準は訪問型ベビーシッター 事故・感染症・災害対応マニュアル（東京都届出対応版）が正。通信が不安定な場合はLINEを補助手段として使い、つながる手段を優先する。"}]};
+let curPart = -1; // -1 = すべて
+let curQ = "";
+
+const tabsEl = document.getElementById("tabs");
+const listEl = document.getElementById("list");
+const countEl = document.getElementById("count");
+const qEl = document.getElementById("q");
+
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));}
+function hl(s,q){
+  const e = esc(s);
+  if(!q) return e;
+  const eq = esc(q).replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  return e.replace(new RegExp(eq,"g"),m=>"<mark>"+m+"</mark>");
+}
+
+function renderTabs(){
+  if(DB.parts.length<=1){ tabsEl.style.display="none"; return; }
+  const names = ["すべて"].concat(DB.parts);
+  tabsEl.innerHTML = names.map((n,i)=>
+    '<button class="tab'+((i-1)===curPart?" on":"")+'" data-p="'+(i-1)+'">'+n+'</button>').join("");
+}
+tabsEl.addEventListener("click",e=>{
+  const b = e.target.closest(".tab"); if(!b) return;
+  curPart = Number(b.dataset.p); renderTabs(); renderList();
+});
+
+qEl.addEventListener("input",()=>{ curQ = qEl.value.trim(); renderList(); });
+
+function renderList(){
+  const q = curQ;
+  const hits = DB.cards.filter(c=>{
+    if(curPart>=0 && c.part!==curPart) return false;
+    if(!q) return true;
+    return (c.title+c.body+c.timing+c.note+c.id).includes(q);
+  });
+  countEl.textContent = hits.length + "件" + (q? "（「"+q+"」で検索）":"");
+  if(!hits.length){ listEl.innerHTML = '<div class="empty">該当する文面がありません。<br>短い言葉（例：発熱／遅刻）で試してください。</div>'; return; }
+  listEl.innerHTML = hits.map((c,i)=>
+    '<div class="card">'+
+      '<div class="meta"><span class="badge">'+esc(DB.parts[c.part])+'</span><span class="cid">'+esc(c.id)+'</span></div>'+
+      '<div class="ttl">'+hl(c.title,q)+'</div>'+
+      '<div class="timing">送るタイミング：'+hl(c.timing,q)+'</div>'+
+      '<div class="msg">'+hl(c.body,q)+'</div>'+
+      '<div class="row"><button class="copy" data-i="'+DB.cards.indexOf(c)+'">文面をコピー</button>'+
+      '<button class="notebtn" data-n="'+i+'">注意点</button></div>'+
+      '<div class="note" id="note-'+i+'">'+hl(c.note,q)+'</div>'+
+    '</div>').join("");
+}
+
+listEl.addEventListener("click",e=>{
+  const cb = e.target.closest(".copy");
+  if(cb){
+    const txt = DB.cards[Number(cb.dataset.i)].body;
+    const done = ()=>{ cb.textContent="コピーしました"; cb.classList.add("done");
+      setTimeout(()=>{cb.textContent="文面をコピー"; cb.classList.remove("done");},1500); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done).catch(()=>fallback(txt,done));
+    } else fallback(txt,done);
+    return;
+  }
+  const nb = e.target.closest(".notebtn");
+  if(nb){ document.getElementById("note-"+nb.dataset.n).classList.toggle("show"); }
+});
+
+function fallback(txt,done){
+  const ta = document.createElement("textarea");
+  ta.value = txt; ta.style.position="fixed"; ta.style.opacity="0";
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand("copy"); done(); }catch(e){ alert("コピーできませんでした。文面を長押しで選択してください。"); }
+  document.body.removeChild(ta);
+}
+
+renderTabs(); renderList();
+</script>
+</body>
+</html>
