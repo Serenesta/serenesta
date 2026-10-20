@@ -197,7 +197,8 @@ textarea{min-height:70px;resize:vertical}
 </div>
 
 <div class="bar no-print">
-  <button class="btn ghost" id="btn-print">印刷・PDF</button>
+  <button class="btn ghost" id="btn-print">本部用で印刷</button>
+  <button class="btn ghost" id="btn-print-parent">保護者様用で印刷</button>
   <button class="btn ghost" id="btn-reset">リセット</button>
 </div>
 
@@ -468,11 +469,14 @@ textarea{min-height:70px;resize:vertical}
     var p = d.split("-");
     return p.length===3 ? p[0]+"/"+p[1]+"/"+p[2] : d;
   }
+  /* printMode: "hq"＝本部用（本部保管用表記・本部確認欄あり）／"parent"＝保護者様用（どちらもなし） */
+  var printMode = "hq";
   function renderPrint(){
     var pv = document.getElementById("print-view");
     if(!pv) return;
     var m = state.meta, iv = state.interval;
-    var h = '<h1>睡眠チェック表</h1><p class="pv-sub">株式会社Serenesta　本部保管用</p>';
+    var forParent = (printMode === "parent");
+    var h = '<h1>睡眠チェック表</h1><p class="pv-sub">'+(forParent ? '株式会社Serenesta' : '株式会社Serenesta　本部保管用')+'</p>';
     h += '<table><tr><th>日付</th><td>'+esc(fmtDate(m.date))+'</td><th>お子様名</th><td>'+esc(m.name)+'</td><th>シッター名</th><td>'+esc(m.rec)+'</td></tr>'
        + '<tr><th>天気</th><td>'+esc(m.weather)+'</td><th>室温／湿度</th><td>'+(m.temp?esc(m.temp)+'℃':'')+(m.hum?'　'+esc(m.hum)+'％':'')+'</td><th>確認の間隔</th><td>'+esc(iv)+'分</td></tr></table>';
     state.blocks.forEach(function(b, bi){
@@ -489,7 +493,9 @@ textarea{min-height:70px;resize:vertical}
     });
     h += '<div class="pv-block">記録の要約</div><div class="pv-sum">'+esc(buildSummary())+'</div>';
     h += '<div class="pv-legend"><b>姿勢</b>　↑ 仰向け　／　→ 横向き　／　↓ うつ伏せ寝　／　↓→↑ うつ伏せを直した場合　　<b>顔色・呼吸</b>　✔ 異常なし　／　！ 要注意　　<b>備考</b>　セ＝咳　／　ネ＝熱<br>呼吸が弱い・止まっている、顔色が青白い（チアノーゼ）場合は、記録より対応を優先します。声をかけ、反応と呼吸を確認し、なければ直ちに119番通報と胸骨圧迫を行い、保護者・本部へ連絡してください。</div>';
-    h += '<div class="pv-sign"><table><tr><th>本部確認日</th><td></td><th>確認者</th><td></td></tr></table></div>';
+    if(!forParent){
+      h += '<div class="pv-sign"><table><tr><th>本部確認日</th><td></td><th>確認者</th><td></td></tr></table></div>';
+    }
     pv.innerHTML = h;
   }
 
@@ -524,7 +530,13 @@ textarea{min-height:70px;resize:vertical}
     document.body.removeChild(ta);
   }
 
-  document.getElementById("btn-print").addEventListener("click", function(){ window.print(); });
+  function printAs(mode){
+    printMode = mode;
+    renderPrint();
+    window.print();
+  }
+  document.getElementById("btn-print").addEventListener("click", function(){ printAs("hq"); });
+  document.getElementById("btn-print-parent").addEventListener("click", function(){ printAs("parent"); });
 
   document.getElementById("btn-reset").addEventListener("click", function(){
     if(!confirm("入力内容をすべて消去します。よろしいですか。")) return;
